@@ -1,0 +1,32 @@
+[
+    {
+        "eventid": 1, 
+        "userId": 1,
+        "type": "Music",
+        "title": "Summer Concert",
+        "total": 100,
+        "participants": 45,
+        "place": "Jonkoping",
+        "description": "A summer Concert with live music",
+        "comments": [
+            {
+                "userId": 2,
+                "text": "Looking forward to this!"
+            }
+        ],
+        "price": 50
+    },
+
+    {
+        "eventid": 2,
+        "userId": 2,
+        "type": "Gaming",
+        "title": "Gaming Tournament", 
+        "total": 20,
+        "participants": 12,
+        "place": "Jonkoping",
+        "description": "A local gaming tournament",
+        "comments": [],
+        "price": 50
+    }
+]
