@@ -1,14 +1,18 @@
 [
     {
         "userid": 1,
-        "name": "Alice",
+        "username": "Alice",
+        "password": "345",
         "age": 22,
-        "interests": ["Music", "Sports"]
+        "interests": ["Music", "Sports"], 
+        "role": "user"
     },
     {
         "userid": 2,
-        "name": "Bob", 
+        "username": "Bob",
+        "password": "123", 
         "age": 25,
-        "interests": ["Gaming"]
+        "interests": ["Gaming"],
+        "role": "manager"
     }
 ]
