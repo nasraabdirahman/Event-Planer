@@ -2,9 +2,9 @@
 > npm run dev
 >
 > ## Participants
+> Group 9
 |Name|Github Handle|
 |-|-|
-|Group 9|
 |Nasra Abdirahman|nasraabdirahman|
 |Jennifer Taylor|JenTay22|
 |Antoin Macharikji|AntoinMa|
