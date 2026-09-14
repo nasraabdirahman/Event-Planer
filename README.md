@@ -75,7 +75,7 @@ export default defineConfig([
 ```
 # TO RUN THE APP:
 > npm run dev
-
+```
 > ## Participants
 |Name|Github Handle|
 |-|-|
