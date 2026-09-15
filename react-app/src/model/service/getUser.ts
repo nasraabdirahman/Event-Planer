@@ -1,3 +1,7 @@
 import { getUsers } from "../../DB/userdata";
+import type { User } from "../Users";
 
-const users = getUsers();
+export function getAllUsers(): User[]
+{
+    return getUsers();
+} 

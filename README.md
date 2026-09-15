@@ -73,8 +73,19 @@ export default defineConfig([
 ])
 
 ```
-# TO RUN THE APP:
+### TO RUN THE APP:
+```
 > npm run dev
+```
+
+### Vitest is used for the unit Testing. Install it by using the command:
+
+```
+> npm install vitest
+```
+### How to run test once
+```
+> npx vitest run
 ```
 > ## Participants
 |Name|Github Handle|
