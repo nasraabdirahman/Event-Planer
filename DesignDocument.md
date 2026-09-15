@@ -37,3 +37,14 @@ Lavender Forest(high contrast):
 - #79BB77
 - #38904A
 - #0A3323
+
+Monet(high contrast):
+- #181D2B
+- #083545
+- #7ADDF2
+- #CAA9F3
+- #CBB7F5
+- #FFAED4
+- #FD92C4
+- #BEE8C5
+- #79BB77
