@@ -1,6 +1,12 @@
 import type { Event } from "../model/Event.ts" ;
+import { ModelServicesEvent } from "../model/service/getEvents.ts" ;
 
 export class EventController {
+  private model : ModelServicesEvent ;
+  constructor() {
+    this.model = new ModelServicesEvent();
+  }
+
   createEvent(event : Event ) {
     return this.model.createEvent(event) ;
   }
@@ -13,9 +19,13 @@ export class EventController {
     return this.model.getEventIndex(index) ;
   }
 
-  editEvent(event : Event){
-    return this.model.getEvent(event) ;
+  getAllEvents() {
+    return this.model.getAllEvents() ;
   }
+
+  /*editEvent(event : Event){
+    return this.model.getEvent(event) ;
+  }*/
 
   /*deleteEvent(eventId : number) {
     return this.model.deleteEvent(eventId) ;
