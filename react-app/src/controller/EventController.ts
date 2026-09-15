@@ -17,7 +17,11 @@ export class EventController {
     return this.model.getEvent(event) ;
   }
 
-  deleteEvent(eventId : number) {
+  /*deleteEvent(eventId : number) {
     return this.model.deleteEvent(eventId) ;
+  }*/
+
+  deleteEvent(index :number) {
+    return this.model.deleteEventIndex(index) ;
   }
 }
