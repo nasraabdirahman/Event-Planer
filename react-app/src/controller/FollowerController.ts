@@ -1,6 +1,13 @@
 import type { Follow } from "../model/Follow.ts" ;
+import { ModelServicesFollow } from "../model/service/getFollow.ts" ;
+
 
 export class FollowerController {
+  private model : ModelServicesFollow ;
+    constructor() {
+      this.model = new ModelServicesFollow();
+    }
+  
   follow(follow : Follow) {
     return this.model.createFollower(follow) ;
   }
@@ -10,6 +17,6 @@ export class FollowerController {
   }*/
 
   deletefollow(index :number) {
-    return this.model.deleteEventIndex(index) ;
+    return this.model.deleteFollowIndex(index) ;
   }
 }
