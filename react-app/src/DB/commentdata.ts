@@ -1,6 +1,6 @@
-import type { Comment } from "../model/Comments";
+import type { Comment } from "../model/Comment";
 
-const comments : Comment[] =[
+const comments: Comment[] = [
     {
         commentid: 1,
         userid: 1,
@@ -45,6 +45,6 @@ const comments : Comment[] =[
     }
 ];
 
-export function getComments() : Comment[]{
+export function getComments(): Comment[] {
     return comments;
 }
