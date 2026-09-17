@@ -1,12 +1,14 @@
-import { getAllComments } from "../model/service/getComments";
-import { getAllUsers } from "../model/service/getUser";
-import { ModelServicesEvent } from "../model/service/getEvents";
+import { ModelServicesComment } from "../model/service/ServicesComment";
+import { ModelServicesUser } from "../model/service/ServicesUser";
+import { ModelServicesEvent } from "../model/service/ServicesEvent";
 import { test } from 'vitest'
 
-test("get data from DB map", () =>{
-    const comments = getAllComments();
-    const users = getAllUsers();
+test("get data from DB map", () => {
+    const comments = new ModelServicesComment();
+    const users = new ModelServicesUser();
     const events = new ModelServicesEvent();
 
-    console.log(comments, users, events.getAllEvents());
+    console.log(comments.getAllComments());
+    console.log(users.getAllUsers());
+    console.log(events.getAllEvents());
 });
