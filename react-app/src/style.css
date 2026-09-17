@@ -27,14 +27,14 @@
 @media(prefers-color-scheme: monet ) {
   :root{
     --bg :#181D2B;
-    --high-contrast-one: #48382F ;
-    --high-contrast-two : #444545 ;
-    --accent-one : #F9A8BB ; 
-    --accent-two : #F5F1E6 ;
-    --extra-colour-one : #AA7F66 ;
-    --extra-colour-two : #A8C3D4 ;
-    --extra-colour-three : #D26C86 ;
-    --extra-colour-four : #BF8FCC ;
+    --high-contrast-one: #CBB7F5 ;
+    --high-contrast-two : #BEE8C5 ;
+    --accent-one : #083545 ; 
+    --accent-two : #79BB77 ;
+    --extra-colour-one : #7ADDF2 ;
+    --extra-colour-two : #CAA9F3;
+    --extra-colour-three : #FFAED4 ;
+    --extra-colour-four : #FD92C4 ;
   }
 }
 
