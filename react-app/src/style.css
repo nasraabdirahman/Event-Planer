@@ -1,0 +1,25 @@
+:root {
+  --bg : #181D2B ;
+  --high-contrast-one: #C9C4FE ;
+  --high-contrast-two: #BFE7BD ;
+  --accent-one : #30305B;
+  --accent-two : #0A3323 ;
+  --extra-colour-one : #8C7DC2 ;
+  --extra-colour-two : #38904A ;
+  --extra-colour-three : #79BB77 ;
+  --extra-colour-four : #C4A0F9 ;
+} 
+
+@media(prefers-color-scheme: sakura ) {
+  :root{
+    --bg : #F7CDD1 ;
+    --high-contrast-one: #48382F ;
+    --high-contrast-two : #444545 ;
+    --accent-one : #F9A8BB ; 
+    --accent-two : #F5F1E6 ;
+    --extra-colour-one : #AA7F66 ;
+    --extra-colour-two : #A8C3D4 ;
+    --extra-colour-three : #D26C86 ;
+    --extra-colour-four : #BF8FCC ;
+  }
+}
