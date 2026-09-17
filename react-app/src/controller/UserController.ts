@@ -1,17 +1,26 @@
-//import type { User } from "../model/Users";
-import { ModelServicesUser } from "../model/service/ServicesUser";
+import type { User } from "../model/Users.ts";
+import { ModelServicesUser } from "../model/service/ServicesUser.ts";
 
-export class UserController 
-{
-    //call functions from ModelServicesUser
-    private model : ModelServicesUser
-    constructor() 
-    {
-        this.model = new ModelServicesUser();
-    }
+export class UserController {
+  private model: ModelServicesUser;
 
-    getUser()
-    {
-        return this.model.getAllUsers();
-    }
+  constructor() {
+    this.model = new ModelServicesUser();
+  }
+
+  createUser(user: User) {
+    return this.model.createUser(user);
+  }
+
+  getUser(index: number) {
+    return this.model.getUserIndex(index);
+  }
+
+  getAllUsers() {
+    return this.model.getAllUsers();
+  }
+
+  deleteUser(index: number) {
+    return this.model.deleteUserIndex(index);
+  }
 }
