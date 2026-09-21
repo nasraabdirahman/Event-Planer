@@ -22,6 +22,10 @@ export class EventController {
   getAllEvents() {
     return this.model.getAllEvents();
   }
+  // Searches for events by title
+  searchEvents(searchText: string) {
+    return this.model.searchEvents(searchText);
+  }
 
   /*editEvent(event : Event){
     return this.model.getEvent(event) ;

@@ -12,6 +12,11 @@ export class ModelServicesEvent{
   getAllEvents() : Event[] {
     return events;
   }
+  searchEvents(searchText: string): Event[] {
+    return events.filter(event =>
+        event.title.toLowerCase().includes(searchText.toLowerCase())
+    );
+}
   deleteEventIndex(index : number){
     events.splice(index, 1);
   }  
