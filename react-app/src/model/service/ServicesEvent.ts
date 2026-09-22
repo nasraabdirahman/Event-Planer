@@ -14,5 +14,20 @@ export class ModelServicesEvent{
   }
   deleteEventIndex(index : number){
     events.splice(index, 1);
-  }  
+  } 
+  
+  getEventPrice(eventId : number)
+  {
+    //for each eventid inside events find the matching one
+    const eventid = events.find(eventid => eventid.eventId === eventId);
+
+    if(eventid)
+    {
+      return eventid.price;
+    }
+  }
+  getEventById(eventId : number)
+  {
+    return events.find(event => event.eventId === eventId);
+  }
 }

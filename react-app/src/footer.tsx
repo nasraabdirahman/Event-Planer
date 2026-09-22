@@ -1,4 +1,6 @@
-import './style.css'
+import '../src/view/css/style.css'
+
+
 function Footer() {
   return(
     <footer>
