@@ -42,6 +42,20 @@
   min-height: 100vh;
 }
 
+.theme-Cyberpunk{
+  --bg :#1C1C1C;
+  --high-contrast-one: #05F2DB ;
+  --high-contrast-two : #66F987 ;
+  --accent-one :  #3D1298 ; 
+  --accent-two : #1D2331 ;
+  --extra-colour-one : #8201F3 ;
+  --extra-colour-two : #BA0AFF;
+  --extra-colour-three : #C6FF33 ;
+  --extra-colour-four : #FF00E2;
+  background-color: var(--bg);
+  min-height: 100vh;
+}
+
 body{
   margin: 0px;
 }

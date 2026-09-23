@@ -10,13 +10,13 @@ import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import { ThemeContext } from './colourTheme';
 
-const options = ['Sakura', 'Monet', 'classic'];
+const options = ['Sakura', 'Monet','Cyberpunk', 'classic'];
 
 export default function ThemeButton(){
   const {theme, setTheme} = React.useContext(ThemeContext);
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLDivElement>(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(2);
+  const [selectedIndex, setSelectedIndex] = React.useState(3);
   
 
   const handleClick = () => {
