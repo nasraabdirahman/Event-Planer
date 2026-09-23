@@ -8,38 +8,42 @@
   --extra-colour-two : #38904A ;
   --extra-colour-three : #79BB77 ;
   --extra-colour-four : #C4A0F9 ;
+  padding: 0px;
+  margin: 0px;
+  background-color: var(--bg);
+  min-height: 100vh;
 } 
 
-@media(prefers-color-scheme: sakura ) {
-  :root{
-    --bg : #F7CDD1 ;
-    --high-contrast-one: #48382F ;
-    --high-contrast-two : #444545 ;
-    --accent-one : #F9A8BB ; 
-    --accent-two : #F5F1E6 ;
-    --extra-colour-one : #AA7F66 ;
-    --extra-colour-two : #A8C3D4 ;
-    --extra-colour-three : #D26C86 ;
-    --extra-colour-four : #BF8FCC ;
-  }
+.theme-Sakura{
+  --bg : #F7CDD1 ;
+  --high-contrast-one: #48382F ;
+  --high-contrast-two : #444545 ;
+  --accent-one : #F9A8BB ; 
+  --accent-two : #F5F1E6 ;
+  --extra-colour-one : #AA7F66 ;
+  --extra-colour-two : #A8C3D4 ;
+  --extra-colour-three : #D26C86 ;
+  --extra-colour-four : #BF8FCC ;
+  background-color: var(--bg);
+  min-height: 100vh;
 }
 
-@media(prefers-color-scheme: monet ) {
-  :root{
-    --bg :#181D2B;
-    --high-contrast-one: #CBB7F5 ;
-    --high-contrast-two : #BEE8C5 ;
-    --accent-one : #083545 ; 
-    --accent-two : #79BB77 ;
-    --extra-colour-one : #7ADDF2 ;
-    --extra-colour-two : #CAA9F3;
-    --extra-colour-three : #FFAED4 ;
-    --extra-colour-four : #FD92C4 ;
-  }
+.theme-Monet{
+  --bg :#181D2B;
+  --high-contrast-one: #CBB7F5 ;
+  --high-contrast-two : #BEE8C5 ;
+  --accent-one : #083545 ; 
+  --accent-two : #79BB77 ;
+  --extra-colour-one : #7ADDF2 ;
+  --extra-colour-two : #CAA9F3;
+  --extra-colour-three : #FFAED4 ;
+  --extra-colour-four : #FD92C4 ;
+  background-color: var(--bg);
+  min-height: 100vh;
 }
 
 body{
-  background-color: var(--bg);
+  margin: 0px;
 }
 
 .stack-sans-headline-title {
@@ -74,4 +78,18 @@ footer p{
   margin: 0px;
   font-size: 10pt;
   color: var(--high-contrast-one);
+}
+
+.css-1gtchvp-MuiPaper-root,
+.css-nos3w0-MuiButtonBase-root-MuiButton-root,
+.MuiButtonBase-root {
+  color: var(--high-contrast-one) !important;
+  background-color: var(--accent-one) !important;
+  border-color: var(--bg) !important;
+}
+@media (hover: hover) {
+  .css-2rwryq-MuiButtonBase-root-MuiButton-root:hover{
+    color: var(--high-contrast-one) !important;
+    background-color: var(--accent-one) !important;
+  }
 }
