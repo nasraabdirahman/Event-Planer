@@ -16,6 +16,10 @@ export class UserController {
     return this.model.getUserIndex(index);
   }
 
+  getUserById(userId: number) {
+  return this.model.getUserById(userId);
+  }
+
   getAllUsers() {
     return this.model.getAllUsers();
   }

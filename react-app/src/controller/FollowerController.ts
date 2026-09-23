@@ -11,6 +11,9 @@ export class FollowerController {
   follow(follow: Follow) {
     return this.model.createFollower(follow);
   }
+  getFollowsByUser(userId: number) {
+    return this.model.getFollowsByUser(userId);
+  }
 
   /*unfollow(followId : number) {
     return this.model.deleteFollow(followId) ;
