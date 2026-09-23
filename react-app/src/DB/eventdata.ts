@@ -57,4 +57,15 @@ export const events : Event[] = [
         startTimeDate: new Date("2026-10-18 17:00:00"),
         endTimeDate: new Date("2026-10-18 19:00:00")
     },
+    {
+        eventId: 6,
+        userId: 1,
+        location: "Linköping",
+        price: 100,
+        description: "A comedy show that includes interactive crowdwork.",
+        followerCount: 42,
+        title: "Comedy Club",
+        startTimeDate: new Date("2026-9-22 20:00:00"),
+        endTimeDate: new Date("2026-9-22 22:00:00")
+    },
 ];

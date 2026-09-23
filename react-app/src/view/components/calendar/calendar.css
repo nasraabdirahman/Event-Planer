@@ -1,3 +1,6 @@
+.event-calendar{
+  padding:10px;
+}
 
 .css-1bjefvf-MuiEventCalendar-miniCalendarWeekdayCell,
 .css-4c8s1s-MuiEventCalendar-dayTimeGridTimeAxisText,
@@ -91,11 +94,9 @@
   border-color: var(--high-contrast-one) !important;
 }
 
-
 .css-1jpc804-MuiDivider-root{
   border-color: var(--accent-one) !important;
 }
-
 
 .css-2rwryq-MuiButtonBase-root-MuiButton-root{
   background-color: var(--accent-two) !important;
@@ -117,4 +118,9 @@
 }
 .css-113d811-MuiFormLabel-root-MuiInputLabel-root.Mui-focused{
   color: var(--high-contrast-one) !important;
+}
+
+.css-t408t0-MuiEventCalendar-miniCalendarDayButton[data-today]:not([data-active]){
+  background-color: var(--high-contrast-one) !important;
+  color: var(--bg) !important;
 }

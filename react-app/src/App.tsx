@@ -5,10 +5,9 @@ import Calendar from './view/components/calendar/calendar.tsx'
 
 
 function App() {
-
   return (
     <>
-      <Calendar/>
+      <Calendar userId={1}/>
       <Footer/>
     </>
   )

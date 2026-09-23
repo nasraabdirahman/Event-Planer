@@ -2,9 +2,9 @@ import { EventCalendar } from '@mui/x-scheduler';
 import './calendar.css'
 import { EventController } from '../../../controller/EventController';
 
-function Calendar() {
+function Calendar({userId}: {userId: number}) {
   const controller = new EventController ;
-  const events = controller.getAllEvents() ;
+  const events = controller.getUserEvents(userId) ;
 
   const calendarEvents = events.map(events => ({
     id: events.eventId,
@@ -15,13 +15,16 @@ function Calendar() {
   console.log(events);
 
   return(
-    <EventCalendar
-      events = {calendarEvents}
-      sx={{
-        backgroundColor: 'var(--bg)',
-        color: 'var(--high-contrast-one)'
-      }}
-    />
+    <div className="event-calendar">
+      <EventCalendar
+        events = {calendarEvents}
+        sx={{
+          backgroundColor: 'var(--bg)',
+          color: 'var(--high-contrast-one)'
+        }}
+      />
+    </div>
+    
   )
 }
 export default Calendar 
