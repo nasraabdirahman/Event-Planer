@@ -13,10 +13,11 @@ import { ThemeContext } from './colourTheme';
 const options = ['Sakura', 'Monet','Cyberpunk', 'Classic'];
 
 export default function ThemeButton(){
-  const {theme, setTheme} = React.useContext(ThemeContext);
+  const {setTheme} = React.useContext(ThemeContext);
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLDivElement>(null);
   const [selectedIndex, setSelectedIndex] = React.useState(3);
+  const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
   
 
   const handleClick = () => {
@@ -52,7 +53,7 @@ export default function ThemeButton(){
     <React.Fragment>
       <ButtonGroup
         variant="contained"
-        ref={anchorRef}
+        ref={setAnchorEl}
         aria-label="Button group with a nested menu"
       >
         <Button onClick={() => 
@@ -74,7 +75,7 @@ export default function ThemeButton(){
       <Popper
         sx={{ zIndex: 1 }}
         open={open}
-        anchorEl={anchorRef.current}
+        anchorEl={anchorEl}
         role={undefined}
         transition
         disablePortal
