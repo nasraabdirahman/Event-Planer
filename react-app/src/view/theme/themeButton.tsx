@@ -10,7 +10,7 @@ import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import { ThemeContext } from './colourTheme';
 
-const options = ['Sakura', 'Monet','Cyberpunk', 'classic'];
+const options = ['Sakura', 'Monet','Cyberpunk', 'Classic'];
 
 export default function ThemeButton(){
   const {theme, setTheme} = React.useContext(ThemeContext);

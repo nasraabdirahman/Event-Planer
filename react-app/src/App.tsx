@@ -5,7 +5,7 @@ import { ThemeContext } from './view/theme/colourTheme';
 import Footer from './footer.tsx'
 
 function App() {
-  const [theme, setTheme] = useState('classic');
+  const [theme, setTheme] = useState('Classic');
 
   return (
     <ThemeContext.Provider value={{theme, setTheme}}>
