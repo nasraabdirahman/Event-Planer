@@ -1,0 +1,126 @@
+.event-calendar{
+  padding:10px;
+}
+
+.css-1bjefvf-MuiEventCalendar-miniCalendarWeekdayCell,
+.css-4c8s1s-MuiEventCalendar-dayTimeGridTimeAxisText,
+.css-y7n5p0-MuiEventCalendar-dayTimeGridAllDayEventsHeaderCell,
+.MuiEventCalendar-dayTimeGridAllDayEventsGrid,
+.MuiEventCalendar-dayTimeGridHeader,
+.css-128zgec-MuiEventCalendar-dayTimeGridHeaderDayName,
+.MuiEventCalendar-dayTimeGrid,
+.css-dizc30-MuiButtonBase-root-MuiButton-root,
+.css-i073yq-MuiEventCalendar-monthViewCellNumber,
+.css-ihbs3u-MuiEventCalendar-dayTimeGridAllDayEventsCell,
+.MuiEventCalendar-dayTimeGridTimeAxisCell{
+  color: var(--high-contrast-one) !important;
+}
+
+.css-8cofa6-MuiEventCalendar-monthViewGrid,
+.css-1guq2mx-MuiEventCalendar-dayTimeGridContainer{
+  background-color: var(--accent-one) !important;
+  border-radius: 20px !important;
+}
+.css-1tktgsa-MuiPaper-root-MuiPopover-paper-MuiMenu-paper{
+  color: var(--high-contrast-two) !important;
+  background-color: var(--accent-two) !important;
+  border-radius: 10px !important;
+}
+
+[data-current] button:hover .css-gqujhm-MuiEventCalendar-dayTimeGridHeaderDayNumber{
+  background-color: var(--accent-two) !important;
+  color: var(--high-contrast-two) !important;
+}
+.css-cpf95x-MuiEventDialog-form,
+.css-1itt5iv-MuiEventCalendar-miniCalendarNavigation,
+[data-current] .css-gqujhm-MuiEventCalendar-dayTimeGridHeaderDayNumber{
+  background-color: var(--bg) !important;
+  color: var(--high-contrast-one) !important;
+}
+
+.css-ihbs3u-MuiEventCalendar-dayTimeGridAllDayEventsCell{
+  opacity: 0;
+}
+.css-gqujhm-MuiEventCalendar-dayTimeGridHeaderDayNumber:hover{
+  background-color: var(--accent-two) !important;
+  color: var(--high-contrast-two) !important;
+}
+
+.css-ck9bun-MuiEventCalendar-miniCalendarDayCell,
+.css-1xobqgt-MuiEventCalendar-miniCalendar{
+  background-color: var(--accent-two) !important;
+  border-radius: 10px !important;
+}
+.css-t408t0-MuiEventCalendar-miniCalendarDayButton[data-active]{
+  background-color: var(--accent-one) !important;
+}
+.css-t408t0-MuiEventCalendar-miniCalendarDayButton{
+  color: var(--high-contrast-two) !important;
+}
+.css-1itt5iv-MuiEventCalendar-miniCalendarNavigation button,
+.css-1itt5iv-MuiEventCalendar-miniCalendarNavigation{
+  border-radius: 10px !important;
+  color: var(--high-contrast-one) !important;
+}
+
+
+.css-hvjq6j-MuiFormLabel-root-MuiInputLabel-root,
+.css-t408t0-MuiEventCalendar-miniCalendarDayButton,
+.css-1itt5iv-MuiEventCalendar-miniCalendarNavigation button:hover{
+  color: var(--high-contrast-two) !important;
+}
+
+.css-e6vqyw-MuiEventDialog-sectionHeaderTitle,
+.css-19qnlrw-MuiFormLabel-root-MuiInputLabel-root,
+.css-1pzfmz2-MuiInputBase-input-MuiOutlinedInput-input,
+.css-1umw9bq-MuiSvgIcon-root{
+  color: var(--high-contrast-one) !important;
+}
+
+.MuiEventCalendar-eventDialogTabContent,
+.css-ucp00b-MuiEventDialog-tabContent
+.MuiInputBase-root,
+.css-zsp0bh-MuiInputBase-root-MuiOutlinedInput-root,
+.css-18p5xg2-MuiNotchedOutlined-root-MuiOutlinedInput-notchedOutline,
+.MuiEventCalendar-eventDialogDateTimeFieldsContainer,
+.css-18p5xg2-MuiNotchedOutlined-root-MuiOutlinedInput-notchedOutline,
+.MuiEventCalendar-root,
+.css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root,
+.css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root,
+.css-1d0pj3c-MuiFormControl-root-MuiTextField-root-MuiEventDialog-titleTextField,
+.css-1pzfmz2-MuiInputBase-input-MuiOutlinedInput-input{
+  --Paper-shadow: var(--calendar-shadow) !important;
+  color: var(--high-contrast-one) !important;
+  border-color: var(--high-contrast-one) !important;
+}
+
+.css-1jpc804-MuiDivider-root{
+  border-color: var(--accent-one) !important;
+}
+
+.css-2rwryq-MuiButtonBase-root-MuiButton-root{
+  background-color: var(--accent-two) !important;
+  color: var(--high-contrast-two) !important;
+}
+
+@media (hover: hover) {
+  .css-2rwryq-MuiButtonBase-root-MuiButton-root:hover{
+    background-color: var(--accent-one) !important;
+    color: var(--high-contrast-one) !important;
+  }
+}
+.css-1ljh8g4-MuiButtonBase-root-MuiSwitchBase-root-MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track{
+  background-color: var(--accent-two) !important;
+}
+
+.css-1ljh8g4-MuiButtonBase-root-MuiSwitchBase-root-MuiSwitch-switchBase.Mui-checked{
+  color: var(--extra-colour-two) !important;
+}
+.css-113d811-MuiFormLabel-root-MuiInputLabel-root.Mui-focused{
+  color: var(--high-contrast-one) !important;
+}
+
+.css-t408t0-MuiEventCalendar-miniCalendarDayButton[data-today]:not([data-active]){
+  background-color: var(--high-contrast-one) !important;
+  color: var(--bg) !important;
+}
