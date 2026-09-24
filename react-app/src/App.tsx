@@ -17,5 +17,6 @@ function App() {
       </div>
     </ThemeContext.Provider>
   )
+}
 
 export default App
