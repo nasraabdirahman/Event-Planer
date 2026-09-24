@@ -18,5 +18,6 @@ function App() {
         <Footer/>
       </div>
     </ThemeContext.Provider>
+  )
 }
 export default App
