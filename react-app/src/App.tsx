@@ -1,11 +1,7 @@
-import './App.css'
+import SignIn from './sign-in/SignIn.tsx'
 
 function App() {
-
-  return (
-    <>
-    </>
-  )
+  return <SignIn />
 }
 
 export default App
