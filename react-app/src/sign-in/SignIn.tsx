@@ -17,7 +17,7 @@ import ForgotPassword from './components/ForgotPassword.tsx';
 import AppTheme from '../shared-theme/AppTheme.tsx';
 import ColorModeSelect from '../shared-theme/ColorModeSelect.tsx';
 import { GoogleIcon, FacebookIcon, SitemarkIcon } from './components/CustomIcons.tsx';
-
+import { UserController } from "../controller/UserController.ts";
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
@@ -60,7 +60,10 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
   },
 }));
 
-export default function SignIn(props: { disableCustomTheme?: boolean }) {
+export default function SignIn(props: {
+  disableCustomTheme?: boolean;
+  onLogin: (userId: number) => void;
+}) {
   const [emailError, setEmailError] = React.useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
   const [passwordError, setPasswordError] = React.useState(false);
@@ -84,8 +87,20 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
     }
 
     const data = new FormData(event.currentTarget);
-    setSuccessMessage(`Test successful — signed in as ${data.get('email')}.`);
-  };
+    
+    const email = data.get('email') as string;
+    const password = data.get('password') as string;
+
+    const userController = new UserController();
+    const user = userController.getUserByLogin(email, password);
+
+   if (user) {
+  setSuccessMessage(`Signed in as ${user.username}`);
+  props.onLogin(user.userId);
+} else {
+      setSuccessMessage ('Wrong email or password.');
+}
+    }
 
   const validateInputs = () => {
     const email = document.getElementById('email') as HTMLInputElement;

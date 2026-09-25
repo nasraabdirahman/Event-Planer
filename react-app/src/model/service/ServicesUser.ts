@@ -15,6 +15,13 @@ export class ModelServicesUser {
   getUserById(userId: number) {
   return getUsers().find(user => user.userId === userId);
   }
+
+  //Gets a user by email and password
+  getUserByLogin( email: string, password: string) {
+    return getUsers().find(
+      user => user.email === email && user.password === password
+    );
+  }
   // Gets all users
   getAllUsers(): User[] {
     return getUsers();

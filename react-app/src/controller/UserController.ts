@@ -20,6 +20,10 @@ export class UserController {
   return this.model.getUserById(userId);
   }
 
+  getUserByLogin(email: string, password: string) {
+    return this.model.getUserByLogin(email, password);
+  }
+
   getAllUsers() {
     return this.model.getAllUsers();
   }
