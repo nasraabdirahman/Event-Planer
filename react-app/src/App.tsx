@@ -1,4 +1,5 @@
 import './App.css'
+import SearchBar from "./view/components/SearchBar";
 import {useState} from 'react'
 import ThemeButton from './view/theme/themeButton'
 import { ThemeContext } from './view/theme/colourTheme';
@@ -10,14 +11,19 @@ function App() {
   const [theme, setTheme] = useState('Classic');
 
   return (
-    <ThemeContext.Provider value={{theme, setTheme}}>
+  <>
+    <SearchBar />
+
+    <ThemeContext.Provider value={{ theme, setTheme }}>
       <div className={`theme-${theme}`}>
         <SignIn />
-        <Calendar userId={1}/>
-        <ThemeButton/>
-        <Footer/>
+        <Calendar userId={1} />
+        <ThemeButton />
+        <Footer />
       </div>
     </ThemeContext.Provider>
-  )
+  </>
+)
 }
+
 export default App
