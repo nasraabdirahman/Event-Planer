@@ -27,6 +27,9 @@ export class EventController {
     return this.model.searchEvents(searchText);
   }
 
+  getUserEvents(userId: number){
+    return this.model.getUserEvents(userId); 
+  }
   /*editEvent(event : Event){
     return this.model.getEvent(event) ;
   }*/

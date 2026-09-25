@@ -6,5 +6,6 @@ export interface Event{
   description : string ;
   followerCount : number ;
   title : string ;
-  timeDate : Date ;
+  startTimeDate : Date ;
+  endTimeDate : Date
 }
