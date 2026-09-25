@@ -23,6 +23,9 @@ export class EventController {
     return this.model.getAllEvents();
   }
 
+  getUserEvents(userId: number){
+    return this.model.getUserEvents(userId); 
+  }
   /*editEvent(event : Event){
     return this.model.getEvent(event) ;
   }*/
