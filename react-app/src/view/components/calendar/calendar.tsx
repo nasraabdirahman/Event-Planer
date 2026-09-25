@@ -12,7 +12,6 @@ function Calendar({userId}: {userId: number}) {
     start: events.startTimeDate.toISOString(),
     end: events.endTimeDate.toISOString(),
   }));
-  console.log(events);
 
   return(
     <div className="event-calendar">

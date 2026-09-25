@@ -79,7 +79,7 @@
 
 .MuiEventCalendar-eventDialogTabContent,
 .css-ucp00b-MuiEventDialog-tabContent
-.MuiInputBase-root,
+.css-io3cf4-MuiButtonBase-root-MuiIconButton-root,
 .css-zsp0bh-MuiInputBase-root-MuiOutlinedInput-root,
 .css-18p5xg2-MuiNotchedOutlined-root-MuiOutlinedInput-notchedOutline,
 .MuiEventCalendar-eventDialogDateTimeFieldsContainer,
@@ -98,17 +98,6 @@
   border-color: var(--accent-one) !important;
 }
 
-.css-2rwryq-MuiButtonBase-root-MuiButton-root{
-  background-color: var(--accent-two) !important;
-  color: var(--high-contrast-two) !important;
-}
-
-@media (hover: hover) {
-  .css-2rwryq-MuiButtonBase-root-MuiButton-root:hover{
-    background-color: var(--accent-one) !important;
-    color: var(--high-contrast-one) !important;
-  }
-}
 .css-1ljh8g4-MuiButtonBase-root-MuiSwitchBase-root-MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track{
   background-color: var(--accent-two) !important;
 }
@@ -123,4 +112,11 @@
 .css-t408t0-MuiEventCalendar-miniCalendarDayButton[data-today]:not([data-active]){
   background-color: var(--high-contrast-one) !important;
   color: var(--bg) !important;
+}
+
+.css-xe0bcf-MuiEventCalendar-dayTimeGridCurrentTimeIndicator{
+  border-top-color: var(--high-contrast-two) !important;
+}
+.css-1b0cax3-MuiEventCalendar-dayTimeGridCurrentTimeIndicatorCircle{
+  background-color: var(--high-contrast-two) !important;
 }
