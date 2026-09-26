@@ -19,7 +19,7 @@ function App() {
         <div className={`theme-${theme}`}>
           <Routes>
             <Route path="/" element={<SignIn />} />
-            <Route path="/calendar" element={<Calendar userId={1}/>}/>
+            <Route path="/calender" element={<Calendar userId={1}/>}/>
           </Routes>
           <ThemeButton />
           <Footer />
