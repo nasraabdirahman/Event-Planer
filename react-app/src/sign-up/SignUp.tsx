@@ -217,7 +217,7 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
               Already have an account?{' '}
               <Link
                 component={RouterLink}
-                to="/sign-in"
+                to="/"
                 variant="body2"
                 sx={{ alignSelf: 'center' }}
               >
