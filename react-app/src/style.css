@@ -60,12 +60,42 @@
 
 body{
   margin: 0px;
+  background-color: var(--bg) !important;
 }
 
 .stack-sans-headline-text {
   font-family: "Stack Sans Headline", sans-serif;
   font-weight: 600;
   font-style: normal;
+}
+
+
+header{
+  padding: 10px;
+  border: 2px solid var(--accent-one);
+  border-radius: 10px; 
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+header h2{
+  color: var(--high-contrast-one);
+  font-size: 22pt;
+  padding: 10px;
+  margin: 0px;
+  display: inline-flex;
+}
+header .container{
+  display: inline-flex;
+  flex-direction: row;
+  margin-left: auto !important;
+  align-items: center;
+  padding: 10px;
+  
+}
+.css-1xp5r68-MuiFormControl-root-MuiTextField-root{
+  margin: 10px !important;
 }
 
 footer{
