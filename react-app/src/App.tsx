@@ -1,5 +1,6 @@
 import './App.css'
 import ProfilePage from "./view/components/ProfilePage";
+import SearchBar from "./view/components/SearchBar";
 import {useState} from 'react'
 import ThemeButton from './view/theme/themeButton'
 import { ThemeContext } from './view/theme/colourTheme';
@@ -12,7 +13,10 @@ function App() {
   const [loggedInUserId, setLoggedInUserId] = useState<number | null>(null);
 
   return (
-    <ThemeContext.Provider value={{theme, setTheme}}>
+  <>
+    <SearchBar />
+
+    <ThemeContext.Provider value={{ theme, setTheme }}>
       <div className={`theme-${theme}`}>
         <SignIn onLogin={setLoggedInUserId} />
 
@@ -24,6 +28,8 @@ function App() {
         <Footer/>
       </div>
     </ThemeContext.Provider>
-  )
+  </>
+)
 }
+
 export default App
