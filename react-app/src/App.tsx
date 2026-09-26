@@ -7,6 +7,7 @@ import { ThemeContext } from './view/theme/colourTheme';
 import Calendar from './view/components/calendar/calendar.tsx'
 import Footer from "./view/components/footer.tsx";
 import SignIn from './sign-in/SignIn.tsx'
+import {BrowserRouter, Routes, Route} from "react-router";
 
 function App() {
   const [theme, setTheme] = useState('Classic');
