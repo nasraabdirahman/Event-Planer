@@ -26,7 +26,6 @@ export default function ThemeButton(){
   };
 
   const handleMenuItemClick = (
-    event: React.MouseEvent<HTMLLIElement, MouseEvent>,
     index: number,
   ) => {
     setSelectedIndex(index);
@@ -95,7 +94,7 @@ export default function ThemeButton(){
                     <MenuItem
                       key={option}
                       selected={index === selectedIndex}
-                      onClick={(event) => handleMenuItemClick(event, index)}
+                      onClick={() => handleMenuItemClick(index)}
                     >
                       {option}
                     </MenuItem>
