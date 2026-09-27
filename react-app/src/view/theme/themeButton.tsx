@@ -8,16 +8,22 @@ import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
+import { useLocation } from 'react-router';
 import { ThemeContext } from './colourTheme';
 
 const options = ['Sakura', 'Monet','Cyberpunk', 'Classic'];
 
 export default function ThemeButton(){
+  const { pathname } = useLocation();
   const {setTheme} = React.useContext(ThemeContext);
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLDivElement>(null);
   const [selectedIndex, setSelectedIndex] = React.useState(3);
   const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
+
+  if (pathname === '/' || pathname === '/sign-up') {
+    return null;
+  }
   
 
   const handleClick = () => {
@@ -26,7 +32,6 @@ export default function ThemeButton(){
   };
 
   const handleMenuItemClick = (
-    event: React.MouseEvent<HTMLLIElement, MouseEvent>,
     index: number,
   ) => {
     setSelectedIndex(index);
@@ -95,7 +100,7 @@ export default function ThemeButton(){
                     <MenuItem
                       key={option}
                       selected={index === selectedIndex}
-                      onClick={(event) => handleMenuItemClick(event, index)}
+                      onClick={() => handleMenuItemClick(index)}
                     >
                       {option}
                     </MenuItem>

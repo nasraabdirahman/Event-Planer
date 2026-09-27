@@ -7,6 +7,8 @@ import { ThemeContext } from './view/theme/colourTheme';
 import Calendar from './view/components/calendar/calendar.tsx'
 import Footer from "./view/components/footer.tsx";
 import SignIn from './sign-in/SignIn.tsx'
+import SignUp from './sign-up/SignUp.tsx'
+import AuthNavigation from './view/components/AuthNavigation.tsx'
 import {BrowserRouter, Routes, Route} from "react-router";
 
 function App() {
@@ -14,23 +16,39 @@ function App() {
   const [loggedInUserId, setLoggedInUserId] = useState<number | null>(null);
 
   return (
-  <>
+  <BrowserRouter>
     <SearchBar />
 
     <ThemeContext.Provider value={{ theme, setTheme }}>
       <div className={`theme-${theme}`}>
-        <SignIn onLogin={setLoggedInUserId} />
+        <AuthNavigation />
+
+        <Routes>
+          <Route
+            path="/"
+            element={<SignIn onLogin={setLoggedInUserId} />}
+          />
+
+          <Route
+            path="/sign-up"
+            element={<SignUp />}
+          />
+
+          <Route
+            path="/calender"
+            element={<Calendar userId={1} />}
+          />
+        </Routes>
 
         {loggedInUserId !== null && (
-        <ProfilePage userId={loggedInUserId} />
+          <ProfilePage userId={loggedInUserId} />
         )}
-        <Calendar userId={1}/>
-        <ThemeButton/>
-        <Footer/>
+
+        <ThemeButton />
+        <Footer />
       </div>
     </ThemeContext.Provider>
-  </>
+  </BrowserRouter>
 )
 }
-
 export default App
