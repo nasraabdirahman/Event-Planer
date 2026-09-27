@@ -1,7 +1,6 @@
 import './App.css'
-import SearchBar from "./view/components/SearchBar";
-import {useState} from 'react'
-import ThemeButton from './view/theme/themeButton'
+import {useState, useEffect} from 'react'
+import Header from "./view/components/header/header.tsx";
 import { ThemeContext } from './view/theme/colourTheme';
 import Calendar from './view/components/calendar/calendar.tsx'
 import Footer from '../src/view/components/footer.tsx'
@@ -12,24 +11,31 @@ import {BrowserRouter, Routes, Route} from "react-router";
 
 function App() {
   const [theme, setTheme] = useState('Classic');
+    useEffect(() => {
+      document.documentElement.classList.remove(
+        'theme-Classic',
+        'theme-Sakura',
+        'theme-Monet',
+        'theme-Cyberpunk'
+      );
+      document.documentElement.classList.add(`theme-${theme}`);
+    },[theme]);
+
 
   return (
   <>
   <BrowserRouter>
-      <SearchBar />
-      <ThemeContext.Provider value={{ theme, setTheme }}>
-        <div className={`theme-${theme}`}>
-          <AuthNavigation />
-          <Routes>
-            <Route path="/" element={<SignIn />} />
-            <Route path="/sign-up" element={<SignUp />} />
-            <Route path="/calender" element={<Calendar userId={1}/>}/>
-          </Routes>
-          <ThemeButton />
-          <Footer />
-        </div>
-      </ThemeContext.Provider>
-    </BrowserRouter>
+    <ThemeContext.Provider value={{ theme, setTheme }}>
+      <Header/>
+        <AuthNavigation />
+        <Routes>
+          <Route path="/" element={<SignIn />} />
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/calender" element={<Calendar userId={1}/>}/>
+        </Routes>
+        <Footer />
+    </ThemeContext.Provider>
+  </BrowserRouter>
   </>
 )
 }

@@ -1,0 +1,20 @@
+.css-1gtchvp-MuiPaper-root,
+.css-nos3w0-MuiButtonBase-root-MuiButton-root,
+.css-493myy-MuiButtonGroup-root {
+  color: var(--high-contrast-one) !important;
+  background-color: var(--accent-one) !important;
+  border-color: var(--bg) !important;
+}
+.css-2rwryq-MuiButtonBase-root-MuiButton-root{
+  color: var(--high-contrast-one) !important;
+  background-color: var(--accent-one) !important;
+  border-color: var(--bg) !important;
+}
+@media (hover: hover) {
+  .css-2rwryq-MuiButtonBase-root-MuiButton-root:hover{
+    background-color: var(--accent-two) !important;
+    color: var(--high-contrast-two) !important;
+  }
+}
+
+
