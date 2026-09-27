@@ -10,6 +10,10 @@ export class ModelServicesUser {
     return getUsers()[index];
   }
 
+  getUserById(userId: number) {
+  return getUsers().find(user => user.userId === userId);
+}
+
   getAllUsers(): User[] {
     return getUsers();
   }
