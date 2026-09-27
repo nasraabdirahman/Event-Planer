@@ -87,6 +87,16 @@ export default defineConfig([
 ```
 > npx vitest run
 ```
+### Endpoints
+```
+> "/"
+>"/calender"
+```
+### Run ESlint
+```
+>npx eslint .
+```
+
 > ## Participants
 |Name|Github Handle|
 |-|-|
