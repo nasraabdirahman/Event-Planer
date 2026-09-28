@@ -14,6 +14,16 @@ import {BrowserRouter, Routes, Route} from "react-router";
 function App() {
   const [theme, setTheme] = useState('Classic');
   const [loggedInUserId, setLoggedInUserId] = useState<number | null>(null);
+    useEffect(() => {
+      document.documentElement.classList.remove(
+        'theme-Classic',
+        'theme-Sakura',
+        'theme-Monet',
+        'theme-Cyberpunk'
+      );
+      document.documentElement.classList.add(`theme-${theme}`);
+    },[theme]);
+
 
   return (
   <BrowserRouter>
