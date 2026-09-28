@@ -16,8 +16,7 @@ import { styled } from '@mui/material/styles';
 import { Link as RouterLink } from 'react-router';
 import ForgotPassword from './components/ForgotPassword.tsx';
 import AppTheme from '../shared-theme/AppTheme.tsx';
-import ColorModeSelect from '../shared-theme/ColorModeSelect.tsx';
-import { GoogleIcon, FacebookIcon, SitemarkIcon } from './components/CustomIcons.tsx';
+import { GoogleIcon, FacebookIcon } from './components/CustomIcons.tsx';
 import { UserController } from "../controller/UserController.ts";
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
