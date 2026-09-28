@@ -6,6 +6,10 @@ export class ModelServicesFollow {
     follows.push(follow);
   }
 
+  getFollowsByUser(userId: number): Follow[] {
+  return follows.filter(follow => follow.userId === userId);
+}
+
   deleteFollowIndex(index: number) {
     follows.splice(index, 1);
   }
