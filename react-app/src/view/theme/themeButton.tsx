@@ -9,6 +9,7 @@ import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import { ThemeContext } from './colourTheme';
+import './themeButton.css'
 
 const options = ['Sakura', 'Monet','Cyberpunk', 'Classic'];
 
@@ -18,7 +19,7 @@ export default function ThemeButton(){
   const anchorRef = React.useRef<HTMLDivElement>(null);
   const [selectedIndex, setSelectedIndex] = React.useState(3);
   const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
-  
+
 
   const handleClick = () => {
     setTheme(options[selectedIndex]);
@@ -26,7 +27,6 @@ export default function ThemeButton(){
   };
 
   const handleMenuItemClick = (
-    event: React.MouseEvent<HTMLLIElement, MouseEvent>,
     index: number,
   ) => {
     setSelectedIndex(index);
@@ -95,7 +95,7 @@ export default function ThemeButton(){
                     <MenuItem
                       key={option}
                       selected={index === selectedIndex}
-                      onClick={(event) => handleMenuItemClick(event, index)}
+                      onClick={() => handleMenuItemClick(index)}
                     >
                       {option}
                     </MenuItem>
