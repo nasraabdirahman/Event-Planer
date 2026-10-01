@@ -1,7 +1,7 @@
 import './App.css'
 import ProfilePage from "./view/components/ProfilePage";
-import SearchBar from "./view/components/SearchBar";
-import {useState} from 'react'
+import SearchBar from "./view/components/header/SearchBar";
+import { useEffect, useState } from 'react'
 import ThemeButton from './view/theme/themeButton'
 import { ThemeContext } from './view/theme/colourTheme';
 import Calendar from './view/components/calendar/calendar.tsx'

@@ -1,4 +1,11 @@
 {
+  "scripts": {
+    "dev": "npm --prefix react-app run dev --",
+    "build": "npm --prefix react-app run build --",
+    "test": "npm --prefix react-app run test --",
+    "lint": "npm --prefix react-app run lint --",
+    "preview": "npm --prefix react-app run preview --"
+  },
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",

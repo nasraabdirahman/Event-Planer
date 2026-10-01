@@ -198,6 +198,15 @@ export default function SignIn(props: {
             >
               Sign in
             </Button>
+            <Button
+              component={RouterLink}
+              to="/sign-up"
+              variant="text"
+              size="small"
+              sx={{ alignSelf: 'center', textTransform: 'none' }}
+            >
+              Don&apos;t have an account? Sign up
+            </Button>
             {successMessage && (
               <Typography color="success.main" role="status" sx={{ textAlign: 'center' }}>
                 {successMessage}
@@ -231,17 +240,6 @@ export default function SignIn(props: {
             >
               Sign in with Facebook
             </Button>
-            <Typography sx={{ textAlign: 'center' }}>
-              Don&apos;t have an account?{' '}
-              <Link
-                component={RouterLink}
-                to="/sign-up"
-                variant="body2"
-                sx={{ alignSelf: 'center' }}
-              >
-                Sign up
-              </Link>
-            </Typography>
           </Box>
         </Card>
       </SignInContainer>
