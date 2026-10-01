@@ -1,6 +1,6 @@
 import './App.css'
 import ProfilePage from "./view/components/ProfilePage";
-import {useState, useEffect} from 'react'
+import { useEffect, useState } from 'react'
 import { ThemeContext } from './view/theme/colourTheme';
 import Calendar from './view/components/calendar/calendar.tsx'
 import Header from './view/components/header/header.tsx';
@@ -8,7 +8,7 @@ import Footer from "./view/components/footer.tsx";
 import SignIn from './sign-in/SignIn.tsx'
 import SignUp from './sign-up/SignUp.tsx'
 import AuthNavigation from './view/components/AuthNavigation.tsx'
-import {BrowserRouter, Routes, Route} from "react-router";
+import { BrowserRouter, Routes, Route } from "react-router";
 
 function App() {
   const [theme, setTheme] = useState('Classic');
