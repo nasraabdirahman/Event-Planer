@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
-import { Link as RouterLink } from 'react-router';
+import { Link as RouterLink, useNavigate } from 'react-router';
 import ForgotPassword from './components/ForgotPassword.tsx';
 import AppTheme from '../shared-theme/AppTheme.tsx';
 import { GoogleIcon, FacebookIcon } from './components/CustomIcons.tsx';
@@ -70,6 +70,7 @@ export default function SignIn(props: {
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
   const [open, setOpen] = React.useState(false);
   const [successMessage, setSuccessMessage] = React.useState('');
+  const navigate = useNavigate();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -96,6 +97,7 @@ export default function SignIn(props: {
 
    if (user) {
   setSuccessMessage(`Signed in as ${user.username}`);
+  navigate(`/user/${user.userId}`);
   props.onLogin(user.userId);
 } else {
       setSuccessMessage ('Wrong email or password.');

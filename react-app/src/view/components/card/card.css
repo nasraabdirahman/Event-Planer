@@ -1,0 +1,22 @@
+.text {
+  color: var(--high-contrast-one) !important;
+}
+.css-1j74uew-MuiPaper-root-MuiCard-root{
+  margin: 20px !important;
+  background-color: var(--accent-one) !important ;
+  border-radius: 20px !important;
+  width: 100% !important;
+}
+.link{
+  text-decoration: none !important;
+  color: var(--high-contrast-one) !important;
+}
+
+.link:hover{
+  color: var(--high-contrast-two) !important;
+}
+
+.event-container{
+  width: 60%;
+  margin: auto;
+}

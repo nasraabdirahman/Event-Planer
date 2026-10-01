@@ -31,7 +31,7 @@
 }
 
 .theme-Monet{
-  --bg :#181D2B;
+  --bg :#181D2B ;
   --high-contrast-one: #CBB7F5 ;
   --high-contrast-two : #BEE8C5 ;
   --accent-one : #083545 ; 
@@ -59,14 +59,14 @@
 }
 
 body{
-  margin: 0px;
+  margin: 5px;
   background-color: var(--bg) !important;
 }
 
-.stack-sans-headline-text {
-  font-family: "Stack Sans Headline", sans-serif;
-  font-weight: 600;
-  font-style: normal;
+.stack-sans-headline-text{
+  font-family: "Stack Sans Headline", sans-serif !important;
+  font-weight: 600 !important;
+  font-style: normal !important;
 }
 
 
@@ -124,4 +124,7 @@ footer p{
   margin: 0px;
   font-size: 10pt;
   color: var(--high-contrast-one);
+} 
+.sign-in-button{
+  margin: 10px !important;
 }
