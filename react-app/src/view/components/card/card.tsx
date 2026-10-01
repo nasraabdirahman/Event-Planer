@@ -28,13 +28,13 @@ export default function SingleCard({event, user}: SingleCardProps) {
             <Typography className='stack-sans-headline-text text' variant="h3" component="div">
               {event.title}
             </Typography>
-            <Typography className='stack-sans-headline-text text' sx={{ color: 'var(--high-contrast-two)', mb: 1.5 }}>
+            <Typography className='stack-sans-headline-text text-two' sx={{ mb: 1.5 }}>
               {event.location} </Typography>
-            <Typography className='stack-sans-headline-text text' sx={{ color: 'var(--high-contrast-two)'}} >
+            <Typography className='stack-sans-headline-text text-two' >
               {event.description}</Typography>
           </CardContent>
           <CardActions>
-            <Button component={RouterLink} to={`/${event.eventId}`} className='stack-sans-headline-text' size="small">Learn More</Button>
+            <Button component={RouterLink} to={`/${event.eventId}`} className='stack-sans-headline-text learn-more' size="small">Learn More</Button>
           </CardActions>
         </React.Fragment>
       </Card>

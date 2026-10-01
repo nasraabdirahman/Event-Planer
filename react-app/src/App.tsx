@@ -2,6 +2,7 @@ import './App.css'
 import ProfilePage from "./view/components/ProfilePage";
 import { useEffect, useState } from 'react'
 import { ThemeContext } from './view/theme/colourTheme';
+import { AuthContext} from './view/components/authContext.tsx'
 import Calendar from './view/components/calendar/calendar.tsx'
 import Header from './view/components/header/header.tsx';
 import Footer from "./view/components/footer.tsx";
@@ -26,44 +27,45 @@ function App() {
 
   return (
   <BrowserRouter>
-    <ThemeContext.Provider value={{ theme, setTheme }}>
-      <Header />
-      
-      <Routes>
-        <Route
-          path="/"
-          element={<DisplayCard />}
-        />
-
-        <Route
-          path="/sign-in"
-          element={<SignIn onLogin={setLoggedInUserId} />}
-        />
-
-        <Route
-          path="/sign-up"
-          element={<SignUp />}
-        />
-
-        <Route
-          path="/calendar"
-          element={<Calendar userId={1} />}
-        />
-
-        {loggedInUserId !== null && (
+    <AuthContext.Provider value={{loggedInUserId, setLoggedInUserId}}>
+      <ThemeContext.Provider value={{ theme, setTheme }}>
+        <Header />
+        <Routes>
           <Route
-            path={`/user/${loggedInUserId}`}
-            element={<ProfilePage userId={loggedInUserId} />}  
+            path="/"
+            element={<DisplayCard />}
           />
-         )}
-      </Routes>
 
-      
+          <Route
+            path="/sign-in"
+            element={<SignIn onLogin={setLoggedInUserId} />}
+          />
+
+          <Route
+            path="/sign-up"
+            element={<SignUp />}
+          />
+
+          <Route
+            path="/calendar"
+            element={<Calendar userId={1} />}
+          />
+
+          {loggedInUserId !== null && (
+            <Route
+              path={`/user/${loggedInUserId}`}
+              element={<ProfilePage userId={loggedInUserId} />}  
+            />
+          )}
+        </Routes>
+
         
-    
+          
+      
 
-      <Footer />
-    </ThemeContext.Provider>
+        <Footer />
+      </ThemeContext.Provider>
+    </AuthContext.Provider>
   </BrowserRouter>
 )
 }
