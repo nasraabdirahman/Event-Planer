@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { TextField, Card, CardContent, Typography } from "@mui/material";
-import { EventController } from "../../controller/EventController";
-import { UserController } from "../../controller/UserController";
-import type { Event } from "../../model/Event";
+import { EventController } from "../../../controller/EventController";
+import { UserController } from "../../../controller/UserController";
+import type { Event } from "../../../model/Event";
 export default function SearchBar() {
   const [searchText, setSearchText] = useState("");
   const [results, setResults] = useState<Event[]>([]);
