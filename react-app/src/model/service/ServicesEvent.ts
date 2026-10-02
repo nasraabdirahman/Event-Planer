@@ -9,6 +9,10 @@ export class ModelServicesEvent{
     return events.filter(events => events.userId === id) ;
   }
 
+  getEventById(id : number): Event[] {
+    return events.filter(events => events.eventId === id) ;
+  }
+
   getEventIndex(index : number){
     return events[index];
   }

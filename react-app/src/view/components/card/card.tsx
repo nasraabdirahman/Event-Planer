@@ -34,7 +34,7 @@ export default function SingleCard({event, user}: SingleCardProps) {
               {event.description}</Typography>
           </CardContent>
           <CardActions>
-            <Button component={RouterLink} to={`/${event.eventId}`} className='stack-sans-headline-text learn-more' size="small">Learn More</Button>
+            <Button component={RouterLink} to={`/event/${event.eventId}`} className='stack-sans-headline-text learn-more' size="small">Learn More</Button>
           </CardActions>
         </React.Fragment>
       </Card>

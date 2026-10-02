@@ -27,8 +27,8 @@ function App() {
 
   return (
   <BrowserRouter>
-    <AuthContext.Provider value={{loggedInUserId, setLoggedInUserId}}>
-      <ThemeContext.Provider value={{ theme, setTheme }}>
+    <AuthContext value={{loggedInUserId, setLoggedInUserId}}>
+      <ThemeContext value={{ theme, setTheme }}>
         <Header />
         <Routes>
           <Route
@@ -51,9 +51,15 @@ function App() {
             element={<Calendar userId={1} />}
           />
 
+          <Route
+            path="/event/:eventId"
+            element={<DisplayCard />}
+          />
+
+
           {loggedInUserId !== null && (
             <Route
-              path={`/user/${loggedInUserId}`}
+              path={`/user/:userId`}
               element={<ProfilePage userId={loggedInUserId} />}  
             />
           )}
@@ -64,8 +70,8 @@ function App() {
       
 
         <Footer />
-      </ThemeContext.Provider>
-    </AuthContext.Provider>
+      </ThemeContext>
+    </AuthContext>
   </BrowserRouter>
 )
 }

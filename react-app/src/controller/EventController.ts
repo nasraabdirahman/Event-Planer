@@ -11,9 +11,9 @@ export class EventController {
     return this.model.createEvent(event);
   }
 
-  /*getEvent(eventId : number){
-    return this.model.getEvent(eventId) ;
-  }*/
+  getEventById(eventId : number){
+    return this.model.getEventById(eventId) ;
+  }
 
   getEvent(index: number) {
     return this.model.getEventIndex(index);
