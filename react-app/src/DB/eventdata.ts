@@ -68,4 +68,26 @@ export const events : Event[] = [
         startTimeDate: new Date("2026-9-22 20:00:00"),
         endTimeDate: new Date("2026-9-22 22:00:00")
     },
+    {
+        eventId: 7,
+        userId: 1,
+        location: "Stockholm",
+        price: 100,
+        description: "A live music event featuring local artists and an evening of music and entertainment.",
+        followerCount: 57,
+        title: "Live Music Evening",
+        startTimeDate: new Date("2026-10-02 19:30:00"),
+        endTimeDate: new Date("2026-10-02 22:0:00")
+    },
+    {
+        eventId: 8,
+        userId: 1,
+        location: "Linköping",
+        price: 150,
+        description: "A music and competition event where participants can enjoy performances and compete in different challenges.",
+        followerCount: 76,
+        title: "Music & Competition Festival",
+        startTimeDate: new Date("2026-09-28 16:00:00"),
+        endTimeDate: new Date("2026-09-28 19:00:00")
+    }
 ];

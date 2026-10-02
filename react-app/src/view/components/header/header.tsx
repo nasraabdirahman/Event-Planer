@@ -1,4 +1,5 @@
 import ThemeButton from '../../theme/themeButton'
+import AuthNavigation from './AuthNavigation'
 import SearchBar from './SearchBar'
 function Header() {
   return(
@@ -7,6 +8,7 @@ function Header() {
       <div className="container">
         <SearchBar />
         <ThemeButton />
+        <AuthNavigation />
       </div>
     </header>
   )
