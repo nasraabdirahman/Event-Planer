@@ -20,7 +20,7 @@ router.get("/getUserEvents/:id", async(req, res) =>{
     res.json(result);
 })
 
-router.get("/getAllEvents", async(req, res) =>{
+router.get("/getAllEvents", async(_req, res) =>{
     const result = await service.getAllEvents();
     res.json(result);
 })
