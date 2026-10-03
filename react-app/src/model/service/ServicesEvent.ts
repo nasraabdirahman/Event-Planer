@@ -1,5 +1,5 @@
 import { events } from "../../DB/eventdata";
-import type { Event } from "../Event";
+import type { Event}  from "../Event";
 
 export class ModelServicesEvent{
   createEvent(event : Event) {

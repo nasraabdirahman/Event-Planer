@@ -1,6 +1,7 @@
 import { EventCalendar } from '@mui/x-scheduler';
 import './calendar.css'
 import { EventController } from '../../../controller/EventController';
+import type{ Event} from '../../../model/Event';
 
 function Calendar({userId}: {userId: number}) {
   const controller = new EventController ;
