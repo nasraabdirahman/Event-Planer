@@ -7,7 +7,7 @@ export default class RouteServiceEvent {
     }
 
     async getUserEvents(_id: string) {
-        let userId = new ObjectId(_id);
+        const userId = new ObjectId(_id);
         return await db.collection<EventDB>("Events").find({ userId: userId }).toArray();
     }
 

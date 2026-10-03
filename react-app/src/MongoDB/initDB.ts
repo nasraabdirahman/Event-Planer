@@ -14,6 +14,6 @@ catch (err)
     console.log(err);
 }
 
-let db = client.db("EventPlaner");
+const db = client.db("EventPlaner");
 
 export default db;
