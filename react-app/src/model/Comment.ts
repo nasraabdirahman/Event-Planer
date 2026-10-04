@@ -3,9 +3,9 @@
 
 export interface Comment {
     commentid: number;
-    userid: number;
+    userid: string;
     commentData: string;
-    eventid: number;
+    eventid: string;
     //maybe have date object instead of a string?
     date_comment_got_posted: string;
 }

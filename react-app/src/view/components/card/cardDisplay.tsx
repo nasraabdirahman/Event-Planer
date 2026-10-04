@@ -1,45 +1,54 @@
 import SingleCard from  './card.tsx'
 import { EventController } from '../../../controller/EventController.ts';
 import { UserController } from '../../../controller/UserController.ts';
-import { useLocation, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import { AuthContext } from '../authContext.tsx';
-import { useContext } from 'react'
-import { Event } from '../../../model/Event.ts';
+import { useContext, useEffect, useState  } from 'react'
+import  Event  from '../../../model/Event.ts';
+
+const eventController = new EventController ;
+const userController = new UserController ;
 
 export default function DisplayCard() {
-  const { pathname } = useLocation();
   const { userId, eventId } = useParams();
-  const eventIdInt = Number(eventId);
   const userIdInt = Number(userId);
   const {loggedInUserId} = useContext(AuthContext);
-  const userController = new UserController ;
-  const eventController = new EventController ;
+  const [events, setEvents] = useState<Event[]>([]);
 
-
-  if(pathname === '/') {
-    const events = eventController.getAllEvents() ;
-    return StandardCard(events) ;
-  } else if(pathname === `/event/${eventId}`) {
-    const events = eventController.getEventById(eventIdInt) ;
-    return FullSizeCard(events) ;
-  } else if(pathname === `/user/${userId}`){
-    if(loggedInUserId === userIdInt ){
-      const events = eventController.getUserEvents(loggedInUserId) ;
-      return StandardCard(events);
-    } else {
-      const events = eventController.getUserEvents(userIdInt);
-      return StandardCard(events);
+  useEffect(() => {
+    async function loadEvents(){
+      if(eventId) {
+        const event = await eventController.getEventById(eventId) ;
+        setEvents([event]) ;
+      } else if(userId){
+        if(loggedInUserId === userIdInt ){
+          const events = await eventController.getUserEvents(loggedInUserId.toString()) ;
+          setEvents(events);
+        } else {
+          const events = await eventController.getUserEvents(userId);
+          setEvents(events);
+        }
+      } else {
+        const events = await eventController.getAllEvents() ;
+        setEvents(events);
+      }
     }
+    loadEvents();
+  },[eventId, userId, loggedInUserId]) ;
+  
+  if(eventId){
+    return <FullSizeCard events={events} />;
   }
+  return <StandardCard events={events} />
 
-  function StandardCard(events: Event[]) {
+  function StandardCard({ events }: {events: Event[]}) {
     return (
       <div className='event-container'>
         <>
           {events.map((event) => {
-            const user = userController.getUserById(event.userId) ;
+            const user = await userController.getUserById(event.userId) ;
             return (
-              <SingleCard key={event.eventId} event={event} user={user}/>
+              <SingleCard key={event._id?.toString()} event={event} user={user}/>
             );
           })}
         </>
@@ -47,14 +56,14 @@ export default function DisplayCard() {
     );
   }
   
-  function FullSizeCard(events: Event[]) {
+  function FullSizeCard({ events }: {events: Event[]}) {
     return (  
       <div className='event-container'>
         <>
           {events.map((event) => {
             const user = userController.getUserById(event.userId) ;
             return (
-              <SingleCard key={event.eventId} event={event} user={user}/>
+              <SingleCard key={event._id?.toString()} event={event} user={user}/>
             );
           })}
         </>

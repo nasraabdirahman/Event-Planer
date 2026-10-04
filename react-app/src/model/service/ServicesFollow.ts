@@ -6,7 +6,7 @@ export class ModelServicesFollow {
     follows.push(follow);
   }
 
-  getFollowsByUser(userId: number): Follow[] {
+  getFollowsByUser(userId: string): Follow[] {
   return follows.filter(follow => follow.userId === userId);
 }
 

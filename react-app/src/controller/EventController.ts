@@ -1,44 +1,32 @@
-import type { Event } from "../model/Event.ts";
-import { ModelServicesEvent } from "../model/service/ServicesEvent.ts";
-
 export class EventController {
-  private model: ModelServicesEvent;
-  constructor() {
-    this.model = new ModelServicesEvent();
+  
+  async createEvent() {
+		const response = await fetch("/createEvent");
+		return await response.json();
   }
 
-  createEvent(event: Event) {
-    return this.model.createEvent(event);
+  async getEventById(eventId : string){
+		const response = await fetch(`/getEventById/${eventId}`);
+		return await response.json();
   }
 
-  getEventById(eventId : number){
-    return this.model.getEventById(eventId) ;
-  }
-
-  getEvent(index: number) {
-    return this.model.getEventIndex(index);
-  }
-
-  getAllEvents() {
-    return this.model.getAllEvents();
+  async getAllEvents(){
+    const response = await fetch("/getAllEvents");
+		return await response.json();
   }
   // Searches for events by title
-  searchEvents(searchText: string) {
-    return this.model.searchEvents(searchText);
+  async searchEvents(searchText: string) {
+		const response = await fetch(`/search/${searchText}`);
+		return await response.json();
   }
 
-  getUserEvents(userId: number){
-    return this.model.getUserEvents(userId); 
+  async getUserEvents(userId: string){
+		const response = await fetch(`/getUserEvents/${userId}`);
+		return await response.json();
   }
-  /*editEvent(event : Event){
-    return this.model.getEvent(event) ;
-  }*/
 
-  /*deleteEvent(eventId : number) {
-    return this.model.deleteEvent(eventId) ;
-  }*/
-
-  deleteEvent(index: number) {
-    return this.model.deleteEventIndex(index);
+  async deleteEvent(eventId: string) {
+		const response = await fetch(`/deleteEvent/${eventId}`);
+		return await response.json();
   }
 }

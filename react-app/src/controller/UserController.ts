@@ -1,4 +1,4 @@
-import type { User } from "../model/Users.ts";
+import type { User } from "../model/UserDB.ts";
 import { ModelServicesUser } from "../model/service/ServicesUser.ts";
 
 export class UserController {
@@ -16,7 +16,7 @@ export class UserController {
     return this.model.getUserIndex(index);
   }
 
-  getUserById(userId: number) {
+  getUserById(userId: string) {
   return this.model.getUserById(userId);
 
   }
@@ -29,7 +29,7 @@ export class UserController {
     return this.model.getAllUsers();
   }
 
-  deleteUser(index: number) {
+  deleteUser(index: string) {
     return this.model.deleteUserIndex(index);
   }
 }

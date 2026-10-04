@@ -1,6 +1,7 @@
-export interface Event{
-  eventId : number ;
-  userId : number ;
+import { ObjectId } from "mongodb";
+export default interface Event{
+  _id? : ObjectId ;
+  userId : ObjectId ;
   location : string ;
   price : number ;
   description : string ;

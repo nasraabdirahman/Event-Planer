@@ -12,7 +12,7 @@ export class ModelServicesUser {
   }
 
   // Gets a user by user ID
-  getUserById(userId: number) {
+  getUserById(userId: string ) {
   return getUsers().find(user => user.userId === userId);
   }
 
