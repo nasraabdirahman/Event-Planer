@@ -1,5 +1,5 @@
 import { ObjectId } from "mongodb";
-export interface User {
+export default interface UserDB {
     _id?: ObjectId;
     username: string;
     password: string;
