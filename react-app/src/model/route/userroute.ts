@@ -11,7 +11,7 @@ router.post("/createUser", async (req, res) => {
         const result = service.createUser(userInfo)
         res.json(result);
     }
-    catch (err) {
+    catch {
         res.status(409);
     }
 })
@@ -21,7 +21,7 @@ router.get("/getUser/:id", async (req, res) => {
         const userId = req.params.id
         return await service.getUser(userId)
     }
-    catch (err) {
+    catch  {
         res.status(404)
     }
 })
@@ -32,7 +32,7 @@ router.get("/getUserByLogin", async (req, res) => {
         const password = req.body
         return service.getUserByLogin(email, password);
     }
-    catch (err) {
+    catch  {
         res.status(404);
     }
 })
@@ -41,7 +41,7 @@ router.get("/getAllUser", async (_req, res) => {
     try {
         return service.getAllUser();
     }
-    catch (err) {
+    catch  {
         res.status(409)
     }
 })
@@ -52,7 +52,7 @@ router.delete("/deleteUser/:id", async (req, res) => {
         const result = service.deleteUser(userId);
         res.json(result + "has been delted");
     }
-    catch (err) {
+    catch {
         res.status(409);
     }
 })
