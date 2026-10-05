@@ -8,7 +8,7 @@ import Link from '@mui/material/Link'
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import './card.css'
-import { Event } from '../../../model/Event';
+import { Event } from '../../../interfaces/Event';
 import { User } from '../../../model/Users'
 
 type SingleCardProps = {

@@ -1,6 +1,6 @@
-import { ModelServicesComment } from "../model/service/ServicesComment";
-import { ModelServicesUser } from "../model/service/ServicesUser";
-import { ModelServicesEvent } from "../model/service/ServicesEvent";
+import { ModelServicesComment } from "../controller/service/ServicesComment";
+import { ModelServicesUser } from "../controller/service/ServicesUser";
+import { ModelServicesEvent } from "../controller/service/ServicesEvent";
 import { test } from 'vitest'
 
 test("get data from DB map", () => {

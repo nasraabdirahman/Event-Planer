@@ -1,5 +1,8 @@
 import { MongoClient } from "mongodb";
 import dotenv from "dotenv";
+import dns from "dns";
+
+dns.setServers(["8.8.8.8", "1.1.1.1"])
 
 dotenv.config();
 const url = process.env.MONGODB_URL || ""
@@ -12,8 +15,9 @@ try{
 catch (err)
 {
     console.log(err);
+    process.exit(1);
 }
 
-const db = client.db("EventPlaner");
+const db = client.db("EventPlanner");
 
 export default db;

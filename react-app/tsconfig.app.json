@@ -22,5 +22,5 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"]
+  "include": ["src", "modelBackend/servicesBackend/routeServiceUser.ts", "modelBackend/servicesBackend/routeServiceEvent.ts", "modelBackend/server.ts", "src/controller/service"]
 }

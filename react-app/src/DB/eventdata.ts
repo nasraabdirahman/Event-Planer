@@ -1,4 +1,4 @@
-import type {Event} from "../model/Event"
+import type {Event} from "../interfaces/Event"
 
 
 export const events : Event[] = [

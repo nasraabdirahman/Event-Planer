@@ -1,5 +1,5 @@
-import type Event from "../Event";
-import db from "../../MongoDB/initDB";
+import type Event from "../../src/interfaces/Event";
+import db from "../MongoDB/initDB";
 import { ObjectId } from "mongodb";
 export default class RouteServiceEvent {
     async CreateEvent(event: Event) {
@@ -13,10 +13,13 @@ export default class RouteServiceEvent {
 
     async getEventById(_id: string) {
         const eventId = new ObjectId(_id);
-        return await db.collection<Event>("Events").find({ eventId: eventId  }).toArray();
+        
+        const result = await db.collection<Event>("Events").find({ eventId: eventId  }).toArray();
+        return result ;
     }
 
-    async getAllEvents() {
+   async getAllEvents() {
+        /*await db.listCollections().toArray();*/
         return await db.collection<Event>("Events").find().toArray();
     }
 

@@ -1,37 +1,49 @@
 import SingleCard from  './card.tsx'
-import { EventController } from '../../../controller/EventController.ts';
-import { UserController } from '../../../controller/UserController.ts';
 import { useParams } from 'react-router';
 import { AuthContext } from '../authContext.tsx';
 import { useContext, useEffect, useState  } from 'react'
-import  Event  from '../../../model/Event.ts';
-
-const eventController = new EventController ;
-const userController = new UserController ;
+import  Event  from '../../../interfaces/Event.ts';
+import User from '../../../interfaces/User.ts' 
 
 export default function DisplayCard() {
   const { userId, eventId } = useParams();
-  const userIdInt = Number(userId);
   const {loggedInUserId} = useContext(AuthContext);
   const [events, setEvents] = useState<Event[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
 
   useEffect(() => {
     async function loadEvents(){
+      let loadedEvents : Event [];
       if(eventId) {
-        const event = await eventController.getEventById(eventId) ;
-        setEvents([event]) ;
+        console.log("Getting one event");
+        const response = await fetch(`/events/getEventById/${eventId}`);
+        const events = await response.json();
+        loadedEvents = [events] ;
       } else if(userId){
-        if(loggedInUserId === userIdInt ){
-          const events = await eventController.getUserEvents(loggedInUserId.toString()) ;
-          setEvents(events);
+        if(loggedInUserId === Number(userId) ){
+          console.log("Getting USER events");
+          const response = await fetch(`/events/getUserEvents/${loggedInUserId.toString()}`);
+          const events = await response.json();
+          loadedEvents = events;
         } else {
-          const events = await eventController.getUserEvents(userId);
-          setEvents(events);
+          console.log("Getting USER events");
+          const response = await fetch(`/events/getUserEvents/${userId}`);
+          const events = await response.json();
+          loadedEvents = events;
         }
       } else {
-        const events = await eventController.getAllEvents() ;
-        setEvents(events);
+        const response = await fetch("/events/getAllEvents");
+        const events = await response.text();
+       loadedEvents = JSON.parse(events);
       }
+      const loadUsers = await Promise.all(
+        loadedEvents.map(async event => {
+          const response = await fetch(`/users/getUser/${event.userId.toString()}`);
+          return await response.json();
+        })
+      );
+      setUsers(loadUsers);
+      setEvents(loadedEvents);
     }
     loadEvents();
   },[eventId, userId, loggedInUserId]) ;
@@ -45,10 +57,9 @@ export default function DisplayCard() {
     return (
       <div className='event-container'>
         <>
-          {events.map((event) => {
-            const user = await userController.getUserById(event.userId) ;
+          {events.map((event, index) => {
             return (
-              <SingleCard key={event._id?.toString()} event={event} user={user}/>
+              <SingleCard key={event._id?.toString()} event={event} user={users[index]}/>
             );
           })}
         </>
@@ -60,10 +71,9 @@ export default function DisplayCard() {
     return (  
       <div className='event-container'>
         <>
-          {events.map((event) => {
-            const user = userController.getUserById(event.userId) ;
+          {events.map((event, index) => {
             return (
-              <SingleCard key={event._id?.toString()} event={event} user={user}/>
+              <SingleCard key={event._id?.toString()} event={event} user={users[index]}/>
             );
           })}
         </>

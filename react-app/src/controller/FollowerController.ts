@@ -1,5 +1,5 @@
-import type { Follow } from "../model/Follow.ts";
-import { ModelServicesFollow } from "../model/service/ServicesFollow.ts";
+import type { Follow } from "../interfaces/Follow.ts";
+import { ModelServicesFollow } from "./service/ServicesFollow.ts";
 
 
 export class FollowerController {

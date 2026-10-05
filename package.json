@@ -12,5 +12,11 @@
     "@mui/icons-material": "^9.4.0",
     "@mui/material": "^9.4.0",
     "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "tsx": "^4.23.15"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true
   }
 }

@@ -1,6 +1,5 @@
-import { UserController } from "../../controller/UserController";
+/*import { UserController } from "../../controller/UserController";
 import { FollowerController } from "../../controller/FollowerController";
-import { EventController } from "../../controller/EventController";
 import {
   Box,
   Card,
@@ -19,9 +18,6 @@ export default function ProfilePage({ userId }: ProfilePageProps) {
   // Creates the follower controller
 const followerController = new FollowerController();
 
-// Creates the event controller
-const eventController = new EventController();
-
   // Gets the user by user ID
 const user = userController.getUserById(userId);
 
@@ -30,18 +26,23 @@ if (!user) {
   return <Typography>User not found</Typography>;
 }
 
+  async function loadEvents(){
+    const response = await fetch(`/events/getAllEvents`);
+    return await response.json();
+  }
+
+
   // Gets the events the user follows
 const userFollows = followerController.getFollowsByUser(user.userId);
 
 // Gets the events that the user follows
-const followedEvents = eventController
-  .getAllEvents()
+const followedEvents = loadEvents
   .filter(event =>
     userFollows.some(follow => follow.eventId === event.eventId)
   );
   return (
   <Box sx={{ maxWidth: 800, margin: "40px auto", padding: 2 }}>
-    {/* Shows the user's profile information */}
+    {/* Shows the user's profile information *//*}
     <Typography variant="h3" gutterBottom sx={{ color: "white" }}>
       Profile
     </Typography>
@@ -73,7 +74,7 @@ const followedEvents = eventController
   Followed Events
 </Typography>
 
-    {/* Shows the events the user follows */}
+    {/* Shows the events the user follows *//*}
     {followedEvents.map((event) => (
       <Card key={event.eventId} sx={{ marginBottom: 2 }}>
         <CardContent>
@@ -93,4 +94,4 @@ const followedEvents = eventController
     ))}
   </Box>
 );
-}
+}*/

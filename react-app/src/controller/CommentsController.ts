@@ -1,5 +1,5 @@
 //import type { Comment } from "../model/Comment";
-import { ModelServicesComment } from "../model/service/ServicesComment";
+import { ModelServicesComment } from "./service/ServicesComment";
 
 export class commentController 
 {

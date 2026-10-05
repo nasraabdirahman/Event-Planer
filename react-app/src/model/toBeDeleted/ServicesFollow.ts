@@ -1,5 +1,5 @@
 import { follows } from "../../DB/followdata.ts";
-import type { Follow } from "../Follow.ts";
+import type { Follow } from "../../interfaces/Follow.ts";
 
 export class ModelServicesFollow {
   createFollower(follow: Follow) {

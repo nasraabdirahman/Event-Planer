@@ -1,5 +1,5 @@
 import { getUsers } from "../../DB/userdata.ts";
-import type { User } from "../Users.ts";
+import User from "../../interfaces/User.ts";
 
 export class ModelServicesUser {
   //Crete new user
