@@ -1,6 +1,5 @@
-import { EventCalendar } from '@mui/x-scheduler';
+/*import { EventCalendar } from '@mui/x-scheduler';
 import './calendar.css'
-import { EventController } from '../../../controller/EventController';
 
 function Calendar({userId}: {userId: number}) {
   const controller = new EventController ;
@@ -26,4 +25,4 @@ function Calendar({userId}: {userId: number}) {
     
   )
 }
-export default Calendar 
+export default Calendar */

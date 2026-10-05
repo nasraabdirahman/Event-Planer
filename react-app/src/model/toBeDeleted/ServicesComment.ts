@@ -1,5 +1,5 @@
 import { getComments } from "../../DB/commentdata";
-import type { Comment } from "../Comment";
+import type { Comment } from "../../interfaces/Comment";
 
 export class ModelServicesComment {
     getAllComments(): Comment[] {

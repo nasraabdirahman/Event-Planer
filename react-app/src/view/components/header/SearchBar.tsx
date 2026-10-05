@@ -1,4 +1,4 @@
-import { useState } from "react";
+/*import { useState } from "react";
 import { TextField, Card, CardContent, Typography } from "@mui/material";
 import { EventController } from "../../../controller/EventController";
 import { UserController } from "../../../controller/UserController";
@@ -85,3 +85,4 @@ export default function SearchBar() {
   </>
 );
 }
+*/

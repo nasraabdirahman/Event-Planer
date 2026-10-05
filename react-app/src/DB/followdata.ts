@@ -1,4 +1,4 @@
-import type {Follow} from "../model/Follow.ts"
+import type {Follow} from "../interfaces/Follow.ts"
 
 
 export const follows :  Follow[] = [

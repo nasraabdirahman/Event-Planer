@@ -8,7 +8,7 @@ import Link from '@mui/material/Link'
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import './card.css'
-import { Event } from '../../../model/Event';
+import { Event } from '../../../interfaces/Event';
 import { User } from '../../../model/Users'
 
 type SingleCardProps = {
@@ -34,7 +34,7 @@ export default function SingleCard({event, user}: SingleCardProps) {
               {event.description}</Typography>
           </CardContent>
           <CardActions>
-            <Button component={RouterLink} to={`/${event.eventId}`} className='stack-sans-headline-text learn-more' size="small">Learn More</Button>
+            <Button component={RouterLink} to={`/event/${event.eventId}`} className='stack-sans-headline-text learn-more' size="small">Learn More</Button>
           </CardActions>
         </React.Fragment>
       </Card>

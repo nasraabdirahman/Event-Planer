@@ -1,5 +1,5 @@
-import RouterServiceUser from "../service/routeServiceUser";
-import type UserDB from "../UserDB";
+import RouterServiceUser from "../../../modelBackend/servicesBackend/routeServiceUser";
+import type User from "../../interfaces/User";
 import express from "express"
 
 const router = express.Router();
@@ -7,7 +7,7 @@ const service = new RouterServiceUser();
 
 router.post("/createUser", async (req, res) => {
     try {
-        const userInfo = req.body as UserDB;
+        const userInfo = req.body as User;
         const result = service.createUser(userInfo)
         res.json(result);
     }
@@ -19,7 +19,9 @@ router.post("/createUser", async (req, res) => {
 router.get("/getUser/:id", async (req, res) => {
     try {
         const userId = req.params.id
-        return await service.getUser(userId)
+        const result = await service.getUser(userId)
+
+        res.json(result);
     }
     catch  {
         res.status(404)
@@ -50,7 +52,7 @@ router.delete("/deleteUser/:id", async (req, res) => {
     try {
         const userId = req.params.id
         const result = service.deleteUser(userId);
-        res.json(result + "has been delted");
+        res.json(result + "has been deleted");
     }
     catch {
         res.status(409);
