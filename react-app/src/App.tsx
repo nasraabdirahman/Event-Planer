@@ -3,8 +3,8 @@ import './App.css'
 import { useEffect, useState } from 'react'
 import { ThemeContext } from './view/theme/colourTheme';
 import { AuthContext} from './view/components/authContext.tsx'
-/*import Calendar from './view/components/calendar/calendar.tsx'
-import Header from './view/components/header/header.tsx';*/
+import Calendar from './view/components/calendar/calendar.tsx'
+import Header from './view/components/header/header.tsx';
 import Footer from "./view/components/footer.tsx";
 /*import SignIn from './sign-in/SignIn.tsx'
 import SignUp from './sign-up/SignUp.tsx'*/
@@ -29,11 +29,18 @@ function App() {
   <BrowserRouter>
     <AuthContext value={{loggedInUserId, setLoggedInUserId}}>
       <ThemeContext value={{ theme, setTheme }}>
+        <Header />
         <Routes>
           <Route
             path="/"
             element={<DisplayCard />}
           />
+
+          <Route
+              path="/calendar"
+              element={<Calendar />}
+            />
+
 
           <Route
             path="/event/:eventId"
@@ -51,11 +58,8 @@ export default App
 
 /*
 
-<Header />
-<Route
-    path="/calendar"
-    element={<Calendar userId={1} />}
-  />
+
+
   {loggedInUserId !== null && (
       <Route
         path={`/user/:userId`}

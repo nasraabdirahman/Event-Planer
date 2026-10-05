@@ -1,20 +1,25 @@
-/*import { useState } from "react";
+import { useState } from "react";
 import { TextField, Card, CardContent, Typography } from "@mui/material";
-import { EventController } from "../../../controller/EventController";
-import { UserController } from "../../../controller/UserController";
-import type { Event } from "../../../model/Event";
+import Event from "../../../interfaces/Event";
+import User from "../../../interfaces/User";
 export default function SearchBar() {
   const [searchText, setSearchText] = useState("");
   const [results, setResults] = useState<Event[]>([]);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
-  
-  
-  const controller = new EventController();
-  const userController = new UserController();
+  const [creator, setCreator] = useState<User | null>(null);
 
-  const creator = selectedEvent
-  ? userController.getUserById(selectedEvent.userId)
-  : undefined;
+  async function loadEvent(text: string){
+    const eventResponse = await fetch(`/events/search/${text}`);
+    const results = await eventResponse.json();
+    setResults(results);
+  }
+  async function selectEvent(event: Event) {
+    setSelectedEvent(event);
+    const userResponse = await fetch(`/users/getUser/${event.userId.toString()}`);
+    const data = await userResponse.json();
+    setCreator(data);
+  }
+   
 
   return (
   <>
@@ -24,13 +29,14 @@ export default function SearchBar() {
       onChange={(event) => {
         const text = event.target.value;
         setSearchText(text);
-        setResults(controller.searchEvents(text));
+        loadEvent(text); 
       }}
     />
+   
     {results.map((event) => (
   <div 
-    key={event.eventId}
-    onClick={() => setSelectedEvent(event)}
+    key={event._id?.toString()}
+    onClick={() => selectEvent(event)}
     style={{ cursor: "pointer" }}
     >
     <h3>{event.title}</h3>
@@ -72,12 +78,12 @@ export default function SearchBar() {
           
           
       <Typography variant="body1">
-        Starts: {selectedEvent.startTimeDate.toLocaleString()}
+        Starts: {new Date(selectedEvent.startTimeDate).toLocaleString()}
       </Typography>
           
           
       <Typography variant="body1">
-        Ends: {selectedEvent.endTimeDate.toLocaleString()}
+        Ends: {new Date(selectedEvent.endTimeDate).toLocaleString()}
       </Typography>
     </CardContent>
   </Card>
@@ -85,4 +91,3 @@ export default function SearchBar() {
   </>
 );
 }
-*/
