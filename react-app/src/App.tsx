@@ -6,14 +6,14 @@ import { AuthContext} from './view/components/authContext.tsx'
 import Calendar from './view/components/calendar/calendar.tsx'
 import Header from './view/components/header/header.tsx';
 import Footer from "./view/components/footer.tsx";
-/*import SignIn from './sign-in/SignIn.tsx'
-import SignUp from './sign-up/SignUp.tsx'*/
+import SignIn from './sign-in/SignIn.tsx'
+import SignUp from './sign-up/SignUp.tsx'
 import { BrowserRouter, Routes, Route } from "react-router";
 import DisplayCard from './view/components/card/cardDisplay.tsx';
 
 function App() {
   const [theme, setTheme] = useState('Classic');
-  const [loggedInUserId, setLoggedInUserId] = useState<number | null>(null);
+  const [loggedInUserId, setLoggedInUserId] = useState<string | null>(null);
     useEffect(() => {
       document.documentElement.classList.remove(
         'theme-Classic',
@@ -37,10 +37,19 @@ function App() {
           />
 
           <Route
-              path="/calendar"
-              element={<Calendar />}
-            />
+            path="/sign-in"
+            element={<SignIn onLogin={setLoggedInUserId} />}
+          /> 
 
+          <Route
+            path="/sign-up"
+            element={<SignUp />}
+          />
+
+          <Route
+            path="/calendar"
+            element={<Calendar />}
+          />
 
           <Route
             path="/event/:eventId"
@@ -57,25 +66,10 @@ function App() {
 export default App
 
 /*
-
-
-
   {loggedInUserId !== null && (
       <Route
         path={`/user/:userId`}
         element={<ProfilePage userId={loggedInUserId} />}  
       />
    )}
-  
-
-   <Route
-            path="/sign-in"
-            element={<SignIn onLogin={setLoggedInUserId} />}
-          />
-
-          <Route
-            path="/sign-up"
-            element={<SignUp />}
-          />
-  
   */

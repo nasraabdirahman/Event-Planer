@@ -28,11 +28,12 @@ router.get("/getUser/:id", async (req, res) => {
     }
 })
 
-router.get("/getUserByLogin", async (req, res) => {
+router.get("/getUserByLogin/:email/:password", async (req, res) => {
     try {
-        const email = req.body
-        const password = req.body
-        return service.getUserByLogin(email, password);
+        const email = req.params.email;
+        const password = req.params.password;
+        const user = await service.getUserByLogin(email, password);
+        res.json(user);
     }
     catch  {
         res.status(404);

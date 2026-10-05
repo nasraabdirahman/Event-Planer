@@ -20,7 +20,7 @@ export default function DisplayCard() {
         const events = await response.json();
         loadedEvents = [events] ;
       } else if(userId){
-        if(loggedInUserId === Number(userId) ){
+        if(loggedInUserId === userId ){
           console.log("Getting USER events");
           const response = await fetch(`/events/getUserEvents/${loggedInUserId.toString()}`);
           const events = await response.json();

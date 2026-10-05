@@ -17,7 +17,8 @@ import { Link as RouterLink, useNavigate } from 'react-router';
 import ForgotPassword from './components/ForgotPassword.tsx';
 import AppTheme from '../shared-theme/AppTheme.tsx';
 import { GoogleIcon, FacebookIcon } from './components/CustomIcons.tsx';
-import { UserController } from "../controller/UserController.ts";
+import { useState } from 'react';
+
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
@@ -62,14 +63,14 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
 
 export default function SignIn(props: {
   disableCustomTheme?: boolean;
-  onLogin: (userId: number) => void;
+  onLogin: (userId: string) => void;
 }) {
-  const [emailError, setEmailError] = React.useState(false);
-  const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
-  const [passwordError, setPasswordError] = React.useState(false);
-  const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
-  const [open, setOpen] = React.useState(false);
-  const [successMessage, setSuccessMessage] = React.useState('');
+  const [emailError, setEmailError] = useState(false);
+  const [emailErrorMessage, setEmailErrorMessage] = useState('');
+  const [passwordError, setPasswordError] = useState(false);
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
+  const [open, setOpen] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
   const navigate = useNavigate();
 
   const handleClickOpen = () => {
@@ -80,7 +81,7 @@ export default function SignIn(props: {
     setOpen(false);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (!validateInputs()) {
@@ -91,14 +92,15 @@ export default function SignIn(props: {
     
     const email = data.get('email') as string;
     const password = data.get('password') as string;
+    
+    
+    const response = await fetch(`/users/getUserByLogin/${email}/${password}`);
+    const dataUser = await response.json();
 
-    const userController = new UserController();
-    const user = userController.getUserByLogin(email, password);
-
-   if (user) {
-  setSuccessMessage(`Signed in as ${user.username}`);
-  navigate(`/user/${user.userId}`);
-  props.onLogin(user.userId);
+   if (dataUser) {
+    setSuccessMessage(`Signed in as ${dataUser.username}`);
+    navigate(`/user/${dataUser._id}`);
+    props.onLogin(dataUser._id);
 } else {
       setSuccessMessage ('Wrong email or password.');
 }
