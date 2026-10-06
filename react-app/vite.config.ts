@@ -8,8 +8,7 @@ export default defineConfig({
     proxy: {
       '/events': 'http://localhost:3000',
       '/users': 'http://localhost:3000',
-      '/getEventById': 'http://localhost:3000',
-      '/getUser': 'http://localhost:3000',
+      '/follows': 'http://localhost:3000',
     }
   }
 })

@@ -1,5 +1,4 @@
-/*import { UserController } from "../../controller/UserController";
-import { FollowerController } from "../../controller/FollowerController";
+import { useParams } from "react-router";
 import {
   Box,
   Card,
@@ -7,91 +6,87 @@ import {
   Chip,
   Typography
 } from "@mui/material";
-interface ProfilePageProps {
-  userId: number;
-}
+import { useEffect, useState } from "react";
+import User from "../../interfaces/User";
 
-export default function ProfilePage({ userId }: ProfilePageProps) {
-  // Creates the user controller
-  const userController = new UserController();
 
-  // Creates the follower controller
-const followerController = new FollowerController();
+export default function ProfilePage() {
+  const { userId } = useParams();
+  const [ user, setUsers ] =  useState<User | null>(null);
 
-  // Gets the user by user ID
-const user = userController.getUserById(userId);
+  useEffect(() => {
+    
+    // Gets the follows by our user
+    async function loadUser(){
+      const userResponse = await fetch(`/users/getUser/${userId}`);
+      const user = await userResponse.json();
+      setUsers(user);
+    }
+    loadUser();
+  }, [userId]) ;
 
-// Shows a message if the user does not exist
-if (!user) {
-  return <Typography>User not found</Typography>;
-}
-
-  async function loadEvents(){
-    const response = await fetch(`/events/getAllEvents`);
-    return await response.json();
+   // Shows a message if the user does not exist
+  if(!userId) {
+    return <Typography>User not found</Typography>;
   }
-
-
-  // Gets the events the user follows
-const userFollows = followerController.getFollowsByUser(user.userId);
-
-// Gets the events that the user follows
-const followedEvents = loadEvents
-  .filter(event =>
-    userFollows.some(follow => follow.eventId === event.eventId)
-  );
+  if(!user){
+    return <Typography>Loading...</Typography>;
+  }
+   
   return (
-  <Box sx={{ maxWidth: 800, margin: "40px auto", padding: 2 }}>
-    {/* Shows the user's profile information *//*}
-    <Typography variant="h3" gutterBottom sx={{ color: "white" }}>
-      Profile
-    </Typography>
+    <Box sx={{ maxWidth: 800, margin: "40px auto", padding: 2 }}>
+      {/* Shows the user's profile information */}
+      <Typography variant="h3" gutterBottom sx={{ color: "white" }}>
+        Profile
+      </Typography>
 
-    <Card sx={{ marginBottom: 4 }}>
-      <CardContent>
-        <Typography variant="h4">
-          {user.username}
-        </Typography>
-
-        <Typography>Email: {user.email}</Typography>
-        <Typography>Age: {user.age}</Typography>
-
-        <Typography sx={{ marginTop: 2, marginBottom: 1 }}>
-          Interests
-        </Typography>
-
-        {user.interest.map((interest) => (
-          <Chip
-            key={interest}
-            label={interest}
-            sx={{ marginRight: 1 }}
-          />
-        ))}
-      </CardContent>
-    </Card>
-
-    <Typography variant="h4" gutterBottom sx={{ color: "white" }}>
-  Followed Events
-</Typography>
-
-    {/* Shows the events the user follows *//*}
-    {followedEvents.map((event) => (
-      <Card key={event.eventId} sx={{ marginBottom: 2 }}>
+      <Card sx={{ marginBottom: 4 }}>
         <CardContent>
-          <Typography variant="h5">
-            {event.title}
+          <Typography variant="h4">
+            {user.username}
           </Typography>
 
-          <Typography>
-            Location: {event.location}
+          <Typography>Email: {user.email}</Typography>
+          <Typography>Age: {user.age}</Typography>
+
+          <Typography sx={{ marginTop: 2, marginBottom: 1 }}>
+            Interests
           </Typography>
 
-          <Typography>
-            Price: {event.price} SEK
-          </Typography>
+          {user.interest.map((interest) => (
+            <Chip
+              key={interest}
+              label={interest}
+              sx={{ marginRight: 1 }}
+            />
+          ))}
         </CardContent>
       </Card>
-    ))}
-  </Box>
-);
-}*/
+
+      <Typography variant="h4" gutterBottom sx={{ color: "white" }}>
+        Followed Events
+      </Typography>
+
+      {/*
+      {event.map((event) => (
+        <Card key={event._id?.toString()} sx={{ marginBottom: 2 }}>
+          <CardContent>
+            <Typography variant="h5">
+              {event.title}
+            </Typography>
+
+            <Typography>
+              Location: {event.location}
+            </Typography>
+
+            <Typography>
+              Price: {event.price} SEK
+            </Typography>
+          </CardContent>
+        </Card>
+      ))}*/}
+    </Box>
+  );
+}
+
+{/* Shows the events the user follows */}

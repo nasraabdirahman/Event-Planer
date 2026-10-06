@@ -18,6 +18,12 @@ router.get("/getUserEvents/:id", async (req, res) => {
     res.json(result);
 })
 
+router.get("/getEventById/:id", async (req, res) => {
+    const eventId = req.params.id;
+    const result = await service.getEventById(eventId);
+    res.json(result);
+})
+
 router.get("/getAllEvents", async (_req, res) => {
     const result = await service.getAllEvents();
     res.json(result);

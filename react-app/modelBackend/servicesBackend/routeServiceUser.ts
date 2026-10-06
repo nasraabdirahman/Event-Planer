@@ -12,21 +12,19 @@ export default class RouterServiceUser{
         const userId = new ObjectId(_id);
         /*await db.collection<User>("User").find().toArray();*/
         return await db.collection<User>("User").findOne({ _id: userId }) ;
-        
     }
 
-    async getUserByLogin(email: string, password: string) 
-    {
-        return await db.collection<User>("Users").findOne({email: email, password:password});
+    async getUserByLogin(email: string, password: string){
+        return await db.collection<User>("User").findOne({email: email, password: password});
     }
     async getAllUser()
     {
-        return await db.collection<User>("Users").find().toArray();
+        return await db.collection<User>("User").find().toArray();
     }
 
     async deleteUser(_id:string)
     {
         const userId = new ObjectId(_id);
-        return await db.collection<User>("Users").deleteOne({_id: userId})
+        return await db.collection<User>("User").deleteOne({_id: userId})
     }
 }

@@ -3,7 +3,8 @@ import { useParams } from 'react-router';
 import { AuthContext } from '../authContext.tsx';
 import { useContext, useEffect, useState  } from 'react'
 import  Event  from '../../../interfaces/Event.ts';
-import User from '../../../interfaces/User.ts' 
+import User from '../../../interfaces/User.ts';
+import Follow from '../../../interfaces/Follow.ts';
 
 export default function DisplayCard() {
   const { userId, eventId } = useParams();
@@ -15,26 +16,28 @@ export default function DisplayCard() {
     async function loadEvents(){
       let loadedEvents : Event [];
       if(eventId) {
-        console.log("Getting one event");
         const response = await fetch(`/events/getEventById/${eventId}`);
         const events = await response.json();
-        loadedEvents = [events] ;
+        loadedEvents = events ;
       } else if(userId){
-        if(loggedInUserId === Number(userId) ){
-          console.log("Getting USER events");
-          const response = await fetch(`/events/getUserEvents/${loggedInUserId.toString()}`);
-          const events = await response.json();
-          loadedEvents = events;
-        } else {
-          console.log("Getting USER events");
           const response = await fetch(`/events/getUserEvents/${userId}`);
           const events = await response.json();
-          loadedEvents = events;
-        }
+          const followResponse = await fetch(`/follows/getFollowsByUser/${userId}`);
+          const follow = await followResponse.json();
+          
+          const followEvents = await Promise.all(
+            follow.map(async (follow: Follow) => {
+              const eventResponse = await fetch(`/events/getEventById/${follow.eventId.toString()}`);
+              const event =  await eventResponse.json();
+              return event[0];
+            })
+          );
+          loadedEvents = followEvents.concat(events);
+
       } else {
         const response = await fetch("/events/getAllEvents");
-        const events = await response.text();
-       loadedEvents = JSON.parse(events);
+        const events = await response.json();
+       loadedEvents = events ;
       }
       const loadUsers = await Promise.all(
         loadedEvents.map(async event => {
@@ -44,12 +47,15 @@ export default function DisplayCard() {
       );
       setUsers(loadUsers);
       setEvents(loadedEvents);
-    }
+    } 
     loadEvents();
   },[eventId, userId, loggedInUserId]) ;
   
   if(eventId){
     return <FullSizeCard events={events} />;
+  }
+  if(userId){
+    return <StandardCard events={events}  />
   }
   return <StandardCard events={events} />
 
