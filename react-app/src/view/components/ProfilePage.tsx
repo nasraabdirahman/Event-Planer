@@ -8,14 +8,11 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import User from "../../interfaces/User";
-import Event from "../../interfaces/Event";
-import Follow from "../../interfaces/Follow";
 
 
 export default function ProfilePage() {
   const { userId } = useParams();
   const [ user, setUsers ] =  useState<User | null>(null);
-  const [ event, setEvent ] =  useState<Event[]>([]);
 
   useEffect(() => {
     
