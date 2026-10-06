@@ -97,14 +97,14 @@ export default function SignIn(props: {
     const response = await fetch(`/users/getUserByLogin/${email}/${password}`);
     const dataUser = await response.json();
 
-   if (dataUser) {
-    setSuccessMessage(`Signed in as ${dataUser.username}`);
-    navigate(`/user/${dataUser._id}`);
-    props.onLogin(dataUser._id);
-} else {
+    if (dataUser) {
+      setSuccessMessage(`Signed in as ${dataUser.username}`);
+      navigate(`/user/${dataUser._id}`);
+      props.onLogin(dataUser._id);
+    } else {
       setSuccessMessage ('Wrong email or password.');
-}
     }
+  }
 
   const validateInputs = () => {
     const email = document.getElementById('email') as HTMLInputElement;

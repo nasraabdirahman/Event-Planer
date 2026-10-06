@@ -1,5 +1,5 @@
 import './App.css'
-/*import ProfilePage from "./view/components/ProfilePage";*/
+import ProfilePage from "./view/components/ProfilePage";
 import { useEffect, useState } from 'react'
 import { ThemeContext } from './view/theme/colourTheme';
 import { AuthContext} from './view/components/authContext.tsx'
@@ -52,6 +52,16 @@ function App() {
           />
 
           <Route
+            path={`/user/:userId`}
+            element={
+              <>
+                <ProfilePage />
+                <DisplayCard />
+              </>
+            }  
+          />
+
+          <Route
             path="/event/:eventId"
             element={<DisplayCard />}
           />
@@ -65,11 +75,4 @@ function App() {
 }
 export default App
 
-/*
-  {loggedInUserId !== null && (
-      <Route
-        path={`/user/:userId`}
-        element={<ProfilePage userId={loggedInUserId} />}  
-      />
-   )}
-  */
+  

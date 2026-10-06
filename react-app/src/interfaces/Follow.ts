@@ -1,7 +1,7 @@
-
-export interface Follow{
-  followId : number ;
-  eventId : string ;
-  userId : string ;
+import { ObjectId } from "mongodb";
+export default interface Follow{
+  _id? : ObjectId ;
+  eventId : ObjectId ;
+  userId : ObjectId ;
   notifications : boolean ;
 }

@@ -8,8 +8,8 @@ import Link from '@mui/material/Link'
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import './card.css'
-import { Event } from '../../../interfaces/Event';
-import { User } from '../../../model/Users'
+import  Event  from '../../../interfaces/Event';
+import  User  from '../../../interfaces/User';
 
 type SingleCardProps = {
   event: Event ;
@@ -22,7 +22,7 @@ export default function SingleCard({event, user}: SingleCardProps) {
       <Card>
         <React.Fragment>
           <CardContent>
-            <Link href={`/user/${user.userId}`} className='stack-sans-headline-text link' gutterBottom sx={{fontSize: 14 }}>
+            <Link href={`/user/${user._id}`} className='stack-sans-headline-text link' gutterBottom sx={{fontSize: 14 }}>
               {user.username}
             </Link>
             <Typography className='stack-sans-headline-text text' variant="h3" component="div">
@@ -34,7 +34,7 @@ export default function SingleCard({event, user}: SingleCardProps) {
               {event.description}</Typography>
           </CardContent>
           <CardActions>
-            <Button component={RouterLink} to={`/event/${event.eventId}`} className='stack-sans-headline-text learn-more' size="small">Learn More</Button>
+            <Button component={RouterLink} to={`/event/${event._id}`} className='stack-sans-headline-text learn-more' size="small">Learn More</Button>
           </CardActions>
         </React.Fragment>
       </Card>
