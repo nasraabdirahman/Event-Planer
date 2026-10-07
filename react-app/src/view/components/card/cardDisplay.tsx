@@ -1,4 +1,4 @@
-import SingleCard from  './card.tsx'
+import { SingleCard, FullSizeCard }from  './card.tsx'
 import { useParams } from 'react-router';
 import { AuthContext } from '../authContext.tsx';
 import { useContext, useEffect, useState  } from 'react'
@@ -51,15 +51,19 @@ export default function DisplayCard() {
     loadEvents();
   },[eventId, userId, loggedInUserId]) ;
   
+  if(events.length === 0 || users.length === 0){
+    return <p className='text'> Loading... </p>
+  }
+
   if(eventId){
-    return <FullSizeCard events={events} />;
+    return renderFullSizeCard ({events});
   }
   if(userId){
-    return <StandardCard events={events}  />
+    return standardCard ({events})
   }
-  return <StandardCard events={events} />
+  return standardCard ({events})
 
-  function StandardCard({ events }: {events: Event[]}) {
+  function standardCard({ events }: {events: Event[]}) {
     return (
       <div className='event-container'>
         <>
@@ -73,15 +77,12 @@ export default function DisplayCard() {
     );
   }
   
-  function FullSizeCard({ events }: {events: Event[]}) {
+  function renderFullSizeCard({ events }: {events: Event[]}) {
+    const event = events[0] ;
     return (  
       <div className='event-container'>
         <>
-          {events.map((event, index) => {
-            return (
-              <SingleCard key={event._id?.toString()} event={event} user={users[index]}/>
-            );
-          })}
+          <FullSizeCard key={event._id?.toString()} event={event} user={users[0]}/>
         </>
       </div>
     );

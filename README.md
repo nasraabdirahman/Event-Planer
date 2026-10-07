@@ -74,9 +74,14 @@ export default defineConfig([
 
 ```
 ### TO RUN THE APP:
+use these commands in the react-app folder:
 ```
 > npm run dev
 ```
+```
+> npm run server
+```
+And make sure that you are connected to the MongoDB cluster.
 
 ### Vitest is used for the unit Testing. Install it by using the command:
 
@@ -90,7 +95,11 @@ export default defineConfig([
 ### Endpoints
 ```
 > "/"
->"/calender"
+> "/calendar"
+> "/sign-in"
+> "/sign-up"
+> "/user/:userId"
+> "/event/:eventId"
 ```
 ### Run ESlint
 ```
