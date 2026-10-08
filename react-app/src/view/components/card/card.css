@@ -1,9 +1,11 @@
 .text {
   color: var(--high-contrast-one) !important;
+  padding-bottom: 0px !important;
 }
 
 .text-two{
   color: var(--high-contrast-two) !important;
+  padding-bottom: 2px !important;
 }
 .css-1j74uew-MuiPaper-root-MuiCard-root{
   margin: 20px !important;
@@ -12,19 +14,39 @@
   width: 100% !important;
   padding: 10px;
 }
-
 .learn-more,
 .link{
   text-decoration: none !important;
   color: var(--high-contrast-one) !important;
 }
+.comments-join{
+  color: var(--high-contrast-one) !important;
+  padding: 10px 16px !important;
+  border-radius: 17px !important;
+  font-size: 14pt !important;
+}
 
+.comments-join:hover,
 .learn-more:hover,
 .link:hover{
   color: var(--high-contrast-two) !important;
+  background-color: var(--accent-two) !important;
 }
 
 .event-container{
   width: 60%;
   margin: auto;
+}
+
+.dates{
+  margin-left: auto !important;
+  color: var(--high-contrast-one) !important;
+}
+
+.follows{
+  color: var(--high-contrast-two) !important;
+  margin-left: 15px !important; 
+}
+.card-container{
+  padding-bottom: 2px !important;
 }
