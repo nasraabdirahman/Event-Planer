@@ -8,7 +8,14 @@ const service = new RouteServiceEvent();
 
 router.post("/createEvent", async (req, res) => {
     const event = req.body as Event;
-    const result = await service.CreateEvent(event);
+    const result = await service.createEvent(event);
+    res.json(result);
+})
+
+router.post("/updateEvent/:id", async (req, res) => {
+    const event = req.body as Event;
+    const eventId = req.params.id;
+    const result = await service.updateEvent(eventId, event);
     res.json(result);
 })
 

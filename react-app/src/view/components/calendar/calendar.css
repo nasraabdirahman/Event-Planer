@@ -78,7 +78,7 @@
 }
 
 .MuiEventCalendar-eventDialogTabContent,
-.css-ucp00b-MuiEventDialog-tabContent
+.css-ucp00b-MuiEventDialog-tabContent,
 .css-io3cf4-MuiButtonBase-root-MuiIconButton-root,
 .css-zsp0bh-MuiInputBase-root-MuiOutlinedInput-root,
 .css-18p5xg2-MuiNotchedOutlined-root-MuiOutlinedInput-notchedOutline,
@@ -105,6 +105,7 @@
 .css-1ljh8g4-MuiButtonBase-root-MuiSwitchBase-root-MuiSwitch-switchBase.Mui-checked{
   color: var(--extra-colour-two) !important;
 }
+.css-113d811-MuiFormLabel-root-MuiInputLabel-root,
 .css-113d811-MuiFormLabel-root-MuiInputLabel-root.Mui-focused{
   color: var(--high-contrast-one) !important;
 }
@@ -119,4 +120,12 @@
 }
 .css-1b0cax3-MuiEventCalendar-dayTimeGridCurrentTimeIndicatorCircle{
   background-color: var(--high-contrast-two) !important;
+}
+
+.css-1f7yrne-MuiEventDialog-header,
+.css-1yehkgp-MuiPaper-root-MuiEventDialog-paper-MuiDialog-paper{
+  background-color: var(--accent-one) !important;
+  border-radius: 12px !important;
+  color: var(--high-contrast-one) !important;
+  border-color: var(--bg) !important;
 }

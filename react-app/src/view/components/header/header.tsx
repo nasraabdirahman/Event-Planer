@@ -1,6 +1,7 @@
 import ThemeButton from '../../theme/themeButton'
 import AuthNavigation from './AuthNavigation'
 import SearchBar from './SearchBar'
+import CalendarNav from './calendarNav'
 function Header() {
   return(
     <header>
@@ -9,6 +10,7 @@ function Header() {
         <SearchBar />
         <ThemeButton />
         <AuthNavigation />
+        <CalendarNav />
       </div>
     </header>
   )

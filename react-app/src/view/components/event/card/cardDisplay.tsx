@@ -1,10 +1,10 @@
 import { SingleCard, FullSizeCard }from  './card.tsx'
 import { useParams } from 'react-router';
-import { AuthContext } from '../authContext.tsx';
+import { AuthContext } from '../../authContext.tsx';
 import { useContext, useEffect, useState  } from 'react'
-import  Event  from '../../../interfaces/Event.ts';
-import User from '../../../interfaces/User.ts';
-import Follow from '../../../interfaces/Follow.ts';
+import  Event from '../../../../interfaces/Event.ts'
+import User from '../../../../interfaces/User.ts';
+import Follow from '../../../../interfaces/Follow.ts';
 
 export default function DisplayCard() {
   const { userId, eventId } = useParams();
