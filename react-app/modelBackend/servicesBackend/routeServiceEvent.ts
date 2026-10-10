@@ -6,10 +6,17 @@ export default class RouteServiceEvent {
         return await db.collection<Event>("Events").insertOne(event);
     }
 
-    async updateEvent(_id: string, event: Event) {
-        const eventId = new ObjectId(_id);
-        const { _id: id, ...eventData } = event;
-        return await db.collection<Event>("Events").updateOne({ _id: eventId }, { $set: eventData });
+    async updateEvent(eventId: string, event: Event) {
+        return await db.collection<Event>("Events").updateOne({ _id: new ObjectId(eventId) }, { $set:{
+            userId: new ObjectId(event.userId),
+            title: event.title,
+            location: event.location,
+            description: event.description,
+            price: event.price,
+            startTimeDate: new Date(event.startTimeDate),
+            endTimeDate: new Date(event.endTimeDate),
+        },
+        });
     }
 
     async getUserEvents(_id: string) {

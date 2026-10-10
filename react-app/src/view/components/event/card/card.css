@@ -19,6 +19,8 @@
   text-decoration: none !important;
   color: var(--high-contrast-one) !important;
 }
+
+.save,
 .comments-join{
   color: var(--high-contrast-one) !important;
   padding: 10px 16px !important;
@@ -26,6 +28,7 @@
   font-size: 14pt !important;
 }
 
+.save:hover,
 .comments-join:hover,
 .learn-more:hover,
 .link:hover{
