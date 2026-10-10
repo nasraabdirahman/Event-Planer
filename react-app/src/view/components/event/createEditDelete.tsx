@@ -10,6 +10,7 @@ import CardContent from '@mui/material/CardContent';
 import Link from '@mui/material/Link'
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { DateTimePicker } from '@mui/x-date-pickers';
 
 export default function AlterEvent() {
   const { eventId } = useParams();
@@ -17,10 +18,10 @@ export default function AlterEvent() {
   const [user, setUser] = useState<User | null>(null);
   useEffect(() =>{
     async function FindEvent(){
-      const eventResponse = await fetch(`/getEventById/${eventId}`);
+      const eventResponse = await fetch(`/events/getEventById/${eventId}`);
       const loadedEvent = await eventResponse.json();
-      setEvent(loadedEvent);
-      const userResponse = await fetch(`/getEventByUser/${loadedEvent.userId}`);
+      setEvent(loadedEvent[0]);
+      const userResponse = await fetch(`/users/getUser/${loadedEvent[0].userId}`);
       const loadedUser = await userResponse.json();
       setUser(loadedUser);
     }
@@ -28,8 +29,11 @@ export default function AlterEvent() {
   },[eventId]);
 
   if(!event || !user){
+    console.log(event);
+    console.log(user);
     return <h2 className="stack-sans-headline-text">Loading...</h2>
   }
+
 
   const startDate = new Date(event.startTimeDate);
   const endDate = new Date(event.endTimeDate);
@@ -56,6 +60,8 @@ export default function AlterEvent() {
     <Box sx={{ minWidth: 275 }}>
       <Card>
         <React.Fragment>
+          <DateTimePicker ampm={false} label="Start Time and Date"/>
+          <DateTimePicker ampm={false} label="End Time and Date"/>
           <CardContent className='card-container'>
             <Link href={`/user/${user._id}`} className='stack-sans-headline-text link' gutterBottom sx={{fontSize: 14 }}>
               {user.username}

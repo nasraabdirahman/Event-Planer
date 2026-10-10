@@ -3,18 +3,19 @@ import './calendar.css'
 import { useParams } from 'react-router';
 import { useEffect, useState } from 'react';
 import Event from '../../../interfaces/Event';
-import Button from '@mui/material/Button';
 import { Link as RouterLink } from 'react-router' ;
-import { Dialog, DialogTitle, DialogActions } from '@mui/material';
+import { Popover, Box, Typography, Button } from '@mui/material';
 
 function Calendar() {
   const { userId } = useParams();
   const [events, setEvents] = useState<Event[]>([]);
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [selectedEvent, setSelectedEvent] = useState<{
     _id: string;
-    title: string
+    title: string;
   }| null>(null);
   
+
   useEffect (() => {
     async function loadInfo(){
         const response = await fetch(`/events/getUserEvents/${userId}`);
@@ -55,13 +56,19 @@ function Calendar() {
             _id: eventDetails.occurrence.id.toString(),
             title: eventDetails.occurrence.title,
           });
+          setAnchorEl(eventDetails.anchor ?? null);
         }}
       />
-      <Dialog open={selectedEvent !== null} onClose={() => setSelectedEvent(null)}>
-        <DialogTitle>
-          {selectedEvent?.title}
-        </DialogTitle>
-        <DialogActions>
+      <Popover 
+        open={selectedEvent !== null && anchorEl !== null} 
+        anchorEl={anchorEl}
+        onClose={() => {setSelectedEvent(null); setAnchorEl(null);}}
+        anchorOrigin={{vertical: 'top', horizontal: 'right'}}
+        transformOrigin={{vertical: 'top', horizontal: 'left'}} >
+        <Box className='pop-up-event'>
+          <Typography variant="h4">
+            {selectedEvent?.title}
+          </Typography>
           <Button onClick={() => setSelectedEvent(null)}>
             Close
           </Button>
@@ -70,8 +77,8 @@ function Calendar() {
               Edit: {selectedEvent.title}
             </Button>
           )}
-        </DialogActions>
-      </Dialog>
+        </Box>
+      </Popover>
     </div>
     
   )

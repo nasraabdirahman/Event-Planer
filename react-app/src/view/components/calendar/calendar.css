@@ -129,3 +129,14 @@
   color: var(--high-contrast-one) !important;
   border-color: var(--bg) !important;
 }
+.pop-up-event{
+  background-color: var(--bg) !important;
+  border-radius: 12px !important;
+  color: var(--high-contrast-one) !important;
+  border: 2px solid var(--accent-one) !important;
+  padding: 10px !important;
+}
+
+.css-1dfcyzw-MuiPaper-root-MuiPopover-paper{
+  background-color: rgba(0, 0, 0, 0) !important;
+}

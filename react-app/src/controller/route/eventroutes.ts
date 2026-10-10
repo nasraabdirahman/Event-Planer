@@ -20,8 +20,8 @@ router.post("/updateEvent/:id", async (req, res) => {
 })
 
 router.get("/getUserEvents/:id", async (req, res) => {
-    const eventId = req.params.id;
-    const result = await service.getUserEvents(eventId);
+    const userId = req.params.id;
+    const result = await service.getUserEvents(userId);
     res.json(result);
 })
 
