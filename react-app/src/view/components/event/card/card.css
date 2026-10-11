@@ -20,12 +20,16 @@
   color: var(--high-contrast-one) !important;
 }
 
+.delete,
 .save,
 .comments-join{
   color: var(--high-contrast-one) !important;
   padding: 10px 16px !important;
   border-radius: 17px !important;
   font-size: 14pt !important;
+}
+.delete:hover{
+  background-color: #922235 !important;
 }
 
 .save:hover,

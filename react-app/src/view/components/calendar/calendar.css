@@ -133,7 +133,7 @@
   background-color: var(--bg) !important;
   border-radius: 12px !important;
   color: var(--high-contrast-one) !important;
-  border: 2px solid var(--accent-one) !important;
+  border: 2px solid var(--extra-colour-three) !important;
   padding: 10px !important;
 }
 

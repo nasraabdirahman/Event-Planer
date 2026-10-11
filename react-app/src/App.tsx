@@ -10,7 +10,7 @@ import SignIn from './sign-in/SignIn.tsx'
 import SignUp from './sign-up/SignUp.tsx'
 import { BrowserRouter, Routes, Route } from "react-router";
 import DisplayCard from './view/components/event/card/cardDisplay.tsx';
-import AlterEvent from './view/components/event/createEditDelete.tsx';
+import AlterEvent from './view/components/event/editDelete.tsx';
 
 function App() {
   const [theme, setTheme] = useState('Classic');
@@ -69,6 +69,10 @@ function App() {
 
           <Route
             path="/event/edit/:eventId"
+            element={<AlterEvent />}
+          />
+          <Route
+            path="/create"
             element={<AlterEvent />}
           />
         </Routes>

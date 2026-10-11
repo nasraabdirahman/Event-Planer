@@ -1,8 +1,11 @@
 import type Event from "../../src/interfaces/Event";
 import db from "../MongoDB/initDB";
 import { ObjectId } from "mongodb";
+
 export default class RouteServiceEvent {
     async createEvent(event: Event) {
+        event._id = new ObjectId();
+        event.userId = new ObjectId(event.userId);
         return await db.collection<Event>("Events").insertOne(event);
     }
 

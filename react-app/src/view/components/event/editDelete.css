@@ -72,3 +72,27 @@
   font-style: normal !important;
   border-radius: 10px !important;
 }
+
+.css-118aqum-MuiEventCalendar-timeGridEventRoot{
+  background-color: var(--extra-colour-one) !important;
+  color: var(--bg) !important;
+  --time-grid-event-column-gap: 12px;
+  --event-on-surface-subtle-primary: var(--extra-colour-two);
+}
+.css-1uoa181-MuiTypography-root-MuiEventCalendar-timeGridEventTitle{
+  font-family: "Stack Sans Headline", sans-serif !important;
+  font-weight: 600 !important;
+  font-style: normal !important;
+  color: var(--bg) !important;
+}
+
+.css-7lbzra-MuiEventCalendar-timeGridEventTime{
+  color: var(--extra-colour-three) !important;
+}
+
+.css-118aqum-MuiEventCalendar-timeGridEventRoot::before{
+  background: var(--extra-colour-three) !important;
+}
+.css-uq7k9j-MuiPaper-root-MuiDialog-paper{
+  background-color: transparent !important;
+}
