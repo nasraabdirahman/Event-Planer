@@ -59,7 +59,7 @@ export default function AlterEvent() {
     }
 
   loadData();
-  },[eventId]);
+  },[eventId, loggedInUserId, create]);
 
   async function createEvent(){
     const userId = user?._id;
@@ -95,9 +95,14 @@ export default function AlterEvent() {
   }
 
   if(!user){
-    console.log(user);
     return <h2 className="stack-sans-headline-text">Loading...</h2>
   }
+  if(create) {
+    if(user._id!.toString() !== loggedInUserId){
+      navigate(`/profilePage/${user._id}`)
+    }
+  }
+    
 
   return (
     <Box sx={{ minWidth: 275 }} className='edit-event-container' >
@@ -117,7 +122,7 @@ export default function AlterEvent() {
               </Box>
             </Box>
             <Box sx={{display:'flex', flexDirection:'column'}}> 
-              <TextField className='stack-sans-headline-text text-two' variant='standard' label='Location: ' value={location} sx={{maxWidth: 500}} onChange={(e) => setLocation(e.target.value)} />
+              <TextField className='stack-sans-headline-text text-two' variant='standard' label='Location: ' error value={location} sx={{maxWidth: 500}} onChange={(e) => setLocation(e.target.value)} />
               <TextField className='stack-sans-headline-text text-two' variant='standard' multiline label='Description: ' value={description} onChange={(e) => setDescription(e.target.value)} />
               <TextField className='stack-sans-headline-text text-two' variant='standard' label='Price:  (in kr)' value={price} sx={{maxWidth: 500}} onChange={(e) => setPrice(Number(e.target.value))} />
             </Box>
@@ -127,6 +132,7 @@ export default function AlterEvent() {
               <Button className='stack-sans-headline-text delete' size="large" onClick={() => setDeleteDialog(true)}>Delete Event</Button>
             )}
             <Button className='stack-sans-headline-text save' size="large" onClick={create ? createEvent : saveChanges}> {create ? 'Create Event' : 'Save'} </Button>
+            <Button className='stack-sans-headline-text save' size='large' onClick={() => navigate(`/event/${event?._id}`)}> Cancel </Button>
           </CardActions>
         </React.Fragment>
       </Card>

@@ -13,7 +13,7 @@ export default function CalendarNav() {
 
   return (
     <Button
-      className='my-calendar-buttun'
+      className='my-calendar-button'
       component={RouterLink}
       to={`/calendar/${loggedInUserId}`}
       variant="contained"

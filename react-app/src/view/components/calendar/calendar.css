@@ -1,6 +1,9 @@
 .event-calendar{
   padding:10px;
 }
+.my-calendar-button{
+  margin: 5px !important;
+}
 
 .css-1bjefvf-MuiEventCalendar-miniCalendarWeekdayCell,
 .css-4c8s1s-MuiEventCalendar-dayTimeGridTimeAxisText,
@@ -139,4 +142,13 @@
 
 .css-1dfcyzw-MuiPaper-root-MuiPopover-paper{
   background-color: rgba(0, 0, 0, 0) !important;
+}
+
+.css-1q5ma2z-MuiEventCalendar-headerToolbarWeekNumber{
+  font-family: "Stack Sans Headline", sans-serif !important;
+  font-weight: 600 !important;
+  font-style: normal !important;
+  background-color: var(--extra-colour-three) !important;
+  border-radius: 12px !important;
+  color: var(--accent-two) !important;
 }
