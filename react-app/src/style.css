@@ -128,3 +128,19 @@ footer p{
 .sign-in-button{
   margin: 10px !important;
 }
+
+.return-main{
+  font-size: 24pt !important;
+}
+.return-main:hover{
+  background-color: transparent !important;
+}
+
+@media (hover: hover) {
+  .css-dizc30-MuiButtonBase-root-MuiButton-root:hover {
+    --variant-containedBg: transparent !important;
+    --variant-textBg: transparent !important;
+    --variant-outlinedBorder: transparent !important;
+    --variant-outlinedBg: transparent !important;
+  }
+}
