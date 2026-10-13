@@ -41,5 +41,10 @@ router.delete("/deleteEvent/:id", async (req, res) => {
     const result = await service.deleteEventIndex(eventId);
     res.json(result + "has been deleted");
 })
+router.get("/getEventPrice/:id",async(req, res) =>{
+    const eventId = req.params.id;
+    const result = await service.getEventPrice(eventId);
+    res.json(result);
+})
 
 export default router;

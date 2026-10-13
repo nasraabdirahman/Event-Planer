@@ -35,4 +35,11 @@ export default class RouteServiceEvent {
         const eventId = new ObjectId(index)
         return await db.collection<Event>("Events").findOne({ _id: eventId })
     }
+
+    async getEventPrice(index : string)
+    {
+        const eventId = new ObjectId(index);
+        const event = await db.collection<Event>("Event").findOne({_id:eventId},{projection:{price:1, _id:0}})
+        return event?.price;
+    }
 }
