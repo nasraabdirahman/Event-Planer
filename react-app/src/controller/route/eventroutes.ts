@@ -12,7 +12,7 @@ router.post("/createEvent", async (req, res) => {
     res.json(result);
 })
 
-router.post("/updateEvent/:id", async (req, res) => {
+router.put("/updateEvent/:id", async (req, res) => {
     const event = req.body as Event;
     const eventId = req.params.id;
     const result = await service.updateEvent(eventId, event);

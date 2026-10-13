@@ -96,3 +96,13 @@
 .css-uq7k9j-MuiPaper-root-MuiDialog-paper{
   background-color: transparent !important;
 }
+.pop-up-event-delete{
+  background-color: var(--bg) !important;
+  border-radius: 12px !important;
+  color: var(--high-contrast-one) !important;
+  border: 2px solid var(--extra-colour-three) !important;
+  padding: 10px !important;
+  display: flex !important;
+  flex-direction: column  !important;
+  text-align: center !important;
+}

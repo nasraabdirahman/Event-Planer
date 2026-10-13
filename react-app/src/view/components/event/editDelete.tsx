@@ -79,7 +79,7 @@ export default function AlterEvent() {
   async function saveChanges(){
     const updatedEvent = {...event, title, location, description, price, endTimeDate, startTimeDate};
     await fetch(`/events/updateEvent/${event?._id}`, {
-      method: 'POST',
+      method: 'PUT',
       headers: {'Content-type': 'application/json',},
       body: JSON.stringify(updatedEvent),
     });
@@ -132,21 +132,23 @@ export default function AlterEvent() {
               <Button className='stack-sans-headline-text delete' size="large" onClick={() => setDeleteDialog(true)}>Delete Event</Button>
             )}
             <Button className='stack-sans-headline-text save' size="large" onClick={create ? createEvent : saveChanges}> {create ? 'Create Event' : 'Save'} </Button>
-            <Button className='stack-sans-headline-text save' size='large' onClick={() => navigate(`/event/${event?._id}`)}> Cancel </Button>
+            <Button className='stack-sans-headline-text edit' size='large' onClick={() => navigate(`/event/${event?._id}`)}> Cancel </Button>
           </CardActions>
         </React.Fragment>
       </Card>
       <Dialog open={deleteDialog}>
-        <Box className='pop-up-event'>
+        <Box className='pop-up-event-delete'>
           <Typography variant="h4">
             Are you sure you want to delete: {event?.title} ?
           </Typography>
-          <Button className='stack-sans-headline-text save' onClick={() => setDeleteDialog(false)}>
-            Close
-          </Button>
-          <Button className='stack-sans-headline-text delete' onClick={deleteEvent} >
-            Delete
-          </Button>
+          <Box>
+            <Button className='stack-sans-headline-text save' onClick={() => setDeleteDialog(false)}>
+              Close
+            </Button>
+            <Button className='stack-sans-headline-text delete' onClick={deleteEvent} >
+              Delete
+            </Button>
+          </Box>
         </Box>
       </Dialog>
     </Box>
