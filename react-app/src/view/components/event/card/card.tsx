@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link as RouterLink}  from 'react-router' ;
+import { Link as RouterLink, useNavigate}  from 'react-router' ;
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -8,8 +8,9 @@ import Link from '@mui/material/Link'
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import './card.css'
-import  Event  from '../../../interfaces/Event';
-import  User  from '../../../interfaces/User';
+import  Event  from '../../../../interfaces/Event';
+import  User  from '../../../../interfaces/User';
+import { AuthContext } from '../../authContext';
 
 type SingleCardProps = {
   event: Event ;
@@ -45,6 +46,10 @@ export function SingleCard({event, user}: SingleCardProps) {
 };
 
 export function FullSizeCard({event, user}: SingleCardProps) {
+  const navigate = useNavigate();
+  const { loggedInUserId } = React.useContext(AuthContext);
+  const canEdit = loggedInUserId === event.userId.toString() ;
+
   const startDate = new Date(event.startTimeDate);
   const endDate = new Date(event.endTimeDate);
   const formattedStartDate = startDate.toLocaleDateString('en-GB', {
@@ -100,6 +105,9 @@ export function FullSizeCard({event, user}: SingleCardProps) {
               <Button className='stack-sans-headline-text comments-join' size="large">Join</Button>
               <Typography className='stack-sans-headline-text follows' > {event.followerCount}</Typography>
             </Box>
+            {canEdit &&(
+              <Button className='stack-sans-headline-text edit' onClick={() => navigate(`/event/edit/${event._id}`)} > Edit </Button>
+            )}
           </CardActions>
         </React.Fragment>
       </Card>

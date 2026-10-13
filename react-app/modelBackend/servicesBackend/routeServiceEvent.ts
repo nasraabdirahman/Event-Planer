@@ -1,9 +1,25 @@
 import type Event from "../../src/interfaces/Event";
 import db from "../MongoDB/initDB";
 import { ObjectId } from "mongodb";
+
 export default class RouteServiceEvent {
-    async CreateEvent(event: Event) {
+    async createEvent(event: Event) {
+        event._id = new ObjectId();
+        event.userId = new ObjectId(event.userId);
         return await db.collection<Event>("Events").insertOne(event);
+    }
+
+    async updateEvent(eventId: string, event: Event) {
+        return await db.collection<Event>("Events").updateOne({ _id: new ObjectId(eventId) }, { $set:{
+            userId: new ObjectId(event.userId),
+            title: event.title,
+            location: event.location,
+            description: event.description,
+            price: event.price,
+            startTimeDate: new Date(event.startTimeDate),
+            endTimeDate: new Date(event.endTimeDate),
+        },
+        });
     }
 
     async getUserEvents(_id: string) {
