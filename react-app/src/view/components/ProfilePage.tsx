@@ -1,4 +1,6 @@
 import { useParams } from "react-router";
+import { useContext } from "react";
+import { AuthContext } from "./authContext";
 import {
   Box,
   Card,
@@ -8,11 +10,14 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import User from "../../interfaces/User";
-
+import Event from "../../interfaces/Event";
 
 export default function ProfilePage() {
   const { userId } = useParams();
+  const { loggedInUserId } = useContext(AuthContext);
+
   const [ user, setUsers ] =  useState<User | null>(null);
+  const [followedEvents, setFollowedEvents] = useState<Event[]>([]);
 
   useEffect(() => {
     
@@ -21,6 +26,19 @@ export default function ProfilePage() {
       const userResponse = await fetch(`/users/getUser/${userId}`);
       const user = await userResponse.json();
       setUsers(user);
+
+      const followResponse = await fetch(`/follows/getFollowsByUser/${userId}`);
+      const follows = await followResponse.json();
+
+      const events = await Promise.all(
+      follows.map(async (follow: { eventId: string }) => {
+      const response = await fetch(`/events/getEventById/${follow.eventId.toString()}`);
+      const event = await response.json();
+    return event[0];
+  })
+);
+
+setFollowedEvents(events);
     }
     loadUser();
   }, [userId]) ;
@@ -36,20 +54,61 @@ export default function ProfilePage() {
   return (
     <Box sx={{ maxWidth: 800, margin: "40px auto", padding: 2 }}>
       {/* Shows the user's profile information */}
-      <Typography variant="h3" gutterBottom sx={{ color: "white" }}>
-        Profile
+      <Typography
+       variant="h3"
+       gutterBottom
+       className="stack-sans-headline-text"
+       sx={{ color: "var(--high-contrast-one)"}}
+      >
+        {loggedInUserId === userId ? "My Profile" : "Profile"}
       </Typography>
 
-      <Card sx={{ marginBottom: 4 }}>
+      <Card 
+        sx={{ 
+          marginBottom: 4,
+          backgroundColor: "var(--accent-one)",
+          color: "var(--high-contrast-two)",
+          borderRadius: "20px",
+          padding: "10px",
+        }}
+      >
         <CardContent>
-          <Typography variant="h4">
+          <Typography
+           variant="h4"
+           className= "stack-sans-headline-text"
+           sx={{
+            color: "var(--high-contrast-one)",
+            marginBottom: 2,
+
+           }}
+          >
             {user.username}
           </Typography>
 
-          <Typography>Email: {user.email}</Typography>
-          <Typography>Age: {user.age}</Typography>
+          <Typography
+            className= "stack-sans-headline-text"
+            sx={{ color: "var(--high-contrast-two)" }}
+          >
+          Email: {user.email}
+          </Typography>
 
-          <Typography sx={{ marginTop: 2, marginBottom: 1 }}>
+
+          <Typography
+            className="stack-sans-headline-text"
+            sx={{ color: "var(--high-contrast-two)" }}
+          >
+            Age: {user.age}
+          </Typography>
+
+          <Typography
+            variant= "h6"
+            className="stack-sans-headline-text"
+             sx={{
+              color: "var(--high-contrast-one)",
+              marginTop: 2,
+              marginBottom: 1, 
+            }}
+          >
             Interests
           </Typography>
 
@@ -57,34 +116,56 @@ export default function ProfilePage() {
             <Chip
               key={interest}
               label={interest}
-              sx={{ marginRight: 1 }}
+              sx={{ marginRight: 1,
+                    marginBottom: 1,
+                    backgroundColor: "var(--accent-two)",
+                    color: "var(--high-contrast-two)",
+                    borderRadius: "10px",
+                    fontFamily: '"Stack Sans Headline", sans-serif',
+               }}
             />
           ))}
         </CardContent>
       </Card>
 
-      <Typography variant="h4" gutterBottom sx={{ color: "white" }}>
-        Followed Events
+      <Typography
+        variant="h4"
+        gutterBottom
+        className="stack-sans-headline-text"
+        sx={{
+         color: "var(--high-contrast-one)",
+         marginTop: 3,
+         marginBottom: 2,
+      }}
+   > 
+    Followed Events
+   </Typography>
+
+     {followedEvents.map((event) => (
+  <Card
+    key={event._id?.toString()}
+    sx={{
+      marginBottom: 2,
+      backgroundColor: "var(--accent-one)",
+      color: "var(--high-contrast-two)",
+      borderRadius: "20px",
+    }}
+  >
+    <CardContent>
+      <Typography variant="h5">
+        {event.title}
       </Typography>
 
-      {/*
-      {event.map((event) => (
-        <Card key={event._id?.toString()} sx={{ marginBottom: 2 }}>
-          <CardContent>
-            <Typography variant="h5">
-              {event.title}
-            </Typography>
+      <Typography>
+        Location: {event.location}
+      </Typography>
 
-            <Typography>
-              Location: {event.location}
-            </Typography>
-
-            <Typography>
-              Price: {event.price} SEK
-            </Typography>
-          </CardContent>
-        </Card>
-      ))}*/}
+      <Typography>
+        Price: {event.price} SEK
+      </Typography>
+    </CardContent>
+  </Card>
+))}
     </Box>
   );
 }
