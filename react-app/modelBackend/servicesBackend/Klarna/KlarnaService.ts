@@ -1,23 +1,25 @@
 import dotenv from "dotenv"
 import { KlarnaData } from "./Klarna";
 import { KlarnaOrderLine } from "./Klarna";
-import routeServiceEvent 
-dotenv.config();
 
 export default class KlarnaService
 {
-    private user = getUserEvents()
+    constructor(user,)
 
     createOrderLine() : KlarnaOrderLine
     {
-        return {
-            reference:this.
-        }
+
     } 
 
     createKlarnaObject() : KlarnaData
     {
-        const orderline = this.cre
+        const orderline = this.createOrderLine();
+        return {
+            purchase_country : "SE",
+            purchase_currency : "SEK",
+            order_amount : orderline.total_number,
+            order_lines: [orderline]
+        }
     }
 
     async openSession()

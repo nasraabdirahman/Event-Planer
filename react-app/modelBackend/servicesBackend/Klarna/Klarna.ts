@@ -2,6 +2,7 @@
 export interface KlarnaData{
     purchase_country : string;
     purchase_currency : string;
+    order_amount : number;
     order_lines : KlarnaOrderLine[];
 }
 
