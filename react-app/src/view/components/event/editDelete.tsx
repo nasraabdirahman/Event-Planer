@@ -141,7 +141,8 @@ export default function AlterEvent() {
                 {user.username}
               </Link>
               <Box sx={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
-                <TextField className='stack-sans-headline-text input-title' variant='standard' label='Title: ' value={title} sx={{fontSize: 20}} onChange={(e) => setTitle(e.target.value)} error={Boolean(error?.titleError)} helperText={error?.titleError} />
+                <TextField className='stack-sans-headline-text input-title' variant='standard' label='Title: ' value={title} sx={{fontSize: 20}} onChange={(e) => setTitle(e.target.value)} error={Boolean(error?.titleError)} 
+                helperText={error?.titleError} slotProps={{htmlInput: {maxLength: 40}}}/>
                 <Box sx={{display:'flex', flexDirection:'column', alignItems:'center'}}>
                   <LocalizationProvider dateAdapter={AdapterDateFns}>
                     <DateTimePicker ampm={false} label="Start Time and Date" value={startTimeDate} onChange={(newValue) => setStartTimeDate(newValue)} 
@@ -158,9 +159,9 @@ export default function AlterEvent() {
                 </Box>
               </Box>
               <Box sx={{display:'flex', flexDirection:'column'}}> 
-                <TextField className='stack-sans-headline-text text-two' variant='standard' label='Location: ' error={Boolean(error?.locationError)} helperText={error?.locationError} value={location} sx={{maxWidth: 500}} onChange={(e) => setLocation(e.target.value)} />
-                <TextField className='stack-sans-headline-text text-two' variant='standard' multiline label='Description: ' error={Boolean(error?.descriptionError)} helperText={error?.descriptionError} value={description} onChange={(e) => setDescription(e.target.value)} />
-                <TextField className='stack-sans-headline-text text-two' variant='standard' label='Price:  (in kr)' error={Boolean(error?.priceError)} helperText={error?.priceError} value={price} sx={{maxWidth: 500}} onChange={(e) => setPrice(Number(e.target.value))} />
+                <TextField className='stack-sans-headline-text text-two' variant='standard' label='Location: ' error={Boolean(error?.locationError)} helperText={error?.locationError} value={location} sx={{maxWidth: 500}} onChange={(e) => setLocation(e.target.value)} slotProps={{htmlInput: {maxLength: 40}}}/>
+                <TextField className='stack-sans-headline-text text-two' variant='standard' multiline label='Description: ' error={Boolean(error?.descriptionError)} helperText={error?.descriptionError} value={description} onChange={(e) => setDescription(e.target.value)} slotProps={{htmlInput: {maxLength: 200}}}/>
+                <TextField className='stack-sans-headline-text text-two' variant='standard' label='Price:  (in kr)' error={Boolean(error?.priceError)} helperText={error?.priceError} value={price} sx={{maxWidth: 500}} onChange={(e) => setPrice(Number(e.target.value))} slotProps={{htmlInput: {maxLength: 4}}}/>
               </Box>
             </CardContent>
             <CardActions>
