@@ -1,13 +1,14 @@
 :root {
   --bg : #181d2b ;
   --high-contrast-one: #c9c4fe ;
-  --high-contrast-two: #BFE7BD ;
+  --high-contrast-two: #bfe7bd ;
   --accent-one : #30305b;
-  --accent-two : #0A3323 ;
-  --extra-colour-one : #8C7DC2 ;
-  --extra-colour-two : #38904A ;
+  --accent-two : #0a3323 ;
+  --extra-colour-one : #8c7dc2 ;
+  --extra-colour-two : #38904a ;
   --extra-colour-three : #79BB77 ;
   --extra-colour-four : #C4A0F9 ;
+  --delete : #922235 ;
   padding: 0px;
   margin: 0px;
   background-color: var(--bg);
@@ -26,6 +27,7 @@
   --extra-colour-two : #A8C3D4 ;
   --extra-colour-three : #D26C86 ;
   --extra-colour-four : #BF8FCC ;
+  --delete : #922235 ;
   background-color: var(--bg);
   min-height: 100vh;
 }
@@ -40,6 +42,7 @@
   --extra-colour-two : #CAA9F3;
   --extra-colour-three : #FFAED4 ;
   --extra-colour-four : #FD92C4 ;
+  --delete : #922235 ;
   background-color: var(--bg);
   min-height: 100vh;
 }
@@ -54,6 +57,7 @@
   --extra-colour-two : #BA0AFF;
   --extra-colour-three : #C6FF33 ;
   --extra-colour-four : #FF00E2;
+  --delete : #922235 ;
   background-color: var(--bg);
   min-height: 100vh;
 }

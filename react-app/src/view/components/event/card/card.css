@@ -29,7 +29,7 @@
   font-size: 14pt !important;
 }
 .delete:hover{
-  background-color: #922235 !important;
+  background-color: var(--delete) !important;
 }
 
 .save:hover,

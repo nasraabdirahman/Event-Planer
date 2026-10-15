@@ -5,6 +5,11 @@
   width: 80% !important;
 }
 
+.full-size{
+  width: 100% !important;
+  margin-right: 5% !important
+}
+
 .input-title .MuiInputBase-input{
   font-size: 20pt !important;
 }
@@ -63,7 +68,9 @@
 .MuiInputBase-multiline::after{
   border-bottom: 2px solid var(--high-contrast-one) !important;
 }
+
 .css-1014916-MuiPickersInputBase-root-MuiPickersOutlinedInput-root,
+.css-1014916-MuiPickersInputBase-root-MuiPickersOutlinedInput-root.Mui-focused:not(.Mui-error) .MuiPickersOutlinedInput-notchedOutline,
 .css-1kz4zng-MuiPickersSectionList-root-MuiPickersInputBase-sectionsContainer-MuiPickersOutlinedInput-sectionsContainer,
 .css-1014916-MuiPickersInputBase-root-MuiPickersOutlinedInput-root.Mui-error .MuiPickersOutlinedInput-notchedOutline{
   border-color: var(--bg) !important;
@@ -105,4 +112,13 @@
   display: flex !important;
   flex-direction: column  !important;
   text-align: center !important;
+}
+
+.css-er619e-MuiFormHelperText-root.Mui-error,
+.css-18y2hez-MuiFormHelperText-root.Mui-error{
+  color: var(--delete) !important;
+}
+
+.css-er619e-MuiFormHelperText-root.Mui-error, .css-18y2hez-MuiFormHelperText-root.Mui-error{
+  margin: 5px !important;
 }
