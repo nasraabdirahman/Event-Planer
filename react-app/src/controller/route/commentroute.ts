@@ -1,4 +1,4 @@
-import { getComments } from "../../DB/commentdata";
+/*import { getComments } from "../../DB/commentdata";
 import type { Comment } from "../../interfaces/Comment";
 
 export class ModelServicesComment {
@@ -28,3 +28,4 @@ editComment(commentid: number, newCommentData: string): void {
     }
 }
 }
+*/

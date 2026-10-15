@@ -1,16 +1,84 @@
 import Button from '@mui/material/Button';
-import { useContext} from 'react';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import type { MouseEvent } from 'react';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../authContext';
-import { Link as RouterLink, useLocation } from 'react-router';
+import { Link as RouterLink, useLocation, useNavigate } from 'react-router';
+import User from '../../../interfaces/User';
+
 
 export default function AuthNavigation() {
   const { pathname } = useLocation();
-  const { loggedInUserId } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const { loggedInUserId, setLoggedInUserId } = useContext(AuthContext);
 
-  if (pathname === '/sign-in' || pathname === '/sign-up' || loggedInUserId !== null) {
-    return null;
+  const [user, setUser] = useState<User | null>(null);
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+
+  const handleMenuOpen = (event: MouseEvent<HTMLElement>) => {
+  setAnchorEl(event.currentTarget);
+};
+
+  const handleMenuClose = () => {
+  setAnchorEl(null);
+};
+
+const handleLogout = () => {
+  setLoggedInUserId(null);
+  setUser(null);
+  handleMenuClose();
+  navigate('/');
+};
+
+useEffect(() => {
+  if (loggedInUserId === null) {
+    return;
+  }
+  async function loadUser() {
+    const response = await fetch(`/users/getUser/${loggedInUserId}`);
+    const data: User = await response.json();
+    setUser(data);
   }
 
+  loadUser();
+}, [loggedInUserId]);
+
+  if (pathname === '/sign-in' || pathname === '/sign-up') {
+  return null;
+}
+
+if (loggedInUserId !== null) {
+  return (
+    <>
+      <Button
+        onClick={handleMenuOpen}
+        startIcon={<AccountCircleIcon />}
+        sx={{ color: 'var(--high-contrast-one)' }}
+      >
+        {user?.username ?? 'My profile'}
+      </Button>
+
+      <Menu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleMenuClose}
+      >
+        <MenuItem
+          component={RouterLink}
+          to={`/user/${loggedInUserId}`}
+          onClick={handleMenuClose}
+        >
+          My profile
+        </MenuItem>
+        <MenuItem onClick={handleLogout}>
+          Log out
+        </MenuItem>
+      </Menu>
+    </>
+  );
+}
   return (
     <Button
       className='sign-in-button'

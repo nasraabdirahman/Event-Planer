@@ -4,7 +4,6 @@ import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import CssBaseline from '@mui/material/CssBaseline';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import Divider from '@mui/material/Divider';
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import Link from '@mui/material/Link';
@@ -16,7 +15,6 @@ import { styled } from '@mui/material/styles';
 import { Link as RouterLink, useNavigate } from 'react-router';
 import ForgotPassword from './components/ForgotPassword.tsx';
 import AppTheme from '../shared-theme/AppTheme.tsx';
-import { GoogleIcon, FacebookIcon } from './components/CustomIcons.tsx';
 import { useState } from 'react';
 
 const Card = styled(MuiCard)(({ theme }) => ({
@@ -225,25 +223,6 @@ export default function SignIn(props: {
             >
               Forgot your password?
             </Link>
-          </Box>
-          <Divider>or</Divider>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-            <Button
-              fullWidth
-              variant="outlined"
-              onClick={() => alert('Sign in with Google')}
-              startIcon={<GoogleIcon />}
-            >
-              Sign in with Google
-            </Button>
-            <Button
-              fullWidth
-              variant="outlined"
-              onClick={() => alert('Sign in with Facebook')}
-              startIcon={<FacebookIcon />}
-            >
-              Sign in with Facebook
-            </Button>
           </Box>
         </Card>
       </SignInContainer>
