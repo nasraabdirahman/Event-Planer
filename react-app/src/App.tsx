@@ -66,6 +66,10 @@ function App() {
             path="/event/:eventId"
             element={<DisplayCard />}
           />
+          <Route
+            path="/user/archive/:userId"
+            element={<DisplayCard />}
+          />
 
           <Route
             path="/event/edit/:eventId"

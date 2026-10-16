@@ -1,12 +1,10 @@
+import { ObjectId } from "mongodb";
 
-
-
-export interface Comment {
-    commentid: number;
-    userid: string;
+export default interface Comment {
+    _id?: ObjectId;
+    userid: ObjectId;
     commentData: string;
-    eventid: string;
-    //maybe have date object instead of a string?
-    date_comment_got_posted: string;
+    eventid: ObjectId;
+    date_comment_got_posted: Date;
 }
 

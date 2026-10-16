@@ -1,6 +1,5 @@
 .css-1gtchvp-MuiPaper-root,
-.css-nos3w0-MuiButtonBase-root-MuiButton-root,
-.css-493myy-MuiButtonGroup-root {
+.css-nos3w0-MuiButtonBase-root-MuiButton-root {
   color: var(--high-contrast-one) !important;
   background-color: var(--accent-one) !important;
   border-color: var(--bg) !important;
@@ -17,4 +16,10 @@
   }
 }
 
+.css-493myy-MuiButtonGroup-root{
+  color: var(--high-contrast-one) !important;
+  background-color: var(--accent-one) !important;
+  border-color: var(--bg) !important;
+  margin: 0px 0px 0px 10px !important;
+}
 

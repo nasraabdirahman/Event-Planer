@@ -9,12 +9,13 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Link from '@mui/material/Link'
-import { Button, Typography, Dialog } from '@mui/material';
+import { Button, Typography, Dialog, FormControl } from '@mui/material';
 import { DateTimePicker } from '@mui/x-date-pickers';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { TextField } from '@mui/material';
-import { AuthContext } from '../authContext';
+import { AuthContext } from '../authContext' ;
+import { eventInputValidation, EventError } from './eventValidation';
 
 export default function AlterEvent() {
   const { eventId} = useParams();
@@ -31,6 +32,7 @@ export default function AlterEvent() {
   const [startTimeDate, setStartTimeDate] = useState<Date | null>(null);
   const [endTimeDate, setEndTimeDate] = useState<Date | null>(null);
   const [deleteDialog, setDeleteDialog] = useState(false);
+  const [error, setError] = useState<EventError | null>(null);
   const create = pathname === `/create`;
 
   useEffect(() =>{
@@ -62,8 +64,12 @@ export default function AlterEvent() {
   },[eventId, loggedInUserId, create]);
 
   async function createEvent(){
+    if(!checkForm()){
+      return;
+    }
     const userId = user?._id;
-    const updatedEvent = {...event, userId, title, location, description, followerCount, price, endTimeDate, startTimeDate};
+    const updatedEvent = {...event, userId, title, location, description, followerCount, price, endTimeDate, startTimeDate};    
+
     const response = await fetch(`/events/createEvent`, {
       method: 'POST',
       headers: {'Content-type': 'application/json',},
@@ -77,6 +83,10 @@ export default function AlterEvent() {
   }
 
   async function saveChanges(){
+    if(!checkForm()){
+      return;
+    }
+    
     const updatedEvent = {...event, title, location, description, price, endTimeDate, startTimeDate};
     await fetch(`/events/updateEvent/${event?._id}`, {
       method: 'PUT',
@@ -86,12 +96,29 @@ export default function AlterEvent() {
     navigate(`/event/${updatedEvent._id}`);
   }
 
+  
+
   async function deleteEvent(){
     await fetch(`/events/deleteEvent/${event?._id}`, {
       method: 'DELETE',
     });
     setDeleteDialog(false);
     navigate(`/user/${event?.userId}`) ;
+  }
+
+  function checkForm(): boolean {
+
+    const validationErrors = eventInputValidation({
+      title,
+      location,
+      description,
+      price,
+      startTimeDate,
+      endTimeDate,
+    });
+
+    setError(validationErrors);
+    return validationErrors.count === 0;
   }
 
   if(!user){
@@ -105,37 +132,48 @@ export default function AlterEvent() {
     
 
   return (
-    <Box sx={{ minWidth: 275 }} className='edit-event-container' >
-      <Card>
-        <React.Fragment>
-          <CardContent className='card-container'>
-            <Link href={`/user/${user._id}`} className='stack-sans-headline-text link' gutterBottom sx={{fontSize: 14 }}>
-              {user.username}
-            </Link>
-            <Box sx={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
-              <TextField className='stack-sans-headline-text input-title' variant='standard' label='Title: ' value={title} sx={{fontSize: 20}} onChange={(e) => setTitle(e.target.value)} />
-              <Box sx={{display:'flex', flexDirection:'column', alignItems:'center'}}>
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                  <DateTimePicker ampm={false} label="Start Time and Date" value={startTimeDate} onChange={(newValue) => setStartTimeDate(newValue)}/>
-                  <DateTimePicker ampm={false} label="End Time and Date"value={endTimeDate} onChange={(newValue) => setEndTimeDate(newValue)}/>
-                </LocalizationProvider>
+    <Box sx={{ minWidth: 275 }}  className='edit-event-container'>
+      <FormControl className='full-size'>
+        <Card>
+          <React.Fragment>
+            <CardContent className='card-container'>
+              <Link href={`/user/${user._id}`} className='stack-sans-headline-text link' gutterBottom sx={{fontSize: 14 }}>
+                {user.username}
+              </Link>
+              <Box sx={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+                <TextField className='stack-sans-headline-text input-title' variant='standard' label='Title: ' value={title} sx={{fontSize: 20}} onChange={(e) => setTitle(e.target.value)} error={Boolean(error?.titleError)} 
+                helperText={error?.titleError} slotProps={{htmlInput: {maxLength: 40}}}/>
+                <Box sx={{display:'flex', flexDirection:'column', alignItems:'center'}}>
+                  <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <DateTimePicker ampm={false} label="Start Time and Date" value={startTimeDate} onChange={(newValue) => setStartTimeDate(newValue)} 
+                      slotProps={{textField: {
+                        error: Boolean(error?.startTimeDateError),
+                        helperText: error?.startTimeDateError
+                      }}}/>
+                    <DateTimePicker ampm={false} label="End Time and Date" value={endTimeDate} onChange={(newValue) => setEndTimeDate(newValue)}
+                      slotProps={{textField: {
+                        error: Boolean(error?.endTimeDateError),
+                        helperText: error?.endTimeDateError
+                      }}}/>
+                  </LocalizationProvider>
+                </Box>
               </Box>
-            </Box>
-            <Box sx={{display:'flex', flexDirection:'column'}}> 
-              <TextField className='stack-sans-headline-text text-two' variant='standard' label='Location: ' error value={location} sx={{maxWidth: 500}} onChange={(e) => setLocation(e.target.value)} />
-              <TextField className='stack-sans-headline-text text-two' variant='standard' multiline label='Description: ' value={description} onChange={(e) => setDescription(e.target.value)} />
-              <TextField className='stack-sans-headline-text text-two' variant='standard' label='Price:  (in kr)' value={price} sx={{maxWidth: 500}} onChange={(e) => setPrice(Number(e.target.value))} />
-            </Box>
-          </CardContent>
-          <CardActions>
-            {!create && (
-              <Button className='stack-sans-headline-text delete' size="large" onClick={() => setDeleteDialog(true)}>Delete Event</Button>
-            )}
-            <Button className='stack-sans-headline-text save' size="large" onClick={create ? createEvent : saveChanges}> {create ? 'Create Event' : 'Save'} </Button>
-            <Button className='stack-sans-headline-text edit' size='large' onClick={() => navigate(`/event/${event?._id}`)}> Cancel </Button>
-          </CardActions>
-        </React.Fragment>
-      </Card>
+              <Box sx={{display:'flex', flexDirection:'column'}}> 
+                <TextField className='stack-sans-headline-text text-two' variant='standard' label='Location: ' error={Boolean(error?.locationError)} helperText={error?.locationError} value={location} sx={{maxWidth: 500}} onChange={(e) => setLocation(e.target.value)} slotProps={{htmlInput: {maxLength: 40}}}/>
+                <TextField className='stack-sans-headline-text text-two' variant='standard' multiline label='Description: ' error={Boolean(error?.descriptionError)} helperText={error?.descriptionError} value={description} onChange={(e) => setDescription(e.target.value)} slotProps={{htmlInput: {maxLength: 200}}}/>
+                <TextField className='stack-sans-headline-text text-two' variant='standard' label='Price:  (in kr)' error={Boolean(error?.priceError)} helperText={error?.priceError} value={price} sx={{maxWidth: 500}} onChange={(e) => setPrice(Number(e.target.value))} slotProps={{htmlInput: {maxLength: 4}}}/>
+              </Box>
+            </CardContent>
+            <CardActions>
+              {!create && (
+                <Button className='stack-sans-headline-text delete' size="large" onClick={() => setDeleteDialog(true)}>Delete Event</Button>
+              )}
+              <Button className='stack-sans-headline-text save' size="large" onClick={create ? createEvent : saveChanges}> {create ? 'Create Event' : 'Save'} </Button>
+              <Button className='stack-sans-headline-text edit' size='large' onClick={() => navigate(`/event/${event?._id}`)}> Cancel </Button>
+            </CardActions>
+          </React.Fragment>
+        </Card>
+      </FormControl>
       <Dialog open={deleteDialog}>
         <Box className='pop-up-event-delete'>
           <Typography variant="h4">

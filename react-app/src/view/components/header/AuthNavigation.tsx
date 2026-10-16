@@ -18,75 +18,83 @@ export default function AuthNavigation() {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
   const handleMenuOpen = (event: MouseEvent<HTMLElement>) => {
-  setAnchorEl(event.currentTarget);
-};
+    setAnchorEl(event.currentTarget);
+  };
 
   const handleMenuClose = () => {
-  setAnchorEl(null);
-};
+    setAnchorEl(null);
+  };
 
-const handleLogout = () => {
-  setLoggedInUserId(null);
-  setUser(null);
-  handleMenuClose();
-  navigate('/');
-};
+  const handleLogout = () => {
+    setLoggedInUserId(null);
+    setUser(null);
+    handleMenuClose();
+    navigate('/');
+  };
+  const loggedIn = loggedInUserId !== null ;
 
-useEffect(() => {
-  if (loggedInUserId === null) {
-    return;
-  }
-  async function loadUser() {
-    const response = await fetch(`/users/getUser/${loggedInUserId}`);
-    const data: User = await response.json();
-    setUser(data);
-  }
+  useEffect(() => {
+    if (!loggedIn) {
+      return;
+    }
+    async function loadUser() {
+      const response = await fetch(`/users/getUser/${loggedInUserId}`);
+      const data: User = await response.json();
+      setUser(data);
+    }
 
-  loadUser();
-}, [loggedInUserId]);
+    loadUser();
+  }, [loggedInUserId]);
 
   if (pathname === '/sign-in' || pathname === '/sign-up') {
-  return null;
-}
-
-if (loggedInUserId !== null) {
+    return null;
+  }
   return (
     <>
-      <Button
-        onClick={handleMenuOpen}
-        startIcon={<AccountCircleIcon />}
-        sx={{ color: 'var(--high-contrast-one)' }}
+      {!loggedIn && (<Button
+        className='sign-in-button'
+        component={RouterLink}
+        to="/sign-in"
+        variant="contained"
       >
-        {user?.username ?? 'My profile'}
+        Sign in
       </Button>
+      )}
+      {loggedIn && (
+        <>
+          <Button
+            onClick={handleMenuOpen}
+            startIcon={<AccountCircleIcon />}
+            sx={{ color: 'var(--high-contrast-one)' }}
+          >
+            {user?.username ?? 'My profile'}
+          </Button>
 
-      <Menu
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        onClose={handleMenuClose}
-      >
-        <MenuItem
-          component={RouterLink}
-          to={`/user/${loggedInUserId}`}
-          onClick={handleMenuClose}
-        >
-          My profile
-        </MenuItem>
-        <MenuItem onClick={handleLogout}>
-          Log out
-        </MenuItem>
-      </Menu>
+          <Menu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleMenuClose}
+          >
+            <MenuItem
+              component={RouterLink}
+              to={`/user/${loggedInUserId}`}
+              onClick={handleMenuClose}
+            >
+              My profile
+            </MenuItem>
+            <MenuItem
+              component={RouterLink}
+              to={`/user/archive/${loggedInUserId}`}
+              onClick={handleMenuClose}
+            >
+              Archive
+            </MenuItem>
+            <MenuItem onClick={handleLogout}>
+              Log out
+            </MenuItem>
+          </Menu>
+        </>  
+      )}
     </>
-  );
-}
-  return (
-    <Button
-      className='sign-in-button'
-      component={RouterLink}
-      to="/sign-in"
-      variant="contained"
-    >
-      Sign in
-    </Button>
-  );
+  )
 }
