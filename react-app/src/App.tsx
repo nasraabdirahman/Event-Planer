@@ -6,8 +6,8 @@ import { AuthContext} from './view/components/authContext.tsx'
 import Calendar from './view/components/calendar/calendar.tsx'
 import Header from './view/components/header/header.tsx';
 import Footer from "./view/components/footer.tsx";
-import SignIn from './sign-in/SignIn.tsx'
-import SignUp from './sign-up/SignUp.tsx'
+import SignIn from './view/sign-in/SignIn.tsx'
+import SignUp from './view/sign-up/SignUp.tsx'
 import { BrowserRouter, Routes, Route } from "react-router";
 import DisplayCard from './view/components/event/card/cardDisplay.tsx';
 import AlterEvent from './view/components/event/editDelete.tsx';
