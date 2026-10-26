@@ -17,7 +17,7 @@ router.get("/getAllComments/:id", async(req, res) =>{
         const result = await service.getAllComments(eventId);
         res.status(200).json(result) //success
     }
-    catch(err)
+    catch
     {
         res.status(500).json({message: "Failed to get comments"}) //Comments not found
     }
@@ -52,7 +52,7 @@ router.post("/createComment/:id", async(req,res) => {
         const result = await service.createComment(comment);
         return res.status(201).json(result);
     }
-    catch(err)
+    catch
     {
         return res.status(500).json({message: "Failed to create comment"})
     }
@@ -78,7 +78,7 @@ router.put("/editComment/:id", async(req,res)=> {
         }
         return res.status(200).json({message: "Comment updated successfully"})
     }
-    catch(err)
+    catch
     {
         return res.status(500).json({message: "Failed to update comment"})
     }
@@ -98,7 +98,7 @@ router.delete("/deleteComment/:id", async(req, res) => {
         }
         return res.status(200).json({message: "comment deleted successfully"})
     }
-    catch(err)
+    catch
     {
         return res.status(500).json({message: "Failed to delete comment"})
     } 
