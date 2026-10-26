@@ -1,5 +1,5 @@
 import { SingleCard, FullSizeCard }from  './card.tsx'
-import { useParams } from 'react-router';
+import { useParams, useLocation } from 'react-router';
 import { AuthContext } from '../../authContext.tsx';
 import { useContext, useEffect, useState  } from 'react'
 import  Event from '../../../../interfaces/Event.ts'
@@ -8,9 +8,11 @@ import Follow from '../../../../interfaces/Follow.ts';
 
 export default function DisplayCard() {
   const { userId, eventId } = useParams();
+  const { pathname } = useLocation();
   const {loggedInUserId} = useContext(AuthContext);
   const [events, setEvents] = useState<Event[]>([]);
   const [users, setUsers] = useState<User[]>([]);
+  const archive = pathname === `/user/archive/${userId}` ;
 
   useEffect(() => {
     async function loadEvents(){
@@ -19,12 +21,12 @@ export default function DisplayCard() {
         const response = await fetch(`/events/getEventById/${eventId}`);
         const events = await response.json();
         loadedEvents = events ;
-      } else if(userId){
-          const response = await fetch(`/events/getUserEvents/${userId}`);
+      } else if(userId && !archive){
+          const response = await fetch(`/events/getUserCurrentEvents/${userId}`);
           const events = await response.json();
           const followResponse = await fetch(`/follows/getFollowsByUser/${userId}`);
           const follow = await followResponse.json();
-          
+
           const followEvents = await Promise.all(
             follow.map(async (follow: Follow) => {
               const eventResponse = await fetch(`/events/getEventById/${follow.eventId.toString()}`);
@@ -32,12 +34,21 @@ export default function DisplayCard() {
               return event[0];
             })
           );
-          loadedEvents = followEvents.concat(events);
 
-      } else {
-        const response = await fetch("/events/getAllEvents");
+          const currentFollowedEvents = followEvents.filter(
+            (event) => new Date(event.endTimeDate) >= new Date()
+          );
+          loadedEvents = currentFollowedEvents.concat(events);
+
+      } else if (archive) {
+        const response = await fetch(`/events/getUserArchivedEvents/${userId}`);
         const events = await response.json();
-       loadedEvents = events ;
+        loadedEvents = events ;
+        console.log(events)
+      } else {
+        const response = await fetch("/events/getAllCurrentEvents");
+        const events = await response.json();
+        loadedEvents = events ;
       }
       const loadUsers = await Promise.all(
         loadedEvents.map(async event => {

@@ -33,9 +33,21 @@ export default class RouteServiceEvent {
         return result ;
     }
 
-   async getAllEvents() {
-        /*await db.listCollections().toArray();*/
-        return await db.collection<Event>("Events").find().toArray();
+    async getAllCurrentEvents() {
+        const today = new Date();
+        return await db.collection<Event>("Events").find({endTimeDate: {$gte: today }}).toArray();
+    }
+
+    async getUserCurrentEvents(_id: string) {
+        const userId = new ObjectId(_id);
+        const today = new Date();
+        return await db.collection<Event>("Events").find({userId: userId, endTimeDate: {$gte: today }}).toArray();
+    }
+
+    async getUserArchivedEvents(_id:string) {
+        const userId = new ObjectId(_id);
+        const today = new Date();
+        return await db.collection<Event>("Events").find({userId: userId, endTimeDate: {$lt: today }}).toArray();
     }
 
     async searchEvents(text: string) {

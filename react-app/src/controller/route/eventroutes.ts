@@ -31,8 +31,20 @@ router.get("/getEventById/:id", async (req, res) => {
     res.json(result);
 })
 
-router.get("/getAllEvents", async (_req, res) => {
-    const result = await service.getAllEvents();
+router.get("/getAllCurrentEvents", async (_req, res) => {
+    const result = await service.getAllCurrentEvents();
+    res.json(result);
+});
+
+router.get("/getUserCurrentEvents/:id", async (req, res) => {
+    const userId = req.params.id;
+    const result = await service.getUserCurrentEvents(userId);
+    res.json(result);
+});
+
+router.get("/getUserArchivedEvents/:id", async (req, res) => {
+    const userId = req.params.id;
+    const result = await service.getUserArchivedEvents(userId);
     res.json(result);
 });
 
