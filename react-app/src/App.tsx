@@ -1,8 +1,8 @@
 import './App.css'
 import ProfilePage from "./view/components/ProfilePage";
 import { useEffect, useContext } from 'react'
-import { ThemeContext } from './view/theme/colourTheme';
-import { AuthContext } from './view/components/authContext.tsx'
+import { ThemeContext } from './view/components/context.tsx';
+import { AuthContext } from './view/components/context.tsx'
 import Calendar from './view/components/calendar/calendar.tsx'
 import Header from './view/components/header/header.tsx';
 import Footer from "./view/components/footer.tsx";

@@ -1,6 +1,6 @@
 import Button from '@mui/material/Button';
 import { useContext} from 'react';
-import { AuthContext } from '../authContext';
+import { AuthContext } from '../context';
 import { Link as RouterLink, useLocation} from 'react-router';
 
 export default function CalendarNav() {

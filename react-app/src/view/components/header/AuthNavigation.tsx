@@ -4,7 +4,7 @@ import MenuItem from '@mui/material/MenuItem';
 import type { MouseEvent } from 'react';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '../authContext';
+import { AuthContext } from '../context';
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router';
 import User from '../../../interfaces/User';
 
@@ -44,7 +44,7 @@ export default function AuthNavigation() {
     }
 
     loadUser();
-  }, [loggedInUserId]);
+  }, [loggedIn, loggedInUserId]);
 
   if (pathname === '/sign-in' || pathname === '/sign-up') {
     return null;

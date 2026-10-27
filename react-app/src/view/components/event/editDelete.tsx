@@ -14,7 +14,7 @@ import { DateTimePicker } from '@mui/x-date-pickers';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { TextField } from '@mui/material';
-import { AuthContext } from '../authContext' ;
+import { AuthContext } from '../context.tsx' ;
 import { eventInputValidation, EventError } from './eventValidation';
 import CloseIcon from '@mui/icons-material/Close';
 

@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import './card.css'
 import  Event  from '../../../../interfaces/Event';
 import  User  from '../../../../interfaces/User';
-import { AuthContext } from '../../authContext';
+import { AuthContext } from '../../context';
 import Comments from '../card/comments';
 
 type SingleCardProps = {

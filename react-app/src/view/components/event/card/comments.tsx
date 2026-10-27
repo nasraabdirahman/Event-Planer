@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import type Comment from "../../../../interfaces/Comment";
 import { Button, TextField, Typography, Box } from "@mui/material";
-import { AuthContext } from "../../authContext";
+import { AuthContext } from "../../context";
 
 export default function Comments({
     eventId,
