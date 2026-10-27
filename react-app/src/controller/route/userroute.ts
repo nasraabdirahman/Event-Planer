@@ -7,12 +7,13 @@ const service = new RouterServiceUser();
 
 router.post("/createUser", async (req, res) => {
     try {
-        const userInfo = req.body as User;
-        const result = service.createUser(userInfo)
-        res.json(result);
-    }
-    catch {
-        res.status(409);
+      const userInfo = req.body as User;
+      const result = await service.createUser(userInfo)
+      res.status(201).json(result);
+    } catch {
+        res.status(500).json({
+        message:"Failed creating user"
+        });
     }
 })
 

@@ -14,7 +14,7 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
-import { Link as RouterLink } from 'react-router';
+import { Link as RouterLink,useNavigate } from 'react-router';
 import AppTheme from '../shared-theme/AppTheme.tsx';
 
 const Card = styled(MuiCard)(({ theme }) => ({
@@ -71,6 +71,8 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
   const [ageErrorMessage, setAgeErrorMessage] = React.useState('');
   const [interestError, setInterestError] = React.useState(false);
   const [interestErrorMessage, setInterestErrorMessage] = React.useState('');
+  const [submitMessage, setSubmitMessage] = React.useState('');
+  const navigate = useNavigate();
   
 
   const validateInputs = () => {
@@ -126,25 +128,38 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
       setInterestError(false);
       setInterestErrorMessage('');
     }
-
     return isValid;
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    if (userNameError || ageError|| emailError || passwordError|| interestError) {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      return;
-    }
+      if (!validateInputs()) { return ; }
     const data = new FormData(event.currentTarget);
-    console.log({
-    username: data.get('username'),
+    const user = {
+    username: data.get('username') as string,
     age: Number(data.get('age')),
-    email: data.get('email'),
-    password: data.get('password'),
-    interest: data.getAll('interest'),
-    });
+    email: data.get('email') as string,
+    password: data.get('password') as string,
+    interest: data.getAll('interest').map(String),
   };
-
+  try {
+  const response = await fetch('/users/createUser', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(user),
+    });
+    if (!response.ok) {
+    setSubmitMessage('Failed creating the account');
+    return;
+    }
+    navigate('/sign-in');
+    } catch {
+    setSubmitMessage('Failed connecting to the server');
+    }
+  };
+  
   return (
     <AppTheme {...props}>
       <CssBaseline enableColorScheme />
@@ -159,6 +174,7 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
           </Typography>
           <Box
             component="form"
+            noValidate
             onSubmit={handleSubmit}
             sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
           >
@@ -222,40 +238,41 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
               />
               </FormControl>
             
-            <FormControl error={interestError}>
+            <FormControl>
             <FormLabel>Interests</FormLabel>
             <FormGroup row>
             <FormControlLabel
-              control={<Checkbox name="interest" value="Sport" color="primary" />}
-              label="Sport"
-            />
-            <FormControlLabel
-              control={<Checkbox name="interest" value="Music" color="primary" />}
-              label="Music"
-            />
-            <FormControlLabel
-              control={<Checkbox name="interest" value="Competition" color="primary" />}
+            control={<Checkbox name="interest" value="Competition" color="primary" />}
               label="Competition"
             />
             <FormControlLabel
               control={<Checkbox name="interest" value="Gaming" color="primary" />}
               label="Gaming"
             />
-            
+            <FormControlLabel
+              control={<Checkbox name="interest" value="Music" color="primary" />}
+              label="Music"
+            />
+            <FormControlLabel
+              control={<Checkbox name="interest" value="Sport" color="primary" />}
+              label="Sport"
+            />
             </FormGroup>
-            
             {interestError && (
-              <FormHelperText>{interestErrorMessage}</FormHelperText>
-            )}
-            </FormControl>
+              <FormHelperText error >{interestErrorMessage}</FormHelperText>)}
+              </FormControl>
             <Button
               type="submit"
               fullWidth
               variant="contained"
-              onClick={validateInputs}
             >
               Sign up
             </Button>
+            {submitMessage && (
+            <Typography color="error" sx={{textAlign:'center'}}>
+            {submitMessage}
+            </Typography>
+          )}
           </Box>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
             <Typography sx={{ textAlign: 'center' }}>
