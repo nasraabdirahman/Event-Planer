@@ -1,4 +1,4 @@
-import * as React from 'react'
+import * as React from 'react' ;
 
 export const AuthContext = React.createContext<{
   loggedInUserId: string | null,
@@ -6,4 +6,12 @@ export const AuthContext = React.createContext<{
 }> ({
   loggedInUserId: null, 
   setLoggedInUserId: function() {},
+})
+
+export const ThemeContext = React.createContext<{
+  theme: string,
+  setTheme: (theme:string) => void,
+}>({
+  theme: 'Classic',
+  setTheme: function() {},
 })

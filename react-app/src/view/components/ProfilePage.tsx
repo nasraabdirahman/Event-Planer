@@ -1,6 +1,6 @@
 import { useParams } from "react-router";
 import { useContext } from "react";
-import { AuthContext } from "./authContext";
+import { AuthContext } from "./context";
 import {
   Box,
   Card,
