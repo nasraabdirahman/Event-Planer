@@ -6,6 +6,8 @@ import CssBaseline from '@mui/material/CssBaseline';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
+import FormGroup from '@mui/material/FormGroup';
+import FormHelperText from '@mui/material/FormHelperText';
 import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
@@ -35,8 +37,9 @@ const Card = styled(MuiCard)(({ theme }) => ({
 }));
 
 const SignUpContainer = styled(Stack)(({ theme }) => ({
-  height: 'calc((1 - var(--template-frame-height, 0)) * 100dvh)',
-  minHeight: '100%',
+  minHeight: '100dvh',
+  height: 'auto',
+  overflowY: 'auto',
   padding: theme.spacing(2),
   [theme.breakpoints.up('sm')]: {
     padding: theme.spacing(4),
@@ -62,19 +65,26 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
   const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
   const [passwordError, setPasswordError] = React.useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
-  const [nameError, setNameError] = React.useState(false);
-  const [nameErrorMessage, setNameErrorMessage] = React.useState('');
+  const [userNameError, setUserNameError] = React.useState(false);
+  const [userNameErrorMessage, setUserNameErrorMessage] = React.useState('');
+  const [ageError, setAgeError] = React.useState(false);
+  const [ageErrorMessage, setAgeErrorMessage] = React.useState('');
+  const [interestError, setInterestError] = React.useState(false);
+  const [interestErrorMessage, setInterestErrorMessage] = React.useState('');
+  
 
   const validateInputs = () => {
     const email = document.getElementById('email') as HTMLInputElement;
     const password = document.getElementById('password') as HTMLInputElement;
-    const name = document.getElementById('name') as HTMLInputElement;
+    const username = document.getElementById('username') as HTMLInputElement;
+    const age = document.getElementById('age') as HTMLInputElement;
+    const selectedInterest = document.querySelector('input[name="interest"]:checked') as HTMLInputElement | null;
 
     let isValid = true;
 
     if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
       setEmailError(true);
-      setEmailErrorMessage('Please enter a valid email address.');
+      setEmailErrorMessage('Please enter a valid email address');
       isValid = false;
     } else {
       setEmailError(false);
@@ -83,36 +93,55 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
 
     if (!password.value || password.value.length < 6) {
       setPasswordError(true);
-      setPasswordErrorMessage('Password must be at least 6 characters long.');
+      setPasswordErrorMessage('Password must be at least 6 characters long');
       isValid = false;
     } else {
       setPasswordError(false);
       setPasswordErrorMessage('');
     }
 
-    if (!name.value || name.value.length < 1) {
-      setNameError(true);
-      setNameErrorMessage('Name is required.');
+    if (!username.value || username.value.length < 1) {
+      setUserNameError(true);
+      setUserNameErrorMessage('UserName is required');
       isValid = false;
     } else {
-      setNameError(false);
-      setNameErrorMessage('');
+      setUserNameError(false);
+      setUserNameErrorMessage('');
+    }
+    if (!age.value || Number(age.value) < 1 || Number(age.value) >= 99) {
+      setAgeError(true);
+      setAgeErrorMessage('Enter a valid age');
+      isValid = false;
+    } else {
+      setAgeError(false);
+      setAgeErrorMessage('');
+    }
+    
+
+    if (!selectedInterest) {
+      setInterestError(true);
+      setInterestErrorMessage('Select at least one intresset');
+      isValid = false;
+    } else {
+      setInterestError(false);
+      setInterestErrorMessage('');
     }
 
     return isValid;
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    if (nameError || emailError || passwordError) {
+    if (userNameError || ageError|| emailError || passwordError|| interestError) {
       event.preventDefault();
       return;
     }
     const data = new FormData(event.currentTarget);
     console.log({
-      name: data.get('name'),
-      lastName: data.get('lastName'),
-      email: data.get('email'),
-      password: data.get('password'),
+    username: data.get('username'),
+    age: Number(data.get('age')),
+    email: data.get('email'),
+    password: data.get('password'),
+    interest: data.getAll('interest'),
     });
   };
 
@@ -134,17 +163,17 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
             sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
           >
             <FormControl>
-              <FormLabel htmlFor="name">Full name</FormLabel>
+              <FormLabel htmlFor="username">User name</FormLabel>
               <TextField
-                autoComplete="name"
-                name="name"
+                autoComplete="username"
+                name="username"
                 required
                 fullWidth
-                id="name"
-                placeholder="Jon Snow"
-                error={nameError}
-                helperText={nameErrorMessage}
-                color={nameError ? 'error' : 'primary'}
+                id="username"
+                placeholder="username"
+                error={userNameError}
+                helperText={userNameErrorMessage}
+                color={userNameError ? 'error' : 'primary'}
               />
             </FormControl>
             <FormControl>
@@ -178,10 +207,47 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
                 color={passwordError ? 'error' : 'primary'}
               />
             </FormControl>
+            <FormControl>
+            <FormLabel htmlFor="age">Age</FormLabel>
+            <TextField
+              required
+              fullWidth
+              id="age"
+              name="age"
+              type="number"
+              placeholder="23"
+              error={ageError}
+              helperText={ageErrorMessage}
+              color={ageError ? 'error' : 'primary'}
+              />
+              </FormControl>
+            
+            <FormControl error={interestError}>
+            <FormLabel>Interests</FormLabel>
+            <FormGroup row>
             <FormControlLabel
-              control={<Checkbox value="allowExtraEmails" color="primary" />}
-              label="I want to receive updates via email."
+              control={<Checkbox name="interest" value="Sport" color="primary" />}
+              label="Sport"
             />
+            <FormControlLabel
+              control={<Checkbox name="interest" value="Music" color="primary" />}
+              label="Music"
+            />
+            <FormControlLabel
+              control={<Checkbox name="interest" value="Competition" color="primary" />}
+              label="Competition"
+            />
+            <FormControlLabel
+              control={<Checkbox name="interest" value="Gaming" color="primary" />}
+              label="Gaming"
+            />
+            
+            </FormGroup>
+            
+            {interestError && (
+              <FormHelperText>{interestErrorMessage}</FormHelperText>
+            )}
+            </FormControl>
             <Button
               type="submit"
               fullWidth
