@@ -1,8 +1,8 @@
 import './App.css'
 import ProfilePage from "./view/components/ProfilePage";
-import { useEffect, useState } from 'react'
+import { useEffect, useContext } from 'react'
 import { ThemeContext } from './view/theme/colourTheme';
-import { AuthContext} from './view/components/authContext.tsx'
+import { AuthContext } from './view/components/authContext.tsx'
 import Calendar from './view/components/calendar/calendar.tsx'
 import Header from './view/components/header/header.tsx';
 import Footer from "./view/components/footer.tsx";
@@ -11,13 +11,10 @@ import SignUp from './sign-up/SignUp.tsx'
 import { BrowserRouter, Routes, Route } from "react-router";
 import DisplayCard from './view/components/event/card/cardDisplay.tsx';
 import AlterEvent from './view/components/event/editDelete.tsx';
-import Cookies from "js-cookie"
 
 function App() {
-  const [theme, setTheme] = useState('Classic');
-  const [loggedInUserId, setLoggedInUserId] = useState<string | null>(
-    () => Cookies.get('loggedInUserId') ?? null
-  );
+  const {theme} = useContext(ThemeContext);
+  const {setLoggedInUserId } = useContext(AuthContext);
     useEffect(() => {
       document.documentElement.classList.remove(
         'theme-Classic',
@@ -31,64 +28,59 @@ function App() {
 
   return (
   <BrowserRouter>
-    <AuthContext value={{loggedInUserId, setLoggedInUserId}}>
-      <ThemeContext value={{ theme, setTheme }}>
-        <Header />
-        <Routes>
-          <Route
-            path="/"
-            element={<DisplayCard />}
-          />
+    <Header />
+    <Routes>
+      <Route
+        path="/"
+        element={<DisplayCard />}
+      />
 
-          <Route
-            path="/sign-in"
-            element={<SignIn onLogin={setLoggedInUserId} />}
-          /> 
+      <Route
+        path="/sign-in"
+        element={<SignIn onLogin={setLoggedInUserId} />}
+      /> 
 
-          <Route
-            path="/sign-up"
-            element={<SignUp />}
-          />
+      <Route
+        path="/sign-up"
+        element={<SignUp />}
+      />
 
-          <Route
-            path="/calendar/:userId"
-            element={<Calendar />}
-          />
+      <Route
+        path="/calendar/:userId"
+        element={<Calendar />}
+      />
 
-          <Route
-            path={`/user/:userId`}
-            element={
-              <>
-                <ProfilePage />
-                <DisplayCard />
-              </>
-            }  
-          />
+      <Route
+        path={`/user/:userId`}
+        element={
+          <>
+            <ProfilePage />
+            <DisplayCard />
+          </>
+        }  
+      />
 
-          <Route
-            path="/event/:eventId"
-            element={<DisplayCard />}
-          />
-          <Route
-            path="/user/archive/:userId"
-            element={<DisplayCard />}
-          />
+      <Route
+        path="/event/:eventId"
+        element={<DisplayCard />}
+      />
+      <Route
+        path="/user/archive/:userId"
+        element={<DisplayCard />}
+      />
 
-          <Route
-            path="/event/edit/:eventId"
-            element={<AlterEvent />}
-          />
-          <Route
-            path="/create"
-            element={<AlterEvent />}
-          />
-        </Routes>
-
-        <Footer />
-      </ThemeContext>
-    </AuthContext>
+      <Route
+        path="/event/edit/:eventId"
+        element={<AlterEvent />}
+      />
+      <Route
+        path="/create"
+        element={<AlterEvent />}
+      />
+    </Routes>
+    <Footer />
   </BrowserRouter>
-)
+  )
 }
 export default App
 
