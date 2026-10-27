@@ -215,8 +215,7 @@ export default function Comments({
             {comments.map(comment => {
                 const commentId = comment._id?.toString();
 
-                const isOwner =
-                    loggedInUserId === comment.userid.toString();
+                const isOwner = !!loggedInUserId && loggedInUserId === comment.userid?.toString();
 
                 const isEditing = editingId === commentId;
 

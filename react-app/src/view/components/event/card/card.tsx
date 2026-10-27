@@ -12,6 +12,7 @@ import  Event  from '../../../../interfaces/Event';
 import  User  from '../../../../interfaces/User';
 import { AuthContext } from '../../context';
 import Comments from '../card/comments';
+import JoinEvent from './payment';
 
 type SingleCardProps = {
   event: Event ;
@@ -51,7 +52,6 @@ export function FullSizeCard({event, user}: SingleCardProps) {
   const { loggedInUserId } = React.useContext(AuthContext);
   const [showComments, setShowComments] = React.useState(false)
   const canEdit = loggedInUserId === event.userId.toString() ;
-
   const startDate = new Date(event.startTimeDate);
   const endDate = new Date(event.endTimeDate);
   const formattedStartDate = startDate.toLocaleDateString('en-GB', {
@@ -104,7 +104,7 @@ export function FullSizeCard({event, user}: SingleCardProps) {
           <CardActions>
             <Button className='stack-sans-headline-text comments-join' size="large" onClick={() => setShowComments(prev => !prev)}>Comments</Button>
             <Box sx={{display:'flex', flexDirection:'row', alignItems:'center'}}>
-              <Button className='stack-sans-headline-text comments-join' size="large">Join</Button>
+                <JoinEvent event={event}/>
               <Typography className='stack-sans-headline-text follows' > {event.followerCount}</Typography>
             </Box>
             {canEdit &&(

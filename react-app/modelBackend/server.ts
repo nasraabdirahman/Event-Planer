@@ -6,6 +6,7 @@ import eventRouter from "../src/controller/route/eventroutes"
 import userRouter from "../src/controller/route/userroute"
 import followRouter from "../src/controller/route/followroute"
 import commentrouter from "../src/controller/route/commentroute"
+import joinRouter from "../src/controller/route/joinroute"
 
 const app = express()
 app.use(express.json())
@@ -17,6 +18,7 @@ app.use("/users", userRouter);
 app.use("/events", eventRouter);
 app.use("/follows", followRouter);
 app.use("/Comment", commentrouter);
+app.use("/joins", joinRouter)
 
 app.listen(Port, () =>{
     console.log("Express listening on port" + Port);
