@@ -16,6 +16,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { TextField } from '@mui/material';
 import { AuthContext } from '../authContext' ;
 import { eventInputValidation, EventError } from './eventValidation';
+import CloseIcon from '@mui/icons-material/Close';
 
 export default function AlterEvent() {
   const { eventId} = useParams();
@@ -176,17 +177,15 @@ export default function AlterEvent() {
       </FormControl>
       <Dialog open={deleteDialog}>
         <Box className='pop-up-event-delete'>
-          <Typography variant="h4">
-            Are you sure you want to delete: {event?.title} ?
-          </Typography>
-          <Box>
-            <Button className='stack-sans-headline-text save' onClick={() => setDeleteDialog(false)}>
-              Close
-            </Button>
-            <Button className='stack-sans-headline-text delete' onClick={deleteEvent} >
-              Delete
-            </Button>
+          <Box className='pop-up-centered' >
+            <Typography variant="h4">
+              Delete: {event?.title} ?
+            </Typography>
+            <CloseIcon fontSize='large' sx={{padding: 1 }} onClick={() => setDeleteDialog(false)} cursor='pointer' />
           </Box>
+          <Button className='stack-sans-headline-text delete-dialog'  onClick={deleteEvent} >
+            Delete
+          </Button>
         </Box>
       </Dialog>
     </Box>
