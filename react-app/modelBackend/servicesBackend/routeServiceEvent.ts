@@ -16,6 +16,7 @@ export default class RouteServiceEvent {
             location: event.location,
             description: event.description,
             price: event.price,
+            interest: event.interest, 
             startTimeDate: new Date(event.startTimeDate),
             endTimeDate: new Date(event.endTimeDate),
         },
