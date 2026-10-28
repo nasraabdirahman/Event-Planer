@@ -36,11 +36,11 @@ export default function DisplayCard() {
           const currentFollowedEvents = followEvents.filter(
             (event) => new Date(event.endTimeDate) >= new Date()
           );
-          //loadedEvents = currentFollowedEvents.concat(events);
-          const allEvents = currentFollowedEvents.concat(events)
+          loadedEvents = currentFollowedEvents.concat(events);
+          /*const allEvents = currentFollowedEvents.concat(events)
           loadedEvents = allEvents.filter((event, index, array) => {
             return array.findIndex(item => item._id?.toString() === event._id?.toString()) === index
-          })
+          })*/
       } else if (archive) {
         const response = await fetch(`/events/getUserArchivedEvents/${userId}`);
         const events = await response.json();
