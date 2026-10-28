@@ -1,7 +1,6 @@
 import { SingleCard, FullSizeCard }from  './card.tsx'
 import { useParams, useLocation } from 'react-router';
-import { AuthContext } from '../../authContext.tsx';
-import { useContext, useEffect, useState  } from 'react'
+import { useEffect, useState  } from 'react'
 import  Event from '../../../../interfaces/Event.ts'
 import User from '../../../../interfaces/User.ts';
 import Follow from '../../../../interfaces/Follow.ts';
@@ -9,7 +8,6 @@ import Follow from '../../../../interfaces/Follow.ts';
 export default function DisplayCard() {
   const { userId, eventId } = useParams();
   const { pathname } = useLocation();
-  const {loggedInUserId} = useContext(AuthContext);
   const [events, setEvents] = useState<Event[]>([]);
   const [users, setUsers] = useState<User[]>([]);
   const archive = pathname === `/user/archive/${userId}` ;
@@ -60,7 +58,7 @@ export default function DisplayCard() {
       setEvents(loadedEvents);
     } 
     loadEvents();
-  },[eventId, userId, loggedInUserId]) ;
+  },[eventId, userId, archive]) ;
   
   if(events.length === 0 || users.length === 0){
     return <p className='text'> Loading... </p>

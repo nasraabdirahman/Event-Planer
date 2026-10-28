@@ -5,7 +5,7 @@ import User from "../../src/interfaces/User";
 export default class RouterServiceUser{
 
     async createUser(user:User){
-        return (await db.createCollection<User>("User")).insertOne(user);
+        return await db.collection<User>("User").insertOne(user);
     }
 
     async getUser(_id:string) {

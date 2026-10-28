@@ -137,11 +137,11 @@
   border-radius: 12px !important;
   color: var(--high-contrast-one) !important;
   border: 2px solid var(--extra-colour-three) !important;
-  padding: 10px !important;
+  padding: 15px !important;
 }
 
 .css-1dfcyzw-MuiPaper-root-MuiPopover-paper{
-  background-color: rgba(0, 0, 0, 0) !important;
+  border-radius: 12px !important;
 }
 
 .css-1q5ma2z-MuiEventCalendar-headerToolbarWeekNumber{
@@ -151,4 +151,19 @@
   background-color: var(--extra-colour-three) !important;
   border-radius: 12px !important;
   color: var(--accent-two) !important;
+}
+
+.pop-up-centered{
+  display: flex !important; 
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  align-items: center;
+}
+
+.edit-option2:hover{
+  color: var(--extra-colour-four) !important;
+}
+
+.edit-option2:hover{
+  color: var(--high-contrast-two) !important;
 }

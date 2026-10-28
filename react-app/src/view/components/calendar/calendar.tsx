@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import Event from '../../../interfaces/Event';
 import { Link as RouterLink } from 'react-router' ;
 import { Popover, Box, Typography, Button } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 function Calendar() {
   const { userId } = useParams();
@@ -66,15 +67,15 @@ function Calendar() {
         anchorOrigin={{vertical: 'top', horizontal: 'right'}}
         transformOrigin={{vertical: 'top', horizontal: 'left'}} >
         <Box className='pop-up-event'>
-          <Typography variant="h4">
-            {selectedEvent?.title}
-          </Typography>
-          <Button onClick={() => setSelectedEvent(null)}>
-            Close
-          </Button>
+          <Box className='pop-up-centered'>
+            <Typography variant="h4" className='stack-sans-headline-text '>
+              {selectedEvent?.title}
+            </Typography>
+            <CloseIcon fontSize='large' sx={{padding: 1 }} onClick={() => setSelectedEvent(null)} cursor='pointer' />
+          </Box>
           {selectedEvent &&(
-            <Button component={RouterLink} to={`../event/edit/${selectedEvent._id}`}>
-              Edit: {selectedEvent.title}
+            <Button className='stack-sans-headline-text edit-option2' component={RouterLink} to={`../event/edit/${selectedEvent._id}`} >
+              Edit
             </Button>
           )}
         </Box>

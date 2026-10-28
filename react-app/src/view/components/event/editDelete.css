@@ -108,7 +108,7 @@
   border-radius: 12px !important;
   color: var(--high-contrast-one) !important;
   border: 2px solid var(--extra-colour-three) !important;
-  padding: 10px !important;
+  padding: 15px !important;
   display: flex !important;
   flex-direction: column  !important;
   text-align: center !important;
@@ -121,4 +121,16 @@
 
 .css-er619e-MuiFormHelperText-root.Mui-error, .css-18y2hez-MuiFormHelperText-root.Mui-error{
   margin: 5px !important;
+}
+
+.delete-dialog{
+  color: var(--high-contrast-one) !important;
+  padding: 10px 16px !important;
+  margin: auto !important;
+  border-radius: 17px !important;
+  font-size: 14pt !important;
+}
+
+.delete-dialog:hover{
+  background-color: var(--delete) !important;
 }

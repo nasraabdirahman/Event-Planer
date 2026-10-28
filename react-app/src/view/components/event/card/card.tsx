@@ -10,7 +10,8 @@ import Typography from '@mui/material/Typography';
 import './card.css'
 import  Event  from '../../../../interfaces/Event';
 import  User  from '../../../../interfaces/User';
-import { AuthContext } from '../../authContext';
+import { AuthContext } from '../../context';
+import Comments from '../card/comments';
 
 type SingleCardProps = {
   event: Event ;
@@ -48,6 +49,7 @@ export function SingleCard({event, user}: SingleCardProps) {
 export function FullSizeCard({event, user}: SingleCardProps) {
   const navigate = useNavigate();
   const { loggedInUserId } = React.useContext(AuthContext);
+  const [showComments, setShowComments] = React.useState(false)
   const canEdit = loggedInUserId === event.userId.toString() ;
 
   const startDate = new Date(event.startTimeDate);
@@ -100,7 +102,7 @@ export function FullSizeCard({event, user}: SingleCardProps) {
               Price: {event.price} kr </Typography>
           </CardContent>
           <CardActions>
-            <Button className='stack-sans-headline-text comments-join' size="large">Comments</Button>
+            <Button className='stack-sans-headline-text comments-join' size="large" onClick={() => setShowComments(prev => !prev)}>Comments</Button>
             <Box sx={{display:'flex', flexDirection:'row', alignItems:'center'}}>
               <Button className='stack-sans-headline-text comments-join' size="large">Join</Button>
               <Typography className='stack-sans-headline-text follows' > {event.followerCount}</Typography>
@@ -110,6 +112,7 @@ export function FullSizeCard({event, user}: SingleCardProps) {
             )}
           </CardActions>
         </React.Fragment>
+          {event._id &&(<Comments eventId={event._id.toString()} showInput={showComments}/>)}
       </Card>
     </Box>
   )
