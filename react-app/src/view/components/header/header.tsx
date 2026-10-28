@@ -3,6 +3,8 @@ import AuthNavigation from './AuthNavigation'
 import SearchBar from './SearchBar'
 import { Link } from 'react-router';
 import CalendarNav from './calendarNav'
+import NotificationNav from './NotificationNav';
+
 function Header() {
   return(
     <header>
@@ -13,6 +15,7 @@ function Header() {
         <SearchBar />
         <ThemeButton />
         <CalendarNav />
+        <NotificationNav/>
         <AuthNavigation />
       </div>
     </header>
