@@ -33,7 +33,6 @@ router.get("/getEventById/:id", async (req, res) => {
 
 router.get("/getAllCurrentEvents", async (_req, res) => {
     const result = await service.getAllCurrentEvents();
-    console.log(result);
     res.json(result);
 });
 
