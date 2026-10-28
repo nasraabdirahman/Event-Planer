@@ -4,7 +4,10 @@ import Follow from "../../src/interfaces/Follow";
 
 export default class RouterServicesFollow {
   async createFollower(follow: Follow) {
-    return (await db.createCollection<Follow>("Follow")).insertOne(follow);
+    follow._id = new ObjectId();
+    follow.userId = new ObjectId(follow.userId);
+    follow.eventId = new ObjectId(follow.eventId);
+    return (await db.collection<Follow>("Follow")).insertOne(follow);
   }
 
   async getFollowsByUser(_id: string){

@@ -4,9 +4,12 @@ import { ObjectId } from "mongodb";
 
 export default class RouteServiceEvent {
     async createEvent(event: Event) {
-        event._id = new ObjectId();
-        event.userId = new ObjectId(event.userId);
-        return await db.collection<Event>("Events").insertOne(event);
+        const _id = new ObjectId();
+        const userId = new ObjectId(event.userId);
+        const newEvent = {...event, _id, userId,
+            startTimeDate: new Date(event.startTimeDate),
+            endTimeDate: new Date(event.endTimeDate),}
+        return await db.collection<Event>("Events").insertOne(newEvent) ;
     }
 
     async updateEvent(eventId: string, event: Event) {
@@ -16,6 +19,7 @@ export default class RouteServiceEvent {
             location: event.location,
             description: event.description,
             price: event.price,
+            interest: event.interest, 
             startTimeDate: new Date(event.startTimeDate),
             endTimeDate: new Date(event.endTimeDate),
         },

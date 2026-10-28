@@ -20,33 +20,32 @@ export default function DisplayCard() {
         const events = await response.json();
         loadedEvents = events ;
       } else if(userId && !archive){
-          const response = await fetch(`/events/getUserCurrentEvents/${userId}`);
-          const events = await response.json();
-          const followResponse = await fetch(`/follows/getFollowsByUser/${userId}`);
-          const follow = await followResponse.json();
+        const followResponse = await fetch(`/follows/getFollowsByUser/${userId}`);
+        const follow = await followResponse.json();
+        console.log("not main");
+        const followEvents = await Promise.all(
+          follow.map(async (follow: Follow) => {
+            const eventResponse = await fetch(`/events/getEventById/${follow.eventId.toString()}`);
+            const event =  await eventResponse.json();
+            return event[0];
+          })
+        );
 
-          const followEvents = await Promise.all(
-            follow.map(async (follow: Follow) => {
-              const eventResponse = await fetch(`/events/getEventById/${follow.eventId.toString()}`);
-              const event =  await eventResponse.json();
-              return event[0];
-            })
-          );
-
-          const currentFollowedEvents = followEvents.filter(
-            (event) => new Date(event.endTimeDate) >= new Date()
-          );
-          loadedEvents = currentFollowedEvents.concat(events);
+        const currentFollowedEvents = followEvents.filter(
+          (event) => new Date(event.endTimeDate) >= new Date()
+        );
+        loadedEvents = currentFollowedEvents ;
 
       } else if (archive) {
         const response = await fetch(`/events/getUserArchivedEvents/${userId}`);
         const events = await response.json();
         loadedEvents = events ;
-        console.log(events)
+        console.log(events) ;
       } else {
         const response = await fetch("/events/getAllCurrentEvents");
         const events = await response.json();
         loadedEvents = events ;
+        console.log("main");
       }
       const loadUsers = await Promise.all(
         loadedEvents.map(async event => {

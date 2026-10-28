@@ -5,6 +5,10 @@
   width: 80% !important;
 }
 
+.css-nwsdb5-MuiFormLabel-root{
+  color: var(--high-contrast-one) !important;
+}
+
 .full-size{
   width: 100% !important;
   margin-right: 5% !important
@@ -133,4 +137,8 @@
 
 .delete-dialog:hover{
   background-color: var(--delete) !important;
+}
+
+.css-1j74uew-MuiPaper-root-MuiCard-root{
+  color: var(--high-contrast-two) !important;
 }

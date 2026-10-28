@@ -3,6 +3,7 @@ interface EventData{
   price : number ;
   description : string ;
   title : string ;
+  interest : string[] ;
   startTimeDate : Date | null ;
   endTimeDate : Date | null ;
 }
@@ -13,6 +14,7 @@ export interface EventError{
   priceError? : string ;
   descriptionError? : string ;
   titleError? : string ;
+  interestError? : string ;
   startTimeDateError? : string ;
   endTimeDateError? : string ;
 }
@@ -45,6 +47,10 @@ export function eventInputValidation(event: EventData): EventError {
   if(!event.endTimeDate){
     errors.count++;
     errors.endTimeDateError = "End time and date are required" ;
+  }
+  if(!event.interest || event.interest.length === 0){
+    errors.count++;
+    errors.interestError = "Interest is required" ;
   }
   if(event.startTimeDate && event.endTimeDate && event.startTimeDate > event.endTimeDate){
     errors.count++;
