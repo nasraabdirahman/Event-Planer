@@ -53,13 +53,8 @@ function App() {
           />
 
           <Route
-            path={`/user/:userId`}
-            element={
-              <>
-                <ProfilePage />
-                <DisplayCard />
-              </>
-            }  
+            path="/user/:userId"
+            element={<ProfilePage />}
           />
 
           <Route
