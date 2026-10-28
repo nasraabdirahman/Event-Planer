@@ -6,7 +6,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Link from '@mui/material/Link'
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import { Typography, Chip } from '@mui/material';
 import './card.css'
 import  Event  from '../../../../interfaces/Event';
 import  User  from '../../../../interfaces/User';
@@ -28,9 +28,28 @@ export function SingleCard({event, user}: SingleCardProps) {
             <Link href={`/user/${user._id}`} className='stack-sans-headline-text link' gutterBottom sx={{fontSize: 14 }}>
               {user.username}
             </Link>
-            <Typography className='stack-sans-headline-text text' variant="h3" component="div">
-              {event.title}
-            </Typography>
+            <Box sx={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+              <Typography className='stack-sans-headline-text text' variant="h3" component="div">
+                {event.title}
+              </Typography>
+              <Box sx={{display:'flex', flexDirection:'row', alignItems:'center'}}>
+                  {event.interest.map((interest) => (
+                  <Chip
+                    key={interest}
+                    label={interest}
+                    size='medium'
+                    sx={{ marginRight: 1,
+                          marginBottom: 1,
+                          padding: 1,
+                          backgroundColor: "var(--accent-two)",
+                          color: "var(--high-contrast-two)",
+                          borderRadius: "10px",
+                          fontFamily: '"Stack Sans Headline", sans-serif',
+                    }}
+                  />
+                ))}
+              </Box>
+            </Box>
             <Typography className='stack-sans-headline-text text-two' sx={{ mb: 1.5 }}>
               {event.location} </Typography>
             <Typography className='stack-sans-headline-text text-two' >
@@ -115,6 +134,21 @@ export function FullSizeCard({event, user}: SingleCardProps) {
               {event.description}</Typography>
              <Typography className='stack-sans-headline-text text-two' >
               Price: {event.price} kr </Typography>
+              {event.interest.map((interest) => (
+                <Chip
+                  key={interest}
+                  label={interest}
+                  size='medium'
+                  sx={{ marginRight: 1,
+                        marginBottom: 1,
+                        padding: 1,
+                        backgroundColor: "var(--accent-two)",
+                        color: "var(--high-contrast-two)",
+                        borderRadius: "10px",
+                        fontFamily: '"Stack Sans Headline", sans-serif',
+                  }}
+                />
+              ))}
           </CardContent>
           <CardActions>
             <Button className='stack-sans-headline-text comments-join' size="large" onClick={() => setShowComments(prev => !prev)}>Comments</Button>

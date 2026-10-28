@@ -11,6 +11,7 @@ export default defineConfig({
       '/follows': 'http://localhost:3000',
       '/Comment': 'http://localhost:3000',
       '/joins': 'http://localhost:3000'
+      '/notifications': 'http://localhost:3000',
     }
   }
 })

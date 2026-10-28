@@ -7,6 +7,7 @@ export default interface Event{
   description : string ;
   followerCount : number ;
   title : string ;
+  interest :  ("Sport" | "Music" |"Competition" |"Gaming" |"Comedy")[];
   startTimeDate : Date ;
   endTimeDate : Date
 }
