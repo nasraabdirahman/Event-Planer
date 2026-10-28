@@ -85,7 +85,7 @@ export default function AlterEvent() {
     await fetch(`/follows/createFollow`, {
       method: 'POST',
       headers: {'Content-type': 'application/json',},
-      body: JSON.stringify(updatedEvent),
+      body: JSON.stringify({eventId: result.insertedId, userId, notifcations: true}),
     });
 
     navigate(`/event/${result.insertedId}`);
