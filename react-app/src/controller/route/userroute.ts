@@ -8,6 +8,10 @@ const service = new RouterServiceUser();
 router.post("/createUser", async (req, res) => {
     try {
       const userInfo = req.body as User;
+      const exsitingUser= await service.getExsitingUser(userInfo.email, userInfo.username);
+    if (exsitingUser){
+      return res.status(409).json({message: 'Username or Email already exist'});
+    }
       const result = await service.createUser(userInfo)
       res.status(201).json(result);
     } catch {
