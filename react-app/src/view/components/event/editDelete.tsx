@@ -138,10 +138,13 @@ export default function AlterEvent() {
     return validationErrors.count === 0;
   }
 
-  if(loading || !user){
+  if(loading){
     return <h2 className="stack-sans-headline-text loading">Loading...</h2>
   } else if (!loading && !user){
     return <h2 className="stack-sans-headline-text loading">Error Loading Event</h2>
+  }
+  if(!user){
+    return <h2 className="stack-sans-headline-text loading">Loading...</h2>
   }
 
   if(create) {
