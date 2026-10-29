@@ -76,6 +76,9 @@ export default function JoinEvent({ event, onJoined }: JoinEventProps) {
         setJoining(true);
         setJoinError("");
         try {
+            const followResponse = await fetch(`/follows/getFollowsByUserEvent/${loggedInUserId}/${eventId}`) ;
+            const follow = await followResponse.json();
+
             const response = await fetch("/joins/start", {
                 method: "POST",
                 headers: {
@@ -93,11 +96,16 @@ export default function JoinEvent({ event, onJoined }: JoinEventProps) {
             if (result.status === "payment_required" && result.redirectUrl) {
                 window.location.assign(result.redirectUrl);
             }
-            else if (result.status === "joined") 
+            else if (result.status === "joined" && follow.length == 0) 
             {
+                await fetch(`/follows/createFollow`, {
+                    method: 'POST',
+                    headers: {'Content-type': 'application/json',},
+                    body: JSON.stringify({eventId: eventId, userId:loggedInUserId, notifcations: true}),
+                });
                 await onJoined(); 
             }
-            else if (result.status === "already_joined") {
+            else if (result.status === "already_joined" || follow.length > 0) {
                 setJoinError("You have already joined this event.");
             }
             else {

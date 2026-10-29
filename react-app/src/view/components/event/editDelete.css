@@ -85,7 +85,7 @@
 }
 
 .css-118aqum-MuiEventCalendar-timeGridEventRoot{
-  background-color: var(--extra-colour-one) !important;
+  background-color: var(--extra-colour-two) !important;
   color: var(--bg) !important;
   --time-grid-event-column-gap: 12px;
   --event-on-surface-subtle-primary: var(--extra-colour-two);
