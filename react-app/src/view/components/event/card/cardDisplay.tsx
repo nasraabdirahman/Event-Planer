@@ -22,6 +22,7 @@ export default function DisplayCard() {
       } else if(userId && !archive){
         const followResponse = await fetch(`/follows/getFollowsByUser/${userId}`);
         const follow = await followResponse.json();
+
         const followEvents = await Promise.all(
           follow.map(async (follow: Follow) => {
             const eventResponse = await fetch(`/events/getEventById/${follow.eventId.toString()}`);
@@ -30,10 +31,10 @@ export default function DisplayCard() {
           })
         );
 
-        const currentFollowedEvents = followEvents.filter(
-          (event) => new Date(event.endTimeDate) >= new Date()
-        );
-        loadedEvents = currentFollowedEvents ;
+          const currentFollowedEvents = followEvents.filter(
+            (event) => new Date(event.endTimeDate) >= new Date()
+          );
+          loadedEvents = currentFollowedEvents;
 
       } else if (archive) {
         const response = await fetch(`/events/getUserArchivedEvents/${userId}`);

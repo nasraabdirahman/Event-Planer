@@ -12,6 +12,7 @@ import  Event  from '../../../../interfaces/Event';
 import  User  from '../../../../interfaces/User';
 import { AuthContext } from '../../context';
 import Comments from '../card/comments';
+import JoinEvent from './payment';
 
 type SingleCardProps = {
   event: Event ;
@@ -69,8 +70,8 @@ export function FullSizeCard({event, user}: SingleCardProps) {
   const navigate = useNavigate();
   const { loggedInUserId } = React.useContext(AuthContext);
   const [showComments, setShowComments] = React.useState(false)
+  const [followerCount, setFollowerCount] = React.useState(event.followerCount ?? 0);
   const canEdit = loggedInUserId === event.userId.toString() ;
-
   const startDate = new Date(event.startTimeDate);
   const endDate = new Date(event.endTimeDate);
   const formattedStartDate = startDate.toLocaleDateString('en-GB', {
@@ -92,6 +93,20 @@ export function FullSizeCard({event, user}: SingleCardProps) {
     minute: '2-digit',
   });
 
+  const handleJoined = React.useCallback(async () => {
+    const response = await fetch(
+        `/events/getEventById/${event._id}`
+    );
+
+    if (!response.ok) {
+        throw new Error("Could not fetch event");
+    }
+
+    const events: Event[] = await response.json();
+
+    if (events[0]) {
+        setFollowerCount(events[0].followerCount ?? 0);
+    }}, [event._id]);
   return (
     <Box sx={{ minWidth: 275 }}>
       <Card>
@@ -138,8 +153,8 @@ export function FullSizeCard({event, user}: SingleCardProps) {
           <CardActions>
             <Button className='stack-sans-headline-text comments-join' size="large" onClick={() => setShowComments(prev => !prev)}>Comments</Button>
             <Box sx={{display:'flex', flexDirection:'row', alignItems:'center'}}>
-              <Button className='stack-sans-headline-text comments-join' size="large">Join</Button>
-              <Typography className='stack-sans-headline-text follows' > {event.followerCount}</Typography>
+                <JoinEvent event={event} onJoined={handleJoined}/>
+              <Typography className='stack-sans-headline-text follows' > {followerCount}</Typography>
             </Box>
             {canEdit &&(
               <Button className='stack-sans-headline-text edit' onClick={() => navigate(`/event/edit/${event._id}`)} > Edit </Button>
