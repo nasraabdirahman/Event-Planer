@@ -24,10 +24,10 @@
 }
 
 .css-11adcq1-MuiButtonBase-root-MuiMenuItem-root.Mui-selected{
-  color: var(--extra-colour-three);
-  background-color: var(--bg);
+  color: var(--extra-colour-three) !important;
+  background-color: var(--bg) !important;
   border-radius: 5px ;
 }
 .css-1jotq08-MuiButtonGroup-root{
-  padding-left: 8px !important;
+  margin-left: 8px !important;
 }

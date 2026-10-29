@@ -15,6 +15,12 @@ export default class RouterServicesFollow {
     const follow = await db.collection<Follow>("Follow").find({ userId: userId }).toArray() ;    
     return follow;
   }
+  async getFollowsByUserEvent(userID: string, eventID: string){
+    const userId = new ObjectId(userID);
+    const eventId = new ObjectId(eventID);
+    const follow = await db.collection<Follow>("Follow").find({ userId: userId, eventId: eventId}).toArray() ;    
+    return follow;
+  }
 
    async getFollowsByEvent(_id: string){
     const eventId = new ObjectId(_id);

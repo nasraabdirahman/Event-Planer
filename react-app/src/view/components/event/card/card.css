@@ -84,3 +84,12 @@
   padding: 15px !important ;
   font-size: 1rem !important;
 }
+
+.loading{
+  display: flex ;
+  flex-direction: column;
+  justify-content: space-between ;
+  align-items: center ;
+  font-size: 20pt;
+  color: var(--high-contrast-one);
+}
