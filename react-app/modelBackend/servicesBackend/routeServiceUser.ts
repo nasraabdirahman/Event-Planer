@@ -35,4 +35,15 @@ export default class RouterServiceUser{
         const userId = new ObjectId(_id);
         return await db.collection<User>("User").deleteOne({_id: userId})
     }
+
+    async getExsitingUser(email:string, username: string){
+    return db.collection<User>('User').findOne( 
+        { $or: [
+            {email:email.trim()},{username: username.trim()}
+        ]},
+        {collation: {locale:'sv', strength:2}}
+    );
+}
+
+
 }

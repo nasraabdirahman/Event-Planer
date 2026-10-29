@@ -73,7 +73,7 @@ const closeMenu = () => {
             to={`/event/${ev._id}`}
             onClick={closeMenu}
           >
-            Reminder: {ev.title} at{' '}
+            {ev.title} at{' '}
             {new Date(ev.startTimeDate).toLocaleTimeString('sv-SE', { hour: '2-digit', minute: '2-digit',})}
           </MenuItem>
         ))
