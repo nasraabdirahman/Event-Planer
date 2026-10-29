@@ -1,7 +1,9 @@
 import type Event from "../../src/interfaces/Event";
 import db from "../MongoDB/initDB";
 import { ObjectId } from "mongodb";
-
+type EventWithJoins = Event & {
+    joinedUserIds?: ObjectId[];
+};
 export default class RouteServiceEvent {
     async createEvent(event: Event) {
         const _id = new ObjectId();
@@ -67,4 +69,19 @@ export default class RouteServiceEvent {
         const eventId = new ObjectId(index)
         return await db.collection<Event>("Events").findOne({ _id: eventId })
     }
+    async incrementFollowerCount(eventId:string, userId: string) {
+         const event = await this.getEventIndex(eventId);
+         if(!event)
+         {
+            throw new Error("Event not found")
+         }
+         //kontrollerar om användaren äger eventet
+         if(event.userId.toString() === userId)
+         {
+             throw new Error("Owner cannot join their own event");
+         }
+         const userObjectId = new ObjectId(userId);
+         return await db.collection<EventWithJoins>("Events").updateOne({_id: new ObjectId(eventId), userId: { $ne: userObjectId }, joinedUserIds: { $ne: userObjectId }},
+         {$inc: { followerCount: 1 },$addToSet: { joinedUserIds: userObjectId }});
+        }
 }

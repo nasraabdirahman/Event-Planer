@@ -6,6 +6,7 @@ import eventRouter from "../src/controller/route/eventroutes"
 import userRouter from "../src/controller/route/userroute"
 import followRouter from "../src/controller/route/followroute"
 import commentrouter from "../src/controller/route/commentroute"
+import joinRouter from "../src/controller/route/joinroute"
 import notificationRouter from '../src/controller/route/notificationroute'
 
 const app = express()
@@ -18,6 +19,7 @@ app.use("/users", userRouter);
 app.use("/events", eventRouter);
 app.use("/follows", followRouter);
 app.use("/Comment", commentrouter);
+app.use("/joins", joinRouter)
 app.use('/notifications', notificationRouter);
 
 app.listen(Port, () =>{

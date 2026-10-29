@@ -23,18 +23,24 @@ export default function DisplayCard() {
         const followResponse = await fetch(`/follows/getFollowsByUser/${userId}`);
         const follow = await followResponse.json();
         console.log("not main");
-        const followEvents = await Promise.all(
-          follow.map(async (follow: Follow) => {
-            const eventResponse = await fetch(`/events/getEventById/${follow.eventId.toString()}`);
-            const event =  await eventResponse.json();
-            return event[0];
-          })
-        );
 
-        const currentFollowedEvents = followEvents.filter(
-          (event) => new Date(event.endTimeDate) >= new Date()
-        );
-        loadedEvents = currentFollowedEvents ;
+          const followEvents = await Promise.all(
+            follow.map(async (follow: Follow) => {
+              const eventResponse = await fetch(`/events/getEventById/${follow.eventId.toString()}`);
+              const event =  await eventResponse.json();
+              return event[0];
+            })
+          );
+
+          const currentFollowedEvents = followEvents.filter(
+            (event) => new Date(event.endTimeDate) >= new Date()
+          );
+          //loadedEvents = currentFollowedEvents.concat(events);
+          loadedEvents = currentFollowedEvents;
+          /*const allEvents = currentFollowedEvents.concat(events)
+          loadedEvents = allEvents.filter((event, index, array) => {
+            return array.findIndex(item => item._id?.toString() === event._id?.toString()) === index
+          })*/
 
       } else if (archive) {
         const response = await fetch(`/events/getUserArchivedEvents/${userId}`);
