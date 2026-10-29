@@ -35,32 +35,39 @@ export default function AlterEvent() {
   const [interest, setInterest] = useState<string[]>([]); 
   const [deleteDialog, setDeleteDialog] = useState(false);
   const [error, setError] = useState<EventError | null>(null);
+  const [loading, setLoading] = useState(true) ;
   const create = pathname === `/create`;
 
   useEffect(() =>{
     async function loadData(){
-      if(create){
-        const userResponse = await fetch(`/users/getUser/${loggedInUserId}`);
+      try{
+        if(create){
+          const userResponse = await fetch(`/users/getUser/${loggedInUserId}`);
+          const loadedUser = await userResponse.json();
+          setUser(loadedUser);
+          return;
+        }
+
+        const eventResponse = await fetch(`/events/getEventById/${eventId}`);
+        const loadedEvent = await eventResponse.json();
+        const currEvent = loadedEvent[0] ;
+        setEvent(currEvent);
+        setDescription(currEvent.description);
+        setLocation(currEvent.location);
+        setPrice(currEvent.price);
+        setTitle(currEvent.title);
+        setFollowerCount(currEvent.followerCount);
+        setInterest(currEvent.interest);
+        setStartTimeDate(new Date(currEvent.startTimeDate))
+        setEndTimeDate(new Date(currEvent.endTimeDate));
+        const userResponse = await fetch(`/users/getUser/${loadedEvent[0].userId}`);
         const loadedUser = await userResponse.json();
         setUser(loadedUser);
-        return;
+      } catch {
+        throw new Error("Couldn't load event");
+      } finally {
+        setLoading(false) ;
       }
-
-      const eventResponse = await fetch(`/events/getEventById/${eventId}`);
-      const loadedEvent = await eventResponse.json();
-      const currEvent = loadedEvent[0] ;
-      setEvent(currEvent);
-      setDescription(currEvent.description);
-      setLocation(currEvent.location);
-      setPrice(currEvent.price);
-      setTitle(currEvent.title);
-      setFollowerCount(currEvent.followerCount);
-      setInterest(currEvent.interest);
-      setStartTimeDate(new Date(currEvent.startTimeDate))
-      setEndTimeDate(new Date(currEvent.endTimeDate));
-      const userResponse = await fetch(`/users/getUser/${loadedEvent[0].userId}`);
-      const loadedUser = await userResponse.json();
-      setUser(loadedUser);
     }
 
   loadData();
@@ -131,14 +138,19 @@ export default function AlterEvent() {
     return validationErrors.count === 0;
   }
 
-  if(!user){
-    return <h2 className="stack-sans-headline-text">Loading...</h2>
+  if(loading || !user){
+    return <h2 className="stack-sans-headline-text loading">Loading...</h2>
+  } else if (!loading && !user){
+    return <h2 className="stack-sans-headline-text loading">Error Loading Event</h2>
   }
+
   if(create) {
     if(user._id!.toString() !== loggedInUserId){
       navigate(`/profilePage/${user._id}`)
     }
   }
+
+ 
     
 
   return (
