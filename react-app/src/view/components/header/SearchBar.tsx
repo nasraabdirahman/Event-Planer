@@ -1,25 +1,56 @@
 import { useState } from "react";
-import { TextField, CardContent, Typography, Dialog, IconButton } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
+import { TextField } from "@mui/material";
 import Event from "../../../interfaces/Event";
-import User from "../../../interfaces/User";
+import type User from "../../../interfaces/User";
+import { useNavigate } from "react-router";
 export default function SearchBar() {
+  const navigate = useNavigate();
   const [searchText, setSearchText] = useState("");
   const [results, setResults] = useState<Event[]>([]);
-  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
-  const [creator, setCreator] = useState<User | null>(null);
+  const [userResults, setUserResults] = useState<User[]>([]);
 
-  async function loadEvent(text: string){
-    const eventResponse = await fetch(`/events/search/${text}`);
-    const results = await eventResponse.json();
-    setResults(results);
-  }
-  async function selectEvent(event: Event) {
-    setSelectedEvent(event);
+  async function loadEvent(text: string) {
+  if (text.trim() === "") {
     setResults([]);
-    const userResponse = await fetch(`/users/getUser/${event.userId.toString()}`);
-    const data = await userResponse.json();
-    setCreator(data);
+    return;
+  }
+
+  const response = await fetch(
+    `/events/search/${encodeURIComponent(text)}`
+  );
+
+  if (response.ok) {
+    const events: Event[] = await response.json();
+
+    setResults(
+      events.filter((event) =>
+        event.title.toLowerCase().includes(text.toLowerCase())
+      )
+    );
+  }
+}
+   async function loadUsers(text: string) {
+  if (text.trim() === "") {
+    setUserResults([]);
+    return;
+  }
+
+  const response = await fetch(
+    `/users/search/${encodeURIComponent(text)}`
+  );
+
+  if (response.ok) {
+    const users = await response.json();
+    setUserResults(users);
+  }
+}
+  function selectEvent(event: Event) {
+    setResults([]);
+    setSearchText("");
+
+    if (event._id) {
+      navigate(`/event/${event._id.toString()}`);
+    }
   }
    
 
@@ -45,11 +76,12 @@ export default function SearchBar() {
     },
   }}
       value={searchText}
-      onChange={(event) => {
-        const text = event.target.value;
-        setSearchText(text);
-        loadEvent(text); 
-      }}
+     onChange={(event) => {
+  const text = event.target.value;
+  setSearchText(text);
+  loadEvent(text);
+  loadUsers(text);
+}}
     />
    
   <div style={{
@@ -93,141 +125,38 @@ export default function SearchBar() {
   margin: 0,
 }}>
   {event.location}
+  
 </p>
   </div>
 ))}
-</div>
-</div>
 
-  {selectedEvent && (
-  <Dialog
-    open={Boolean(selectedEvent)}
-    onClose={() => setSelectedEvent(null)}
-    maxWidth="sm"
-    fullWidth
-    slotProps={{
-      paper: {
-        sx: {
-          backgroundColor: "var(--accent-one)",
-          color: "var(--high-contrast-two)",
-          borderRadius: "20px",
-          padding: "10px",
+{userResults.map((user) => (
+  <div
+    key={user._id?.toString()}
+    onClick={() => {
+      setSearchText("");
+      setResults([]);
+      setUserResults([]);
 
-        },
-      },
+      if (user._id) {
+        navigate(`/user/${user._id.toString()}`);
+      }
+    }}
+    style={{
+      cursor: "pointer",
+      padding: "10px 16px",
+      backgroundColor: "var(--accent-one)",
+      color: "var(--high-contrast-one)",
     }}
   >
-    <CardContent>
-      <Typography
-        variant="h5"
-        className="stack-sans-headline-text"
-        sx={{
-          color: "var(--high-contrast-one)",
-          marginBottom: 2,
-        }} 
-      >
-        {selectedEvent.title}
-      </Typography>
-          
-          
-      <Typography
-       variant="body1"
-       className="stack-sans-headline-text"
-       sx={{
-         color: "var(--high-contrast-two)",
-         marginBottom: 2,
-       }}
-    >
+    <h3>{user.username}</h3>
+    <p>User</p>
+  </div>
+))}
 
-        {selectedEvent.description}
-      </Typography>
-          
-          
-      <Typography
-       variant="body1"
-       className="stack-sans-headline-text"
-       sx={{
-         color: "var(--high-contrast-two)",
-         marginBottom: 1,
-      }}
-    >
-        Location: {selectedEvent.location}
-      </Typography>
-          
-          
-      <Typography
-       variant="body1"
-       className="stack-sans-headline-text"
-       sx={{
-        color: "var(--high-contrast-two)",
-        marginBottom: 1,
-      }}
-    >
-        Created by: {creator?.username}
-      </Typography>
-          
-          
-      <Typography
-       variant="body1"
-       className="stack-sans-headline-text"
-       sx={{
-        color: "var(--high-contrast-two)",
-        marginBottom: 1,
-      }}
-    >
-        Price: {selectedEvent.price} kr
-      </Typography>
-          
-          
-      <Typography
-       variant="body1"
-       className="stack-sans-headline-text"
-       sx={{
-         color: "var(--high-contrast-two)",
-         marginBottom: 1,
-       }}
-    >
-        Followers: {selectedEvent.followerCount}
-      </Typography>
-          
-          
-      <Typography
-       variant="body1"
-       className="stack-sans-headline-text"
-       sx={{
-         color: "var(--high-contrast-two)",
-         marginBottom: 1,
-       }}
-    >
-        Starts: {new Date(selectedEvent.startTimeDate).toLocaleString()}
-      </Typography>
-          
-          
-      <Typography
-       variant="body1"
-       className="stack-sans-headline-text"
-       sx={{
-         color: "var(--high-contrast-two)",
-         marginBottom: 1,
-      }}
-  >
-        Ends: {new Date(selectedEvent.endTimeDate).toLocaleString()}
-      </Typography>
-      <IconButton
-  onClick={() => setSelectedEvent(null)}
-  aria-label="Close event details"
-  sx={{
-    position: "absolute",
-    top: 12,
-    right: 12,
-    color: "var(--high-contrast-one)",
-  }}
->
-  <CloseIcon />
-</IconButton>
-    </CardContent>
-  </Dialog>
-  )}
-  </>
+</div>
+</div>
+</>
 );
 }
+

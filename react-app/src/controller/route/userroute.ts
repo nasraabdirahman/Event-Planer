@@ -17,6 +17,16 @@ router.post("/createUser", async (req, res) => {
     }
 })
 
+router.get("/search/:text", async (req, res) => {
+    try {
+        const results = await service.searchUsers(req.params.text);
+        res.json(results);
+    } catch {
+        res.status(500).json({
+            message: "Failed searching users"
+        });
+    }
+});
 router.get("/getUser/:id", async (req, res) => {
     try {
         const userId = req.params.id
