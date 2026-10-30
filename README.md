@@ -105,6 +105,7 @@ And make sure that you are connected to the MongoDB cluster.
 ```
 >npx eslint .
 ```
+### Provide klarna credentials to join events that require money
 
 > ## Participants
 |Name|Github Handle|
