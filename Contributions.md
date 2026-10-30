@@ -35,9 +35,27 @@
 - Interest and age (week 44)
 
 ### Isabella
-- add eventSearch functionality (week 39)
-- add commentService methods (week 40)
-- Add profile page with followed events (week 40)
-- frontend search (week 40)
-- improved profile page and navigation (week 42)
-- Add event and user search functinality (week 44)
+- Worked on CommentsController.ts.
+- Implemented functionality to create, delete, and edit comments.
+- Worked on ServicesComment.ts and comment handling.
+- Implemented event search functionality in ServicesEvent.ts.
+- Added searchEvents() to EventController.ts.
+- Created SearchBar.tsx using React and Material UI.
+- Implemented case-insensitive event searching by title.
+- Extended the search functionality to include users.
+- Worked on frontend and backend integration for user search.
+- Updated search-related API routes and services.
+- Worked on UserController.ts and user management functions.
+- Worked on EventController.ts and event management functions.
+- Worked on the profile page in ProfilePage.tsx.
+- Worked on displaying user information and interests.
+- Fixed duplicate followed event cards on the profile page.
+- Updated App.tsx to reuse the existing DisplayCard component.
+- Tested API requests between frontend and backend.
+- Debugged React, TypeScript, and Material UI errors.
+- Ran ESLint to check code quality.
+- Ran unit tests using Vitest.
+- Worked with Git branches, commits, and Pull Requests.
+- Resolved merge conflicts with main.
+- Addressed feedback from team members.
+- Updated and pushed changes to GitHub.
