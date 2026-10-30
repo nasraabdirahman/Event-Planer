@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import User from "../../interfaces/User";
-import Event from "../../interfaces/Event";
+
 
 export default function ProfilePage() {
   const { userId } = useParams();
@@ -19,7 +19,7 @@ export default function ProfilePage() {
   const navigate = useNavigate();
 
   const [ user, setUsers ] =  useState<User | null>(null);
-  const [followedEvents, setFollowedEvents] = useState<Event[]>([]);
+  
 
   useEffect(() => {
     
@@ -29,18 +29,7 @@ export default function ProfilePage() {
       const user = await userResponse.json();
       setUsers(user);
 
-      const followResponse = await fetch(`/follows/getFollowsByUser/${userId}`);
-      const follows = await followResponse.json();
-
-      const events = await Promise.all(
-      follows.map(async (follow: { eventId: string }) => {
-      const response = await fetch(`/events/getEventById/${follow.eventId.toString()}`);
-      const event = await response.json();
-    return event[0];
-  })
-);
-
-setFollowedEvents(events);
+      
     }
     loadUser();
   }, [userId]) ;
@@ -147,31 +136,7 @@ setFollowedEvents(events);
     Followed Events
    </Typography>
 
-     {followedEvents.map((event) => (
-  <Card
-    key={event._id?.toString()}
-    sx={{
-      marginBottom: 2,
-      backgroundColor: "var(--accent-one)",
-      color: "var(--high-contrast-two)",
-      borderRadius: "20px",
-    }}
-  >
-    <CardContent>
-      <Typography variant="h5">
-        {event.title}
-      </Typography>
-
-      <Typography>
-        Location: {event.location}
-      </Typography>
-
-      <Typography>
-        Price: {event.price} SEK
-      </Typography>
-    </CardContent>
-  </Card>
-))}
+    
     </Box>
   );
 }
