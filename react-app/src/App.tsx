@@ -50,10 +50,15 @@ function App() {
         element={<Calendar />}
       />
 
-          <Route
-            path="/user/:userId"
-            element={<ProfilePage />}
-          />
+        <Route
+          path="/user/:userId"
+          element={
+        <>
+      <ProfilePage />
+      <DisplayCard />
+    </>
+  }
+/>
 
       <Route
         path="/event/:eventId"

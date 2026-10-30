@@ -60,9 +60,9 @@ export default function DisplayCard() {
     loadEvents();
   },[eventId, userId, archive]) ;
   
-  if(events.length === 0 || users.length === 0){
-    return <p className='text'> Loading... </p>
-  }
+ if (events.length === 0 || users.length === 0) {
+  return <p className="text">No current events to display.</p>;
+}
 
   if(eventId){
     return renderFullSizeCard ({events});
