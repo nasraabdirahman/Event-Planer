@@ -64,14 +64,12 @@ export default function DisplayCard() {
     loadEvents();
   },[eventId, userId, archive]) ;
   
- 
-if (loading) {
-  return <h3 className="stack-sans-headline-text loading">Loading...</h3>;
-}
+  if(loading){
+    return <h3 className='stack-sans-headline-text loading'> Loading... </h3>
+  } else if(!loading && events.length == 0){
+    return <h3 className='stack-sans-headline-text loading'> No Events Found </h3>
+  }
 
-if (events.length === 0) {
-  return <h3 className="stack-sans-headline-text loading">No Events Found</h3>;
-}
   if(eventId){
     return renderFullSizeCard ({events});
   }
