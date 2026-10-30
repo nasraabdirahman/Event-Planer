@@ -1,12 +1,17 @@
 import type Event from "../../src/interfaces/Event";
 import db from "../MongoDB/initDB";
 import { ObjectId } from "mongodb";
-
+type EventWithJoins = Event & {
+    joinedUserIds?: ObjectId[];
+};
 export default class RouteServiceEvent {
     async createEvent(event: Event) {
-        event._id = new ObjectId();
-        event.userId = new ObjectId(event.userId);
-        return await db.collection<Event>("Events").insertOne(event);
+        const _id = new ObjectId();
+        const userId = new ObjectId(event.userId);
+        const newEvent = {...event, _id, userId,
+            startTimeDate: new Date(event.startTimeDate),
+            endTimeDate: new Date(event.endTimeDate),}
+        return await db.collection<Event>("Events").insertOne(newEvent) ;
     }
 
     async updateEvent(eventId: string, event: Event) {
@@ -16,6 +21,7 @@ export default class RouteServiceEvent {
             location: event.location,
             description: event.description,
             price: event.price,
+            interest: event.interest, 
             startTimeDate: new Date(event.startTimeDate),
             endTimeDate: new Date(event.endTimeDate),
         },
@@ -63,4 +69,19 @@ export default class RouteServiceEvent {
         const eventId = new ObjectId(index)
         return await db.collection<Event>("Events").findOne({ _id: eventId })
     }
+    async incrementFollowerCount(eventId:string, userId: string) {
+         const event = await this.getEventIndex(eventId);
+         if(!event)
+         {
+            throw new Error("Event not found")
+         }
+         //kontrollerar om användaren äger eventet
+         if(event.userId.toString() === userId)
+         {
+             throw new Error("Owner cannot join their own event");
+         }
+         const userObjectId = new ObjectId(userId);
+         return await db.collection<EventWithJoins>("Events").updateOne({_id: new ObjectId(eventId), userId: { $ne: userObjectId }, joinedUserIds: { $ne: userObjectId }},
+         {$inc: { followerCount: 1 },$addToSet: { joinedUserIds: userObjectId }});
+        }
 }

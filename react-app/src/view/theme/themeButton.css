@@ -23,3 +23,11 @@
   margin: 0px 0px 0px 10px !important;
 }
 
+.css-11adcq1-MuiButtonBase-root-MuiMenuItem-root.Mui-selected{
+  color: var(--extra-colour-three) !important;
+  background-color: var(--bg) !important;
+  border-radius: 5px ;
+}
+.css-1jotq08-MuiButtonGroup-root{
+  margin-left: 8px !important;
+}

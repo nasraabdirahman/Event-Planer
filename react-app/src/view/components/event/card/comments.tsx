@@ -35,9 +35,6 @@ export default function Comments({
                     );
                 }
                 const data: (Comment & { username: string })[] = await response.json();
-                console.log("First comment:", data[0]);
-                console.log("Username:", data[0]?.username);
-                console.log("User ID:", data[0]?.userid);
                 if (active) {
                     setComments(data);
                     setError("");
@@ -215,8 +212,7 @@ export default function Comments({
             {comments.map(comment => {
                 const commentId = comment._id?.toString();
 
-                const isOwner =
-                    loggedInUserId === comment.userid.toString();
+                const isOwner = !!loggedInUserId && loggedInUserId === comment.userid?.toString();
 
                 const isEditing = editingId === commentId;
 
@@ -234,8 +230,8 @@ export default function Comments({
                                 <Typography className="stack-sans-headline-text text-two">{comment.commentData}</Typography>
                                 {isOwner && commentId && (
                                     <Box sx={{ display: "flex", gap: 1 }}>
-                                        <Button size="small" onClick={() => {setEditingId(commentId); setEditText(comment.commentData); }}> Edit</Button>
-                                        <Button size="small" color="error" onClick={() => void deleteComment(commentId)}>Delete</Button>
+                                        <Button className="stack-sans-headline-text save" size="small" onClick={() => {setEditingId(commentId); setEditText(comment.commentData); }}> Edit</Button>
+                                        <Button className="stack-sans-headline-text delete" size="small" color="error" onClick={() => void deleteComment(commentId)}>Delete</Button>
                                     </Box>
                                 )}
                             </>

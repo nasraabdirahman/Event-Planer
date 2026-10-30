@@ -6,12 +6,13 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Link from '@mui/material/Link'
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import { Typography, Chip } from '@mui/material';
 import './card.css'
 import  Event  from '../../../../interfaces/Event';
 import  User  from '../../../../interfaces/User';
 import { AuthContext } from '../../context';
 import Comments from '../card/comments';
+import JoinEvent from './payment';
 
 type SingleCardProps = {
   event: Event ;
@@ -27,9 +28,28 @@ export function SingleCard({event, user}: SingleCardProps) {
             <Link href={`/user/${user._id}`} className='stack-sans-headline-text link' gutterBottom sx={{fontSize: 14 }}>
               {user.username}
             </Link>
-            <Typography className='stack-sans-headline-text text' variant="h3" component="div">
-              {event.title}
-            </Typography>
+            <Box sx={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+              <Typography className='stack-sans-headline-text text' variant="h3" component="div">
+                {event.title}
+              </Typography>
+              <Box sx={{display:'flex', flexDirection:'row', alignItems:'center'}}>
+                  {event.interest.map((interest) => (
+                  <Chip
+                    key={interest}
+                    label={interest}
+                    size='medium'
+                    sx={{ marginRight: 1,
+                          marginBottom: 1,
+                          padding: 1,
+                          backgroundColor: "var(--accent-two)",
+                          color: "var(--high-contrast-two)",
+                          borderRadius: "10px",
+                          fontFamily: '"Stack Sans Headline", sans-serif',
+                    }}
+                  />
+                ))}
+              </Box>
+            </Box>
             <Typography className='stack-sans-headline-text text-two' sx={{ mb: 1.5 }}>
               {event.location} </Typography>
             <Typography className='stack-sans-headline-text text-two' >
@@ -50,8 +70,8 @@ export function FullSizeCard({event, user}: SingleCardProps) {
   const navigate = useNavigate();
   const { loggedInUserId } = React.useContext(AuthContext);
   const [showComments, setShowComments] = React.useState(false)
+  const [followerCount, setFollowerCount] = React.useState(event.followerCount ?? 0);
   const canEdit = loggedInUserId === event.userId.toString() ;
-
   const startDate = new Date(event.startTimeDate);
   const endDate = new Date(event.endTimeDate);
   const formattedStartDate = startDate.toLocaleDateString('en-GB', {
@@ -73,6 +93,20 @@ export function FullSizeCard({event, user}: SingleCardProps) {
     minute: '2-digit',
   });
 
+  const handleJoined = React.useCallback(async () => {
+    const response = await fetch(
+        `/events/getEventById/${event._id}`
+    );
+
+    if (!response.ok) {
+        throw new Error("Could not fetch event");
+    }
+
+    const events: Event[] = await response.json();
+
+    if (events[0]) {
+        setFollowerCount(events[0].followerCount ?? 0);
+    }}, [event._id]);
   return (
     <Box sx={{ minWidth: 275 }}>
       <Card>
@@ -100,12 +134,27 @@ export function FullSizeCard({event, user}: SingleCardProps) {
               {event.description}</Typography>
              <Typography className='stack-sans-headline-text text-two' >
               Price: {event.price} kr </Typography>
+              {event.interest.map((interest) => (
+                <Chip
+                  key={interest}
+                  label={interest}
+                  size='medium'
+                  sx={{ marginRight: 1,
+                        marginBottom: 1,
+                        padding: 1,
+                        backgroundColor: "var(--accent-two)",
+                        color: "var(--high-contrast-two)",
+                        borderRadius: "10px",
+                        fontFamily: '"Stack Sans Headline", sans-serif',
+                  }}
+                />
+              ))}
           </CardContent>
           <CardActions>
             <Button className='stack-sans-headline-text comments-join' size="large" onClick={() => setShowComments(prev => !prev)}>Comments</Button>
             <Box sx={{display:'flex', flexDirection:'row', alignItems:'center'}}>
-              <Button className='stack-sans-headline-text comments-join' size="large">Join</Button>
-              <Typography className='stack-sans-headline-text follows' > {event.followerCount}</Typography>
+                <JoinEvent event={event} onJoined={handleJoined}/>
+              <Typography className='stack-sans-headline-text follows' > {followerCount}</Typography>
             </Box>
             {canEdit &&(
               <Button className='stack-sans-headline-text edit' onClick={() => navigate(`/event/edit/${event._id}`)} > Edit </Button>

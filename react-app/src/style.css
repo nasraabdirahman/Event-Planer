@@ -148,3 +148,10 @@ footer p{
     --variant-outlinedBg: transparent !important;
   }
 }
+.css-32zc4u-MuiButtonBase-root-MuiButton-root{
+  border-radius: 8px !important;
+}
+
+.css-32zc4u-MuiButtonBase-root-MuiButton-root:hover{
+  background-color: var(--extra-colour-two);
+}

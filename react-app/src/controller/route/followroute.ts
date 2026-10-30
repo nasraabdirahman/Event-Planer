@@ -27,6 +27,18 @@ router.get("/getFollowsByUser/:userId", async (req, res) => {
     }
 })
 
+router.get("/getFollowsByUserEvent/:userId/:eventId", async (req, res) => {
+    try {
+        const userId = req.params.userId
+        const eventId = req.params.eventId
+        const result = await service.getFollowsByUserEvent(userId, eventId)
+        res.json(result);
+    }
+    catch  {
+        res.status(404)
+    }
+})
+
 
 router.get("/getFollowsByEvent/:eventId", async (req, res) => {
     try {

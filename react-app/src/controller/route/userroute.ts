@@ -8,6 +8,10 @@ const service = new RouterServiceUser();
 router.post("/createUser", async (req, res) => {
     try {
       const userInfo = req.body as User;
+      const exsitingUser= await service.getExsitingUser(userInfo.email, userInfo.username);
+    if (exsitingUser){
+      return res.status(409).json({message: 'Username or Email already exist'});
+    }
       const result = await service.createUser(userInfo)
       res.status(201).json(result);
     } catch {
@@ -17,6 +21,16 @@ router.post("/createUser", async (req, res) => {
     }
 })
 
+router.get("/search/:text", async (req, res) => {
+    try {
+        const results = await service.searchUsers(req.params.text);
+        res.json(results);
+    } catch {
+        res.status(500).json({
+            message: "Failed searching users"
+        });
+    }
+});
 router.get("/getUser/:id", async (req, res) => {
     try {
         const userId = req.params.id

@@ -21,10 +21,29 @@ export default class RouterServiceUser{
     {
         return await db.collection<User>("User").find().toArray();
     }
-
+    async searchUsers(searchText: string) {
+       return await db.collection<User>("User")
+           .find({
+               username: { $regex: searchText, $options: "i" }
+            })
+            .project({ password: 0 })
+            .limit(10)
+            .toArray();
+}
     async deleteUser(_id:string)
     {
         const userId = new ObjectId(_id);
         return await db.collection<User>("User").deleteOne({_id: userId})
     }
+
+    async getExsitingUser(email:string, username: string){
+    return db.collection<User>('User').findOne( 
+        { $or: [
+            {email:email.trim()},{username: username.trim()}
+        ]},
+        {collation: {locale:'sv', strength:2}}
+    );
+}
+
+
 }

@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useContext } from "react";
 import { AuthContext } from "./context";
 import {
@@ -6,7 +6,8 @@ import {
   Card,
   CardContent,
   Chip,
-  Typography
+  Typography,
+  Button
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import User from "../../interfaces/User";
@@ -15,6 +16,7 @@ import User from "../../interfaces/User";
 export default function ProfilePage() {
   const { userId } = useParams();
   const { loggedInUserId } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const [ user, setUsers ] =  useState<User | null>(null);
   
@@ -43,15 +45,19 @@ export default function ProfilePage() {
   return (
     <Box sx={{ maxWidth: 800, margin: "40px auto", padding: 2 }}>
       {/* Shows the user's profile information */}
-      <Typography
-       variant="h3"
-       gutterBottom
-       className="stack-sans-headline-text"
-       sx={{ color: "var(--high-contrast-one)"}}
-      >
-        {loggedInUserId === userId ? "My Profile" : "Profile"}
-      </Typography>
-
+      <Box  sx={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+        <Typography
+        variant="h3"
+        gutterBottom
+        className="stack-sans-headline-text"
+        sx={{ color: "var(--high-contrast-one)"}}
+        >
+          {loggedInUserId === userId ? "My Profile" : "Profile"}
+        </Typography>
+        <Button className="stack-sans-headline-text create" onClick={() => navigate('/create')}>
+          Create
+        </Button>
+      </Box>
       <Card 
         sx={{ 
           marginBottom: 4,

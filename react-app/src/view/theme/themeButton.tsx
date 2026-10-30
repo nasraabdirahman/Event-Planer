@@ -14,10 +14,10 @@ import './themeButton.css'
 const options = ['Sakura', 'Monet','Cyberpunk', 'Classic'];
 
 export default function ThemeButton(){
-  const {setTheme} = React.useContext(ThemeContext);
+  const {theme, setTheme} = React.useContext(ThemeContext);
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLDivElement>(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(3);
+  const selectedIndex = options.indexOf(theme);
   const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
 
 
@@ -29,7 +29,6 @@ export default function ThemeButton(){
   const handleMenuItemClick = (
     index: number,
   ) => {
-    setSelectedIndex(index);
     setTheme(options[index]);
     setOpen(false);
   };
@@ -55,10 +54,10 @@ export default function ThemeButton(){
         variant="contained"
         ref={setAnchorEl}
         aria-label="Button group with a nested menu"
+        sx={{zIndex: 1500}}
       >
         <Button onClick={() => 
-          {console.log("button rendered");
-          handleClick();}}>
+          {handleClick();}}>
           {options[selectedIndex]}
         </Button>
         <Button
@@ -90,7 +89,7 @@ export default function ThemeButton(){
           >
             <Paper>
               <ClickAwayListener onClickAway={handleClose}>
-                <MenuList id="split-button-menu" autoFocusItem>
+                <MenuList id="split-button-menu" autoFocusItem sx={{zIndex: 1500}}>
                   {options.map((option, index) => (
                     <MenuItem
                       key={option}

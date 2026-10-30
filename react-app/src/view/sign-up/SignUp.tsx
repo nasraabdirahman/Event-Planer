@@ -150,10 +150,11 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
     },
     body: JSON.stringify(user),
     });
-    if (!response.ok) {
-    setSubmitMessage('Failed creating the account');
-    return;
-    }
+  if (!response.ok){
+    const result = await response.json();
+    setSubmitMessage(result.message);
+    return
+  }
     navigate('/sign-in');
     } catch {
     setSubmitMessage('Failed connecting to the server');

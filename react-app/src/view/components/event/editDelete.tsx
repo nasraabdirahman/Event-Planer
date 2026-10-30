@@ -9,7 +9,7 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Link from '@mui/material/Link'
-import { Button, Typography, Dialog, FormControl } from '@mui/material';
+import { Button, Typography, Dialog, FormControl, FormControlLabel, FormLabel, FormGroup, Checkbox, FormHelperText } from '@mui/material';
 import { DateTimePicker } from '@mui/x-date-pickers';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
@@ -32,33 +32,42 @@ export default function AlterEvent() {
   const [title, setTitle] = useState('');
   const [startTimeDate, setStartTimeDate] = useState<Date | null>(null);
   const [endTimeDate, setEndTimeDate] = useState<Date | null>(null);
+  const [interest, setInterest] = useState<string[]>([]); 
   const [deleteDialog, setDeleteDialog] = useState(false);
   const [error, setError] = useState<EventError | null>(null);
+  const [loading, setLoading] = useState(true) ;
   const create = pathname === `/create`;
 
   useEffect(() =>{
     async function loadData(){
-      if(create){
-        const userResponse = await fetch(`/users/getUser/${loggedInUserId}`);
+      try{
+        if(create){
+          const userResponse = await fetch(`/users/getUser/${loggedInUserId}`);
+          const loadedUser = await userResponse.json();
+          setUser(loadedUser);
+          return;
+        }
+
+        const eventResponse = await fetch(`/events/getEventById/${eventId}`);
+        const loadedEvent = await eventResponse.json();
+        const currEvent = loadedEvent[0] ;
+        setEvent(currEvent);
+        setDescription(currEvent.description);
+        setLocation(currEvent.location);
+        setPrice(currEvent.price);
+        setTitle(currEvent.title);
+        setFollowerCount(currEvent.followerCount);
+        setInterest(currEvent.interest);
+        setStartTimeDate(new Date(currEvent.startTimeDate))
+        setEndTimeDate(new Date(currEvent.endTimeDate));
+        const userResponse = await fetch(`/users/getUser/${loadedEvent[0].userId}`);
         const loadedUser = await userResponse.json();
         setUser(loadedUser);
-        return;
+      } catch {
+        throw new Error("Couldn't load event");
+      } finally {
+        setLoading(false) ;
       }
-
-      const eventResponse = await fetch(`/events/getEventById/${eventId}`);
-      const loadedEvent = await eventResponse.json();
-      const currEvent = loadedEvent[0] ;
-      setEvent(currEvent);
-      setDescription(currEvent.description);
-      setLocation(currEvent.location);
-      setPrice(currEvent.price);
-      setTitle(currEvent.title);
-      setFollowerCount(currEvent.followerCount);
-      setStartTimeDate(new Date(currEvent.startTimeDate))
-      setEndTimeDate(new Date(currEvent.endTimeDate));
-      const userResponse = await fetch(`/users/getUser/${loadedEvent[0].userId}`);
-      const loadedUser = await userResponse.json();
-      setUser(loadedUser);
     }
 
   loadData();
@@ -69,7 +78,7 @@ export default function AlterEvent() {
       return;
     }
     const userId = user?._id;
-    const updatedEvent = {...event, userId, title, location, description, followerCount, price, endTimeDate, startTimeDate};    
+    const updatedEvent = {...event, userId, title, location, description, followerCount, price, interest, endTimeDate, startTimeDate};    
 
     const response = await fetch(`/events/createEvent`, {
       method: 'POST',
@@ -80,6 +89,12 @@ export default function AlterEvent() {
     const result: {acknowledged: boolean; insertedId: string} = 
       await response.json();
 
+    await fetch(`/follows/createFollow`, {
+      method: 'POST',
+      headers: {'Content-type': 'application/json',},
+      body: JSON.stringify({eventId: result.insertedId, userId, notifcations: true}),
+    });
+
     navigate(`/event/${result.insertedId}`);
   }
 
@@ -87,8 +102,8 @@ export default function AlterEvent() {
     if(!checkForm()){
       return;
     }
-    
-    const updatedEvent = {...event, title, location, description, price, endTimeDate, startTimeDate};
+    console.log(interest);
+    const updatedEvent = {...event, title, location, description, price, interest, endTimeDate, startTimeDate};
     await fetch(`/events/updateEvent/${event?._id}`, {
       method: 'PUT',
       headers: {'Content-type': 'application/json',},
@@ -114,6 +129,7 @@ export default function AlterEvent() {
       location,
       description,
       price,
+      interest,
       startTimeDate,
       endTimeDate,
     });
@@ -122,14 +138,22 @@ export default function AlterEvent() {
     return validationErrors.count === 0;
   }
 
-  if(!user){
-    return <h2 className="stack-sans-headline-text">Loading...</h2>
+  if(loading){
+    return <h2 className="stack-sans-headline-text loading">Loading...</h2>
+  } else if (!loading && !user){
+    return <h2 className="stack-sans-headline-text loading">Error Loading Event</h2>
   }
+  if(!user){
+    return <h2 className="stack-sans-headline-text loading">Loading...</h2>
+  }
+
   if(create) {
     if(user._id!.toString() !== loggedInUserId){
       navigate(`/profilePage/${user._id}`)
     }
   }
+
+ 
     
 
   return (
@@ -150,12 +174,14 @@ export default function AlterEvent() {
                       slotProps={{textField: {
                         error: Boolean(error?.startTimeDateError),
                         helperText: error?.startTimeDateError
-                      }}}/>
+                      }}}
+                      sx={{zIndex: 0}}/>
                     <DateTimePicker ampm={false} label="End Time and Date" value={endTimeDate} onChange={(newValue) => setEndTimeDate(newValue)}
                       slotProps={{textField: {
                         error: Boolean(error?.endTimeDateError),
                         helperText: error?.endTimeDateError
-                      }}}/>
+                      }}}
+                      sx={{zIndex: 0}}/>
                   </LocalizationProvider>
                 </Box>
               </Box>
@@ -164,13 +190,35 @@ export default function AlterEvent() {
                 <TextField className='stack-sans-headline-text text-two' variant='standard' multiline label='Description: ' error={Boolean(error?.descriptionError)} helperText={error?.descriptionError} value={description} onChange={(e) => setDescription(e.target.value)} slotProps={{htmlInput: {maxLength: 200}}}/>
                 <TextField className='stack-sans-headline-text text-two' variant='standard' label='Price:  (in kr)' error={Boolean(error?.priceError)} helperText={error?.priceError} value={price} sx={{maxWidth: 500}} onChange={(e) => setPrice(Number(e.target.value))} slotProps={{htmlInput: {maxLength: 4}}}/>
               </Box>
+              <FormControl error={Boolean(error?.interestError)}>
+              <FormLabel>Interests</FormLabel>
+              <FormGroup row>
+                {['Sport', 'Music', 'Competition', 'Gaming', 'Comedy'].map((item) => (
+                  <FormControlLabel key={item} label={item}  control={
+                    <Checkbox name='interest' value={item}  checked={interest.includes(item)}  
+                      onChange={() => setInterest((prev) => prev.includes(item) 
+                        ? prev.filter((i) => i !== item) 
+                        : [...prev, item])} />
+                  } />
+                ))}
+              </FormGroup>
+              {Boolean(error?.interestError) && (
+                <FormHelperText>{error?.interestError}</FormHelperText>
+              )}
+            </FormControl>
             </CardContent>
             <CardActions>
               {!create && (
                 <Button className='stack-sans-headline-text delete' size="large" onClick={() => setDeleteDialog(true)}>Delete Event</Button>
               )}
               <Button className='stack-sans-headline-text save' size="large" onClick={create ? createEvent : saveChanges}> {create ? 'Create Event' : 'Save'} </Button>
-              <Button className='stack-sans-headline-text edit' size='large' onClick={() => navigate(`/event/${event?._id}`)}> Cancel </Button>
+              
+              {!create &&(
+                <Button className='stack-sans-headline-text edit' size='large' onClick={() => navigate(`/event/${event?._id}`)}> Cancel </Button>
+              )}
+              {create &&(
+                <Button className='stack-sans-headline-text edit' size='large' onClick={() => navigate(`/user/${user?._id}`)}> Cancel </Button>
+              )}
             </CardActions>
           </React.Fragment>
         </Card>

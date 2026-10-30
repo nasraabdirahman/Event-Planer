@@ -6,6 +6,7 @@ import Event from '../../../interfaces/Event';
 import { Link as RouterLink } from 'react-router' ;
 import { Popover, Box, Typography, Button } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import Follow from '../../../interfaces/Follow';
 
 function Calendar() {
   const { userId } = useParams();
@@ -19,9 +20,17 @@ function Calendar() {
 
   useEffect (() => {
     async function loadInfo(){
-        const response = await fetch(`/events/getUserEvents/${userId}`);
-        const data =  await response.json();
-        setEvents(data); 
+        const followResponse = await fetch(`/follows/getFollowsByUser/${userId}`);
+        const follow = await followResponse.json();
+
+        const followEvents = await Promise.all(
+          follow.map(async (follow: Follow) => {
+            const eventResponse = await fetch(`/events/getEventById/${follow.eventId.toString()}`);
+            const event =  await eventResponse.json();
+            return event[0];
+          })
+        );
+        setEvents(followEvents); 
     }
     if(userId){
       loadInfo();
